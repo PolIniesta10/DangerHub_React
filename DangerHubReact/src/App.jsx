@@ -3,10 +3,13 @@ import './App.css'
 // import { useState } from 'react'
 // import { UserContext } from './userContext'
 import { Routes,Route } from 'react-router-dom'
-import { Home } from './components/aplicacio/Home'
-import { Header } from './components/layout/Header'
+import { Perfiles } from './components/aplicacio/Perfiles'
+import { AdministrarPerfiles } from './components/aplicacio/AdministrarPerfiles'
 import { About } from './components/aplicacio/About'
+import { Header } from './components/layout/Header'
+import { Home } from './components/aplicacio/Home'
 import { NotFound } from './components/aplicacio/NotFound'
+import { Sidebar } from './components/layout/Sidebar'
 
 function App() {
 
@@ -27,8 +30,11 @@ function App() {
       
          <Routes>
             <Route path='*' element={<NotFound />} />
-            <Route path="/" element={<Home/>}/>
-            <Route path="/about" element={<About />} />
+            <Route path="/" element={<><Header/><Sidebar/><Home /></>}/>
+            <Route path="/home" element={<><Header/><Sidebar/><Home /></>}/>
+            <Route path="/perfiles" element={<Perfiles/>}/>
+            <Route path="/about" element={<><Header/><Sidebar/><About /></>} />
+            <Route path="/administrarPerfiles" element={<AdministrarPerfiles />} />
         </Routes>
 
         {/* <Footer/> */}
