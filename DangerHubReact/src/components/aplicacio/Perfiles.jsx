@@ -7,7 +7,7 @@ export const Perfiles = () => {
     <>
     <div className="home-container">
         <div className="home-header">  
-            <img src={mainLogo} alt="" className="home-header-logo" />
+            <Link to="/home"><img src={mainLogo} alt="" className="home-header-logo"/></Link>
         </div>
 
         <div className="home-content">
