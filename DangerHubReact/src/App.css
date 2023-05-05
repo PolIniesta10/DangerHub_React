@@ -331,8 +331,10 @@ h2 {
 
 .page_404{ 
 	padding:40px 0; 
-	background: white;
+	background: rgb(0, 0, 0);
     border-radius: 20px;
+	color: white;
+	border-color: rgb(240, 240, 240);
 }
 
 .page_404  img{
@@ -350,21 +352,22 @@ h2 {
 	min-height: 480px;
 }
 .four_zero_four_bg{
-	background-image: url(./assets/Simpsons.gif);
-    height: 310px;
-	background-size: contain;
+	background-image: url(/imagenes/scream.png);
+    height: 500px;
 	background-repeat: no-repeat;
 
 }
 .h1_404{
  	font-size:80px;
-	margin:0
+	margin:0;
+	color: red;
 }
  
 .h3_404{
 	font-size:22px;
 	margin-block-start: 1em;
     margin-block-end: 0em;
+	color: red;
 }
 
 .p_404{
@@ -375,8 +378,8 @@ h2 {
 .link_404{			 
 	color: #fff!important;
     padding: 10px 20px;
-    background: #39ac31;
-	border: 3px solid #11770a;
+    background: red;
+	border: 3px solid rgb(172, 3, 3);
     margin: 10px 0;
 	border-radius: 10px;
     display: inline-block;
@@ -385,8 +388,8 @@ h2 {
 	font-weight:bold;
 }
 .link_404:hover{			 
-    background: #27971f;
-	border: 3px solid #11770a;
+    background: rgb(172, 3, 3);
+	border: 3px solid rgb(133, 2, 2);
 
 }
 .contant_box_404{
@@ -453,8 +456,8 @@ h2 {
 
 .sidebar-perfil img{
 	border-radius: 5px;
-	width: 40px;
-	height: 40px;
+	width: 50px;
+	height: 50px;
 }
 
 .sidebar-navigation{
@@ -483,8 +486,8 @@ h2 {
 	justify-content: center;
 	color: #fff;
 	text-decoration: none;
-	font-size: 20px;
-	height: 30px;
+	font-size: 25px;
+	height: 50px;
 	margin-bottom: 40px;
 }
 
@@ -558,9 +561,9 @@ h2 {
 	align-items: center;
 	width: 100%;
     height: 20%;
-	font-size: 130%;
+	font-size: 170%;
 	font-weight: bold;
-	margin: 20px;
+	margin: 20px 0px 50px 0;
 	color: rgb(225, 225, 225);
 }
 
@@ -572,9 +575,15 @@ h2 {
     height: 60%;
 	flex-direction: row;
 }
+
+.home-perfil a{
+	color: rgb(225, 225, 225);
+	text-decoration: none;
+}
+
 .home-perfil-foto{
-	width: 200px;
-    height: 180px;
+	width: 300px;
+    height: 260px;
 	box-shadow: 0px 0px 5px 3px rgba(106, 106, 106, 0.53);
 }
 .home-perfil-foto:hover {
@@ -597,10 +606,17 @@ h2 {
 .home-perfil-name{
 	width: 55%;
     height: 100%;
-	font-size: 80%;
+	font-size: 100%;
 	font-weight: bold;
 	color: rgb(225, 225, 225);
 	margin-top: 5px;
+}
+
+.home-perfil-config{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
 }
 
 .home-perfil-config-button {
@@ -610,9 +626,9 @@ h2 {
 	text-decoration: none;
     box-sizing: border-box;
 	font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-    font-size: .875rem;
+    font-size:  1.2rem;
     font-weight: bold;
-    line-height: 1.25rem;
+    line-height: 1.6rem;
     padding: 0.75rem 4rem;
 	margin: 60px 10px 20px;
     text-align: center;
@@ -623,6 +639,7 @@ h2 {
     -webkit-user-select: none;
     touch-action: manipulation;
 }
+
 .home-perfil-config a{
 	text-decoration: none;
 	color: rgb(225, 225, 225);
@@ -635,7 +652,7 @@ h2 {
 
 .edit-perfil{
 	background-color: #747474;
-	background-image: url(./assets/edit.png);
+	background-image: url(/imagenes/edit.png);
 	background-size: 60%;
 	background-repeat: no-repeat;
 	background-position: 50%;
@@ -646,6 +663,21 @@ h2 {
 	z-index: -1;
 	opacity: 35%;
 }
+
+.add-perfil{
+	background-color: #ffffff00;
+	background-image: url(/imagenes/add.png);
+	background-size: 60%;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	z-index: 1;
+	opacity: 35%;
+}
+
+.add-perfil{
+	cursor: pointer;
+}
+
 
 /* #####################################################
 					END PERFILES
@@ -659,27 +691,27 @@ h2 {
 .container {
 	position: relative;
 	display: flex;
-	height: 2000px;
+	height: 980px;
 	width: 100%;
 }
 
 .video-container {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 .video-container video {
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-object-fit: cover;
-z-index: -1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: 1;
 }
 
 .content-box {
@@ -689,7 +721,7 @@ left: 0;
 width: 33.33%;
 height: 100%;
 padding: 50px;
-padding-left: 9%;
+padding-left: 8%;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
@@ -709,27 +741,56 @@ margin-bottom: 20px;
 }
 
 .buttons {
-display: flex;
-flex-direction: row;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 35%;
 }
 
 .buttons div {	
-display: flex;
-justify-content: center;
-align-items: center;
-width: 125px;
-height: 50px;
-background-color: white;
-color: black;
-border-radius: 5px;
-margin-right: 10px;
-margin-left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 125px;
+	height: 50px;
+	background-color: white;
+	color: black;
+	border-radius: 5px;
+	margin-right: 10px;
+	margin-left: 10px;
+	text-decoration: none;
+}
+
+.buttons a{	
+	text-decoration: none;
+	color: black;
+}
+
+.buttons div svg{	
+    font-size: 1rem;
+	margin-right: 5px;
+}
+
+.buttons .button-info {	
+	background-color: rgba(142, 142, 142, 0.648);
+	color: white;
+}
+.buttons .button-play svg{	
+    font-size: 1.275rem;
+}
+
+.buttons .button-info:hover {	
+	background-color: rgba(118, 118, 118, 0.816);
+	cursor: pointer;
+}
+.buttons .button-play:hover{	
+    background-color: rgb(211, 211, 211);
+	cursor: pointer;
 }
 
 /* Estilos de carrusel de contenido */
 .content-carousel {
+position: relative;
 z-index: 1;
-margin-top: 35%;
 }
 
 .content-carousel p{
@@ -740,13 +801,51 @@ color: #FFFFFF;
 text-align: left;
 }
 
-.carousel-container {
+.carousel-container, .carousel-container2, .carousel-container3 {
 display: flex;
+overflow-x: auto;
+white-space: nowrap;
+width: 1820px;
+scroll-behavior: smooth;
+-webkit-overflow-scrolling: touch;
 }
 
+.carousel-container::-webkit-scrollbar, .carousel-container2::-webkit-scrollbar, .carousel-container3::-webkit-scrollbar  {
+display: none;
+}
+
+.carousel-arrow, .carousel-arrow2, .carousel-arrow3  {
+background-color: #a0a0a0;
+border-radius: 50px;
+position: absolute;
+top: 50%;
+transform: translateY(-30%);
+cursor: pointer;
+outline: none;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.carousel-arrow svg, .carousel-arrow2 svg, .carousel-arrow3 svg {
+z-index: 100;
+font-size: 4.5rem;
+
+}
+
+.left {
+left: -1.5%;
+}
+
+.right {
+right: -1.7%;
+}  
+  
+  
 .content-card {
 margin-right: 20px;
 width: 250px;
+flex: 0 0 auto;
 }
 
 .content-card img {
@@ -754,7 +853,7 @@ width: 100%;
 height: 300px;
 object-fit: cover;
 border-radius: 3px;
-}
+} 
 
 .content-card h3 {
 margin-top: 10px;
@@ -768,3 +867,161 @@ text-align: center;
 					END HOME
 ##################################################### */
 
+/* #####################################################
+						PLAY
+##################################################### */
+
+.video-player{
+	height: 1000px;
+}
+.video-player video{
+	width: 100%;
+	height: 100%;
+}
+
+.exit{
+	position: fixed;
+	top: 3%;
+	left: 2%;
+	z-index: 10;
+	text-decoration: none;
+	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.75);
+}
+
+.exit svg{
+	color: rgb(168, 168, 168);
+	text-decoration: none;
+	font-size: 4rem;
+
+}
+
+.exit:hover{
+	background-color: rgb(143, 143, 143);
+	border-radius: 50px;
+	cursor: pointer;
+	outline: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.exit:hover svg{
+	color: rgb(41, 41, 41);
+	text-decoration: none;
+	font-size: 4rem;
+
+}
+
+/* #####################################################
+						END PLAY
+##################################################### */
+
+/* #####################################################
+						  INFO
+##################################################### */
+
+
+.container {
+	position: relative;
+	display: flex;
+	height: 980px;
+	width: 100%;
+}
+
+.video-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.video-container video {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: 1;
+}
+
+.content-box {
+position: absolute;
+top: 0;
+left: 0;
+width: 33.33%;
+height: 100%;
+padding: 50px;
+padding-left: 8%;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+z-index: 1;
+background-color: rgba(0, 0, 0, 0.5);
+color: #fff;
+}
+
+.content-box h1 {
+font-size: 3rem;
+margin-bottom: 20px;
+}
+
+.content-box p {
+font-size: 1.2rem;
+margin-bottom: 20px;
+}
+
+.buttons {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 35%;
+}
+
+.buttons div {	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 125px;
+	height: 50px;
+	background-color: white;
+	color: black;
+	border-radius: 5px;
+	margin-right: 10px;
+	margin-left: 10px;
+	text-decoration: none;
+}
+
+.buttons a{	
+	text-decoration: none;
+	color: black;
+}
+
+.buttons div svg{	
+    font-size: 1rem;
+	margin-right: 5px;
+}
+
+.buttons .button-info {	
+	background-color: rgba(142, 142, 142, 0.648);
+	color: white;
+}
+.buttons .button-play svg{	
+    font-size: 1.275rem;
+}
+
+.buttons .button-info:hover {	
+	background-color: rgba(118, 118, 118, 0.816);
+	cursor: pointer;
+}
+.buttons .button-play:hover{	
+    background-color: rgb(211, 211, 211);
+	cursor: pointer;
+}
+
+
+
+/* #####################################################
+						END INFO
+##################################################### */

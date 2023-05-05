@@ -1,5 +1,5 @@
 import React from 'react'
-import mainLogo from'../../assets/DANGERHubLOGO.png';
+import mainLogo from'/imagenes/LogoDangerHub.png';
 import { Link } from 'react-router-dom'
 // import { UserContext } from '../../userContext';
 // import { useState, useContext, useEffect } from "react";

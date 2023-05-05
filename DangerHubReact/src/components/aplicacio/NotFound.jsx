@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export const NotFound = () => {
     return (
@@ -14,7 +14,7 @@ export const NotFound = () => {
                         <div className="contant_box_404">
                             <h3 className="h3_404">Parece que estas perdido</h3>
                             <p className="p_404">La pagina que buscas no esta disponible</p>
-                            <a href="" className="link_404">Volver a inicio</a>
+                            <a href="/" className="link_404">Volver a inicio</a>
                         </div>
                     </div>
                 </div>

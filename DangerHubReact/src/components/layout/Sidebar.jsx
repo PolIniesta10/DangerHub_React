@@ -30,7 +30,7 @@ export const Sidebar =  () => {
   return (
     <div className="sidebar">
       <div className='sidebar-perfil'>
-      <Link to="/perfiles"><img src="https://highxtar.com/wp-content/uploads/2022/09/highxtar-este-es-el-icono-de-perfil-de-netflix-mas-utilizado-destacada.jpg" alt=""/></Link>
+        <Link to="/perfiles"><img src="https://highxtar.com/wp-content/uploads/2022/09/highxtar-este-es-el-icono-de-perfil-de-netflix-mas-utilizado-destacada.jpg" alt=""/></Link>
       </div>
 
       <nav className="sidebar-navigation">

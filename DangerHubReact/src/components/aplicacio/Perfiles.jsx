@@ -1,5 +1,5 @@
 import React from 'react'
-import mainLogo from'../../assets/DANGERHubLOGO.png';
+import mainLogo from'/imagenes/DANGERHubLOGO.png';
 import { Link } from "react-router-dom";
 
 export const Perfiles = () => {
