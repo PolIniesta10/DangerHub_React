@@ -1,7 +1,7 @@
 import './App.css'
-// import { LoginRegister } from './auth/LoginRegister'
-// import { useState } from 'react'
-// import { UserContext } from './userContext'
+import { LoginRegister } from './auth/LoginRegister'
+import { useState } from 'react'
+import { UserContext } from './userContext'
 import { Routes,Route } from 'react-router-dom'
 import { Perfiles } from './components/aplicacio/Perfiles'
 import { PerfilesAdd } from './components/aplicacio/PerfilesAdd'
@@ -17,24 +17,21 @@ import { Info } from './components/aplicacio/Info'
 
 function App() {
 
-  // let [usuari, setUsuari] = useState("");
-  // let [authToken,setAuthToken] = useState("");
-  // let [idUsuari, setIdUsuari] = useState("");
+  let [usuari, setUsuari] = useState("");
+  let [authToken,setAuthToken] = useState("");
+  let [idUsuari, setIdUsuari] = useState("");
 
   
   return (
-  //  <>
-
-  //   <UserContext.Provider value= { { usuari, setUsuari,authToken,setAuthToken, idUsuari, setIdUsuari }}>
-      
-  //     { authToken != "" ? (
-      
+  <>
+  <UserContext.Provider value= { { usuari, setUsuari,authToken,setAuthToken, idUsuari, setIdUsuari }}>
+      { authToken != "" ? (
         <>
-        {/* <Header/> */}
-      
+          {/* <Header/> */}
+    
          <Routes>
             <Route path='*' element={<NotFound />} />
-            <Route path="/" element={<><Header/><Sidebar/><Home /></>}/>
+            <Route path="/" element={<><Perfiles /></>}/>
             <Route path="/home" element={<><Header/><Sidebar/><Home /></>}/>
             <Route path="/perfiles" element={<Perfiles/>}/>
             <Route path="/perfilesAdd" element={<PerfilesAdd/>}/>
@@ -48,12 +45,11 @@ function App() {
         {/* <Footer/> */}
        </>
 
-  //   ) :  <LoginRegister /> }
+  ) :  <LoginRegister /> }
     
-  //   </UserContext.Provider>
+  </UserContext.Provider>
 
-  //     {/* <LoginRegister/> */}
-  //  </>
+ </>
   
   )
 }

@@ -8,7 +8,26 @@ import { MdOutlineManageAccounts } from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
 
 export const Sidebar =  () => {
-
+  const logOut = async () => {
+    try {
+      const data = await fetch("http://127.0.0.1:8000/api/logout", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer '  + authToken
+      },
+      method: "POST",
+      });
+      const resposta = await data.json();
+        if (resposta.success === true) {
+          setAuthToken("");
+        }
+      }
+    catch {
+      console.log(data);
+      alert("Catchch");
+    }
+  };
   useEffect(() => {
     // seleccionar todos los elementos <a> del sidebar
     var sidebarIcons = document.querySelectorAll('.sidebar-navigation ul li');
@@ -45,7 +64,7 @@ export const Sidebar =  () => {
 
       <nav className="sidebar-navigation sidebar-logout">
         <ul>
-          <li id="icon6"><FiLogOut/></li>
+          <li id="icon6"><FiLogOut onClick={logOut}/></li>
         </ul>
       </nav>
     </div>
