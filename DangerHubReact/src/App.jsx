@@ -14,6 +14,7 @@ import { NotFound } from './components/aplicacio/NotFound'
 import { Sidebar } from './components/layout/Sidebar'
 import { Info } from './components/aplicacio/Info'
 
+
 function App() {
 
   // let [usuari, setUsuari] = useState("");

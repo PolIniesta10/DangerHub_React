@@ -921,14 +921,14 @@ text-align: center;
 ##################################################### */
 
 
-.container {
+.container-info {
 	position: relative;
 	display: flex;
 	height: 980px;
 	width: 100%;
 }
 
-.video-container {
+.video-container-info {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -937,7 +937,7 @@ text-align: center;
 	overflow: hidden;
 }
 
-.video-container video {
+.video-container-info video {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -947,14 +947,13 @@ text-align: center;
 	z-index: 1;
 }
 
-.content-box {
+.content-box-info {
 position: absolute;
-top: 0;
+top: 70%;
 left: 0;
-width: 33.33%;
+width: 100%;
 height: 100%;
-padding: 50px;
-padding-left: 8%;
+padding: 5%;
 display: flex;
 flex-direction: column;
 align-items: flex-start;
@@ -963,12 +962,12 @@ background-color: rgba(0, 0, 0, 0.5);
 color: #fff;
 }
 
-.content-box h1 {
+.content-box-info h1 {
 font-size: 3rem;
 margin-bottom: 20px;
 }
 
-.content-box p {
+.content-box-info p {
 font-size: 1.2rem;
 margin-bottom: 20px;
 }
