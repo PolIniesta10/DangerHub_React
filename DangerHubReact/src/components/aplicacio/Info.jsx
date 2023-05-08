@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PopUp } from './PopUp'
-import ositoGominola from '/videos/ositoGominola.mp4';
+import Scream from '/imagenes/scream.png';
 import { BsPlay } from 'react-icons/bs';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
@@ -9,38 +9,60 @@ import { Link } from "react-router-dom";
 
 export const Info = () => {
 
-const [showPopUp, setShowPopUp] = useState(false);
 
-const handleClick = () => {
-  setShowPopUp(!showPopUp);
-};
   
   return (
     <>
 
-      <div>
-        <h1>Contenido de la página</h1>
-        <button onClick={handleClick}>Mostrar pop-up</button>
-        {showPopUp && (
-          <PopUp>
-            <div className="container-info">
-              <div className="video-container-info">
-                <video autoPlay muted>
-                  <source src={ositoGominola} type="video/mp4"/>  
-                </video>
+      <div className="container-info">
+        <div className="portada-info">
+          <img src={Scream}/>
+        </div>
+        <div className="content-box-info">
+          <div className="title">Titulo Pelicula</div>
+          <div className="details">
+            <div>2h 23min</div>
+            <div>|</div>
+            <div>2022</div>
+            <div>|</div>
+            <div>+18</div>
+          </div>
+          <div className="tabs">
+            <div className="general">GENERAL</div> 
+          </div> 
+          <div className="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem eum, error voluptatem ad perferendis dignissimos veritatis, et est ut vero totam consequatur sit quisquam velit, commodi beatae! Libero, officiis ipsa.</div>
+          
+          <div className="specific-info-box">
+            <div className="specific-title">Autor:</div>
+            <div className="specific-name">Pol Iniesta González</div>
+          </div> 
+
+          <div className="related_films">
+           <div className="title">
+              Peliculas Relacionadas
+            </div>
+            <div className="films">
+              <div className="film">
+                <img src={Scream} alt="" />
               </div>
-              <div className="content-box-info">
-                <h1>Título de la caja</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et felis eu risus consectetur blandit. Sed laoreet, est eu malesuada suscipit, arcu augue hendrerit ante, vel euismod nisl odio sed metus.</p>
-                <div className="buttons">
-                  <Link to="/play"><div className="button-play"><BsPlay/>Play</div></Link>
-                  <Link to="/info"><div className="button-info"><AiOutlineInfoCircle/>Más Info</div></Link>
-                </div>
+
+              <div className="film">
+                <img src={Scream} alt="" />
+              </div>
+              
+              <div className="film">
+                <img src={Scream} alt="" />
               </div>
             </div>
-          </PopUp>
-        )}
+            
+          </div>
+
+          <div className="buttons">
+            <Link to="/play"><div className="button-play"><BsPlay/>Play</div></Link>
+          </div>
+        </div>
       </div>
+              
     </>
   )
 }
