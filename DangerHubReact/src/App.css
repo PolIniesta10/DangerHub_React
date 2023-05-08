@@ -921,57 +921,97 @@ text-align: center;
 ##################################################### */
 
 
-.container-info {
-	position: relative;
+.container-info{
 	display: flex;
-	height: 980px;
+	height: 100%;
 	width: 100%;
+	background-color: rgb(49, 49, 49);
 }
 
-.video-container-info {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
+.portada-info {
+	width: 40%;
+	height: 98.45vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5%;
 }
 
-.video-container-info video {
-	position: absolute;
-	top: 0;
-	left: 0;
+.portada-info img{
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
-	z-index: 1;
 }
 
 .content-box-info {
-position: absolute;
-top: 70%;
-left: 0;
-width: 100%;
-height: 100%;
-padding: 5%;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-z-index: 1;
-background-color: rgba(0, 0, 0, 0.5);
-color: #fff;
+	width: 60%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-direction: column;
+	color: #fff;
+	padding: 5%;
+
 }
 
-.content-box-info h1 {
-font-size: 3rem;
-margin-bottom: 20px;
+.content-box-info .title {
+	font-size: 4rem;
+	font-weight: bold;
 }
 
-.content-box-info p {
-font-size: 1.2rem;
-margin-bottom: 20px;
+.content-box-info .details{
+	width: 30%;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+	margin-top: 10px;
+	margin-bottom: 50px;
+
 }
 
+.content-box-info .tabs {
+	width: 100%;
+	height: auto;
+	display: flex;
+	align-items: flex-start;
+	border-bottom: 3px solid rgb(96, 96, 96);
+	margin-bottom: 20px;
+}
+
+.content-box-info .general {	
+	height: 106.5%;
+	font-size: 1.5rem;
+	font-weight: bold;
+	padding-bottom: 20px;
+	text-align: left;
+	border-bottom: 6px solid #e50914;
+}
+
+.content-box-info .description {
+	font-size: 1.2rem;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.content-box-info .specific-info-box {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	margin-bottom: 20px;
+
+}
+
+.content-box-info .specific-info-box .specific-title{
+	font-size: 1.2rem;
+	color: rgb(100, 100, 100);
+}
+
+.content-box-info .specific-info-box .specific-name{
+	font-size: 1.2rem;
+	margin-left: 50px
+}
+
+/* 
 .buttons {
 	display: flex;
 	flex-direction: row;
@@ -981,7 +1021,6 @@ margin-bottom: 20px;
 .buttons div {	
 	display: flex;
 	justify-content: center;
-	align-items: center;
 	width: 125px;
 	height: 50px;
 	background-color: white;
@@ -1017,7 +1056,7 @@ margin-bottom: 20px;
 .buttons .button-play:hover{	
     background-color: rgb(211, 211, 211);
 	cursor: pointer;
-}
+} */
 
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import ositoGominola from '/videos/ositoGominola.mp4';
 import { BsPlay } from 'react-icons/bs';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
@@ -45,7 +45,7 @@ export const Home = () => {
       container3.scrollBy({ left: 1000, behavior: 'smooth' });
     });
   }, []);
-  
+
   return (
     <>
         <div className="container">
@@ -59,7 +59,7 @@ export const Home = () => {
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et felis eu risus consectetur blandit. Sed laoreet, est eu malesuada suscipit, arcu augue hendrerit ante, vel euismod nisl odio sed metus.</p>
             <div className="buttons">
               <Link to="/play"><div className="button-play"><BsPlay/>Play</div></Link>
-              <Link to="/info"><div className="button-info"><AiOutlineInfoCircle/>Más Info</div></Link>
+              <Link to="/info"><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
             </div>
           
             {/* Carrusel de contenido */}
