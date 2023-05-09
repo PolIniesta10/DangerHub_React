@@ -53,6 +53,7 @@ export const Home = () => {
             <video autoPlay muted>
               <source src={ositoGominola} type="video/mp4"/>  
             </video>
+            <div className="video_home_fade"></div>
           </div>
           <div className="content-box">
             <h1>Título de la caja</h1>
