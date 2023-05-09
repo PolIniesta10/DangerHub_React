@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import peliculasSlice from './slices/peliculas/peliculasSlice'
+import perfilesSlice from './slices/perfiles/perfilesSlice'
 
 /**
  * The Redux store instance.
@@ -10,7 +11,7 @@ import peliculasSlice from './slices/peliculas/peliculasSlice'
 export const store = configureStore({
 
   reducer: {
-    peliculas: peliculasSlice
-    
+    peliculas: peliculasSlice,
+    perfiles: perfilesSlice
   },  
 })
