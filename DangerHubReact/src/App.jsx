@@ -39,6 +39,7 @@ function App() {
             <Route path="/about" element={<><Header/><Sidebar/><About /></>} />
             <Route path="/play" element={<Play />} />
             <Route path="/info" element={<Info />} />
+            <Route path="/SubirContenido" element={<><Header /><Sidebar /><ContenidoAdd /></>} />
            
         </Routes>
 
