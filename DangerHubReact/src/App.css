@@ -576,6 +576,15 @@ h2 {
 	flex-direction: row;
 }
 
+.home-perfil-users{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+    height: 20%;
+	flex-direction: column;
+}
+
 .home-perfil a{
 	color: rgb(225, 225, 225);
 	text-decoration: none;
@@ -595,14 +604,6 @@ h2 {
     height: 100%;
 }
 
-.home-perfil-users{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-    height: 20%;
-	flex-direction: column;
-}
 .home-perfil-name{
 	width: 55%;
     height: 100%;
@@ -617,6 +618,12 @@ h2 {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
+}
+
+.home-perfil-config a{
+	text-decoration: none;
+	color: rgb(225, 225, 225);
+
 }
 
 .home-perfil-config-button {
@@ -638,12 +645,6 @@ h2 {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-}
-
-.home-perfil-config a{
-	text-decoration: none;
-	color: rgb(225, 225, 225);
-
 }
 
 .home-perfil-config-button:hover {
@@ -682,6 +683,89 @@ h2 {
 ##################################################### */
 
 /* #####################################################
+					PERFILES ADD
+##################################################### */
+
+.perfilesAdd-titulo{
+	display: flex;
+	justify-content:center;
+	flex-direction: column;
+	align-items: flex-start;
+	font-size: 170%;
+	font-weight: bold;
+	margin: 20px 0px 50px 0;
+	color: rgb(225, 225, 225);
+	border-bottom: 4px solid rgb(23, 23, 23);
+	width: 50%;
+	height: 30%;
+}
+
+.perfilesAdd-titulo h1, .perfilesAdd-titulo p{
+	margin: 0;
+	padding: 5px;
+}
+
+.perfilesAdd-titulo p{
+	margin: 10px 0 10px 0;
+	font-size: 80%;
+	font-weight: 100;
+}
+
+.perfilesAdd-perfil-users{
+	display: flex;
+	justify-content: flex-start;
+	align-items:center;
+	width: 50%;
+    height: 40%;
+	flex-direction: row;
+}
+
+.perfilesAdd-perfil-name{
+	width: 60%;
+	font-size: 100%;
+	font-weight: bold;
+	color: rgb(225, 225, 225);
+	margin-top: 5px;
+	background-color: #5d5c5c;
+}
+
+.perfilesAdd-perfil-config{
+	display: flex;
+	align-items: flex-start;
+	flex-direction: row;
+	width: 50%;
+	height: 20%;
+}
+
+.perfilesAdd-perfil-config-button a{
+	text-decoration: none;
+	color: rgb(225, 225, 225);
+}
+
+.perfilesAdd-perfil-config-button {
+	background-color: #ffffff00;
+    border: 1px solid ;
+	border-color: #ffffff;
+	text-decoration: none;
+	font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-size:  1.2rem;
+    font-weight: bold;
+    line-height: 1.6rem;
+    padding: 0.75rem 4rem;
+    text-decoration: none #D1D5DB solid;
+    cursor: pointer;
+
+}
+
+.perfilesAdd-perfil-config-button:hover {
+	box-shadow: 0px 0px 10px 3px rgba(106, 106, 106, 0.53);
+}
+
+/* #####################################################
+					END PERFILES ADD
+##################################################### */
+
+/* #####################################################
 						HOME
 ##################################################### */
 
@@ -709,6 +793,16 @@ h2 {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	z-index: 1;
+}
+
+.video_home_fade {
+	background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 	z-index: 1;
 }
 
