@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import mainLogo from'/imagenes/LogoDangerHub.png';
 import { Link } from 'react-router-dom'
-// import { UserContext } from '../../userContext';
-// import { useState, useContext, useEffect } from "react";
+import { UserContext } from '../../userContext';
+import { useState, useContext, useEffect } from "react";
 
 
 export const Header = () => {

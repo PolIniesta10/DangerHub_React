@@ -60,7 +60,7 @@ export const useLogin = () => {
                     setAuthToken(resposta.authToken);
                     localStorage.setItem('authToken', resposta.authToken);
                     // setUsuari(resposta.user.email);
-                    console.log(resposta.authToken)
+                    console.log(usuari)
                 }
                 else
                 { 

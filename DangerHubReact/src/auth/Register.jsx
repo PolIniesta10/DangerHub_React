@@ -26,7 +26,7 @@ export const Register = ({ setLogin }) => {
             alert ("Els passwords han de coincidir")
         }
 
-        fetch("https://backend.insjoaquimmir.cat/api/register", {
+        fetch("http://127.0.0.1:8000/api/register", {
             headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -145,6 +145,17 @@ export const Register = ({ setLogin }) => {
                         className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
                 {errors.password2 && <p>{errors.password2.message}</p>}
+                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                    {/* <input type="text" name="name" placeholder="Name" onChange={onInputChange} value={name}
+                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" /> */}
+                        <input {...register("id_suscripcion", {
+                        required: "Aquest camp és obligatori",
+        
+
+                        })} 
+                        type="text"  placeholder="id_suscripcion" 
+                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                </div>
                 {/* { error ? (<div className="flex w-full items-center space-x-2 rounded-2xl bg-red-50 px-4 ring-2 ring-red-200 ">{error}</div>) : (<></>)  } */}
                 <button 
                 // onClick={handleSubmit }
