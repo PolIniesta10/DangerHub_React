@@ -13,7 +13,7 @@ import { Play } from './components/aplicacio/Play'
 import { NotFound } from './components/aplicacio/NotFound'
 import { Sidebar } from './components/layout/Sidebar'
 import { Info } from './components/aplicacio/Info'
-
+import { ContenidosAdd } from './components/aplicacio/contenidos/ContenidosAdd'
 
 function App() {
 
@@ -39,7 +39,7 @@ function App() {
             <Route path="/about" element={<><Header/><Sidebar/><About /></>} />
             <Route path="/play" element={<Play />} />
             <Route path="/info" element={<Info />} />
-            <Route path="/SubirContenido" element={<><Header /><Sidebar /><ContenidoAdd /></>} />
+            <Route path="/SubirContenido" element={<><Header /><Sidebar /><ContenidosAdd /></>} />
            
         </Routes>
 
