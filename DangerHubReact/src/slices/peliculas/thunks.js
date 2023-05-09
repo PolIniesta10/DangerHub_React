@@ -18,7 +18,7 @@ export const getPeliculas = (authToken,page = 0) => {
         let url =  page > 0 ? 
         "https://backend.insjoaquimmir.cat/api/posts?paginate=1&page=" + page 
         : 
-        "http://127.0.0.1:8000/api/contenidos" ;
+        "http://127.0.0.1:8000/api/peliculas" ;
 
         let primsimbolo = page > 0 ? "&" : "?";
 
@@ -43,11 +43,10 @@ export const getPeliculas = (authToken,page = 0) => {
 
         if(resposta.success == true) {
             if (page > 0) {
-                dispatch(setPeliculas(resposta.data.collection));
-                dispatch(setPages(resposta.data.links));
-                console.log(resposta.data.links);
+                dispatch(setPeliculas(resposta.data));
+                console.log(resposta.data);
             } else {
-                dispatch(setPosts(resposta.data));
+                dispatch(setPeliculas(resposta.data));
             }
         }else {
             setError(resposta.message);
@@ -56,20 +55,21 @@ export const getPeliculas = (authToken,page = 0) => {
 }
 
 // export const addPost = (formulari, authToken) => {
-    export const addPost = (data2, authToken) => {
+    export const addContenido = (data2, authToken) => {
     return async (dispatch, getState) => {
-        dispatch(startLoadingPosts());
+        dispatch(startLoadingPeliculas());
 
     // let { body, upload, latitude, longitude, visibility } = formulari;
-    let { body, upload, latitude, longitude, visibility } = data2;
+    let { titulo, descripcion, url_imagen, url_video, duracion, fecha_lanzamiento, id_categoria } = data2;
     const formData = new FormData();
         
-    formData.append("body", body);
-    formData.append("upload", upload);
-    formData.append("latitude", latitude);
-    formData.append("longitude", longitude);
-    formData.append("visibility", visibility);
-
+    formData.append("titulo", titulo);
+    formData.append("descripcion", descripcion);
+    formData.append("url_imagen", url_imagen);
+    formData.append("url_video", url_video);
+    formData.append("duracion", duracion);
+    formData.append("fecha_lanzamiento", fecha_lanzamiento);
+    formData.append("id_categoria", id_categoria);
     const headers = {
 
         headers: {
@@ -79,22 +79,21 @@ export const getPeliculas = (authToken,page = 0) => {
         method: "POST",
         body: formData
     };
-    const url = "https://backend.insjoaquimmir.cat/api/posts";
+    const url = "http://127.0.0.1:8000/api/contenidos";
 
     const data = await fetch(url, headers);
     
     const resposta = await data.json();
 
     if (resposta.success == true) {
-        console.log("Post Creat");
-        dispatch(getPosts(authToken));
+        console.log("Contenido Creado");
     } else {
         setError(resposta.message);
     }
   };
 }
 
-export const getPost = (id, authToken) => {
+export const getPelicula = (id, authToken) => {
     return async (dispatch, getState) => {
 
         dispatch(startLoadingPosts());

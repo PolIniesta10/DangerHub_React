@@ -967,6 +967,7 @@ text-align: center;
 	flex-direction: column;
 	color: #fff;
 	padding: 5%;
+	z-index: 1;
 
 }
 

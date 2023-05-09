@@ -12,9 +12,38 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
 import { Link } from "react-router-dom";
+import fondoojosrojos from '/videos/fondoojosrojos.mp4';
+
 
 export const Info = () => {
+  
+  let [ contenidos,setContenidos ] = useState({});
 
+
+  const obtContenidos = async () => {
+    try{
+        const data = await fetch("http://127.0.0.1:8000/api/contenidos", {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer '  + authToken
+          },
+          method: "GET",
+        })
+          const resposta = await data.json();
+          if (resposta.success === true) {
+              console.log(resposta);
+              setContenidos(resposta.data);
+          }
+          else {
+            console.log("error");
+          }
+    }
+    catch {
+      console.log(data);
+      alert("Catch");
+    }
+  };
   const [descriptionVisible, setDescriptionVisible] = useState(true);
 
   useEffect(() => {
@@ -34,7 +63,7 @@ export const Info = () => {
     document.getElementById("description").style.display = "block";
 
     setDescriptionVisible(true);
-
+    obtContenidos();
   }, []);
 
   // Open the default tab on page load
@@ -59,7 +88,11 @@ export const Info = () => {
 
   return (
     <>
-      
+      <div className="video-container">
+        <video autoPlay muted loop>
+          <source src={fondoojosrojos} type="video/mp4" />
+        </video>
+      </div>
       <div className="container-info">
         <div className="portada-info">
           <Link to={"/play"}><img src={laMonja} draggable="false"/></Link>

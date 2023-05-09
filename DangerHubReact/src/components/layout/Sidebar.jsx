@@ -6,7 +6,7 @@ import { RiFileListLine } from 'react-icons/ri';
 import { BiCloudDownload } from 'react-icons/bi';
 import { MdOutlineManageAccounts } from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
-import { AiOutlineCloudUpload } from 'react-icons/ai';
+import { BsPlusCircle } from 'react-icons/bs';
 export const Sidebar =  () => {
   const logOut = async () => {
     try {
@@ -59,7 +59,7 @@ export const Sidebar =  () => {
           <Link to="/Milista"><li id="icon3"><RiFileListLine/></li></Link>
           <Link to="/MisDescargas"><li id="icon4"><BiCloudDownload/></li></Link>
           <Link to="/MiCuenta"><li id="icon5"><MdOutlineManageAccounts/></li></Link>
-          <Link to="/SubirContenido"><li id="icon5"><AiOutlineCloudUpload/></li></Link>
+          <Link to="/SubirContenido"><li id="icon5"><BsPlusCircle/></li></Link>
         </ul>
       </nav>
 
