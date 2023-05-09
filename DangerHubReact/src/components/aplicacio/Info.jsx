@@ -10,6 +10,7 @@ import { MdBookmarkAdd } from 'react-icons/md';
 import { AiOutlineCloudDownload } from 'react-icons/ai';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
+import { BiArrowBack } from 'react-icons/bi';
 import { Link } from "react-router-dom";
 
 export const Info = () => {
@@ -58,14 +59,15 @@ export const Info = () => {
 
   return (
     <>
-
+      
       <div className="container-info">
         <div className="portada-info">
-          <img src={laMonja}/>
+          <Link to={"/play"}><img src={laMonja} draggable="false"/></Link>
         </div>
 
         <div className="content-box-info">
-          <div className="title">La Monja</div>
+          <Link to="/home"><div className="exit"><BiArrowBack/></div></Link>
+          <div className="title-content">La Monja</div>
 
           <div className="details">
             <div>2022</div>
@@ -100,35 +102,35 @@ export const Info = () => {
 
             <div className="films">
               <div className="film">
-                <img src={noRespires} alt="" />
+                <img src={noRespires} alt="" draggable="false"/>
               </div>
 
               <div className="film">
-                <img src={Saw} alt="" />
+                <img src={Saw} alt="" draggable="false"/>
               </div>
               
               <div className="film">
-                <img src={Saw4} alt="" />
+                <img src={Saw4} alt="" draggable="false"/>
               </div>
           
               <div className="film">
-                  <img src={Anabelle} alt="" />
+                  <img src={Anabelle} alt="" draggable="false"/>
               </div>
 
               <div className="film">
-                <img src={noRespires} alt="" />
+                <img src={noRespires} alt="" draggable="false"/>
               </div>
 
               <div className="film">
-                <img src={Saw} alt="" />
+                <img src={Saw} alt="" draggable="false"/>
               </div>
 
               <div className="film">
-                <img src={Saw4} alt="" />
+                <img src={Saw4} alt="" draggable="false"/>
               </div>
 
               <div className="film">
-                <img src={Anabelle} alt="" />
+                <img src={Anabelle} alt="" draggable="false"/>
               </div>
               
             </div>
