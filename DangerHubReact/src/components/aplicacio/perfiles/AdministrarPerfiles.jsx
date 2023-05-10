@@ -11,39 +11,13 @@ export const AdministrarPerfiles = () => {
 
     let { authToken,setAuthToken } = useContext(UserContext);
     let [ user,setUser ] = useState('');
-    let [ userId,setUserId ] = useState('');
     
     const { perfiles = [], isLoading=true, error="" } = useSelector((state) => state.perfiles);
 
-    const obtUser = async () => {
-        try{
-            const data = await fetch("http://127.0.0.1:8000/api/user", {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                'Authorization': 'Bearer '  + authToken
-            },
-            method: "GET",
-            })
-            const resposta = await data.json();
-            if (resposta.success === true) {
-                console.log(resposta.user);
-                setUser(resposta.user.name);
-                setUserId(resposta.user.id);
-            }
-            else {
-                console.log("error");
-            }
-        }
-        catch {
-        console.log(data);
-        alert("Catch");
-        }
-    };
+    
 
     const dispatch = useDispatch();
     useEffect(() => {
-        obtUser();
         dispatch(getPerfiles(authToken));
     }, [])
 
@@ -65,7 +39,7 @@ export const AdministrarPerfiles = () => {
                     return (
             
                       <>
-                      { v.id_usuario == userId ? (<PerfilGridEditar key={v.id_perfil} v={v}/>) : <></> }
+                      { <PerfilGridEditar key={v.id_perfil} v={v}/>}
                         
                       </>
                       )

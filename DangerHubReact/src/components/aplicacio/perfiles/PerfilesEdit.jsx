@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useContext } from 'react'
 import { Navigate, useParams } from 'react-router-dom';
 import { UserContext } from '../../../userContext';
-import { getPerfil, editPerfil } from '../../../slices/perfiles/thunks';
+import { getPerfil, editPerfil, delPerfil } from '../../../slices/perfiles/thunks';
 
 export const PerfilesEdit = () => {
 
@@ -36,6 +36,9 @@ export const PerfilesEdit = () => {
   }, [perfil]) 
   return (
     <>
+    <div className="home-perfil-foto">
+      <img className="home-perfil-img" src={formulari.url_avatar}></img>
+    </div>
     <div className="py-9 pl-9">
 
 
@@ -77,8 +80,11 @@ onChange={ handleChange}
 <button onClick={(e) => dispatch( editPerfil(formulari, authToken, perfil)) }  type="submit" className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
 Editar Perfil
 </button>
+<button onClick={(e) => dispatch( delPerfil(perfil, authToken)) }  type="submit" className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+<Link to={"/administrarPerfiles"}>Eliminar Perfil</Link>
+</button>
 <button type="submit" className=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full">
-Cancelar
+<Link to={"/administrarPerfiles"}>Cancelar</Link>
 </button>
 
 

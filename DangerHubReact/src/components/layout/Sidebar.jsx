@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useContext} from 'react';
 import { Link } from 'react-router-dom'
 import { FiSearch } from 'react-icons/fi';
 import { RiHome2Line } from 'react-icons/ri';
@@ -7,27 +7,79 @@ import { BiCloudDownload } from 'react-icons/bi';
 import { MdOutlineManageAccounts } from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
 import { BsPlusCircle } from 'react-icons/bs';
+import { UserContext } from '../../userContext';
+
 export const Sidebar =  () => {
-  const logOut = async () => {
-    try {
-      const data = await fetch("http://127.0.0.1:8000/api/logout", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        'Authorization': 'Bearer '  + authToken
-      },
-      method: "POST",
-      });
-      const resposta = await data.json();
-        if (resposta.success === true) {
-          setAuthToken("");
-        }
-      }
+  
+  let [ userId,setUserId ] = useState('');
+  let [ perfiles, setPerfiles ] = useState({});
+  let { authToken, setAuthToken } = useContext(UserContext);
+  const obtUser = async () => {
+    try{
+        const data = await fetch("http://127.0.0.1:8000/api/user", {
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer '  + authToken
+          },
+          method: "GET",
+        })
+          const resposta = await data.json();
+          if (resposta.success === true) {
+              console.log(resposta);
+              setUserId(resposta.user.id);
+          }
+          else {
+            console.log("error");
+          }
+    }
     catch {
-      console.log(data);
-      alert("Catchch");
+      alert("Catch");
     }
   };
+  
+  useEffect(() => {
+    obtUser();
+    obtPerfilUsuari();
+  }, [])
+  
+  
+  const logOut = (e)=> {
+
+    e.preventDefault();
+
+
+    fetch ("http://127.0.0.1:8000/api/logout",{
+    
+     headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '  + authToken,
+        //"Access-Control-Allow-Origin": "*" 
+
+    },
+    method: "POST",
+    //body: JSON.stringify({email: email, password: password})
+    })
+    .then ( data => data.json() )
+    .then (resposta => { 
+        
+            
+            if (resposta.success == true )
+            {
+                console.log(resposta); 
+                setAuthToken("");
+                localStorage.setItem('authToken', "");
+              
+            }
+            
+        } ) 
+    .catch((data) => {
+        
+    })
+
+
+}
   useEffect(() => {
     // seleccionar todos los elementos <a> del sidebar
     var sidebarIcons = document.querySelectorAll('.sidebar-navigation ul li');
@@ -49,7 +101,7 @@ export const Sidebar =  () => {
   return (
     <div className="sidebar">
       <div className='sidebar-perfil'>
-        <Link to="/perfiles"><img src="https://highxtar.com/wp-content/uploads/2022/09/highxtar-este-es-el-icono-de-perfil-de-netflix-mas-utilizado-destacada.jpg" alt=""/></Link>
+        <Link to="/perfiles"><img src={""} alt=""/></Link>
       </div>
 
       <nav className="sidebar-navigation">
