@@ -1,5 +1,4 @@
 import React, { useEffect} from 'react';
-import ositoGominola from '/videos/ositoGominola.mp4';
 import { BsPlay } from 'react-icons/bs';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
@@ -22,6 +21,7 @@ export const Home = (v) => {
 
   const randomIndex = Math.floor(Math.random() * peliculas.length);
   const peli_random = peliculas[randomIndex];
+  
 
   useEffect(() => {
     const container1 = document.querySelector('.carousel-container');
@@ -86,7 +86,7 @@ export const Home = (v) => {
             </div>
           )}
           <div className="content-box">
-            {peli_random && (
+            {peli_random && peli_random.id && (
               <>
                 <h1>{peli_random.titulo}</h1>
                 <h1>{peli_random.id}</h1>
@@ -205,7 +205,7 @@ export const Home = (v) => {
               <div className="carousel-container3">
 
               {isLoading ?  
-              <div className="prueba">
+              <div className="loadingPeliculas">
                   <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
               </div>
                   

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../../../userContext";
 import { useContext, useEffect, useState } from "react";
-import { addPerfil } from '../../../slices/perfiles/thunks';
+import { addPerfil} from '../../../slices/perfiles/thunks';
 import { useForm } from "react-hook-form";
 
 export const PerfilesAdd = () => {
@@ -14,10 +14,16 @@ export const PerfilesAdd = () => {
   const { register, handleSubmit,formState: { errors }, setValue} = useForm();
   const { usuari, email, setUsuari, authToken, setAuthToken } = useContext(UserContext);
 
+  const [urlAvatar, setUrlAvatar] = useState("");
+
+  useEffect(() => {
+    if (urlAvatar) {
+      setValue("url_avatar", urlAvatar);
+    }
+  }, [urlAvatar]);
+
   let navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const [imagenUrl, setImagenUrl] = useState(DHUB);
 
   const afegir = (data) => {
 
@@ -27,6 +33,10 @@ export const PerfilesAdd = () => {
 
     navigate("/administrarPerfiles"); 
   }
+
+  const handleUrlAvatarChange = (event) => {
+    setUrlAvatar(event.target.value);
+  };
 
   return (
     <>
@@ -44,13 +54,15 @@ export const PerfilesAdd = () => {
             <div className="perfilesAdd-perfil-users">
                 <form action="">
                     <div className="perfilesAdd-perfil-foto">
-                    <img className="perfiles-perfil-img" src={imagenUrl} alt=""  />
+                    <img className="perfiles-perfil-img" src={urlAvatar||DHUB} alt=""  />
                     </div>
                     <div className="perfilesAdd-perfil-inputs-box">
+                        
                         <div className="perfilesAdd-perfil-input">
-                            <input onChange={(event) => {  setValue("url_avatar", event.target.value); setImagenUrl(event.target.value);}} type="url" name="url_avatar" {...register("url_avatar", {required: "Aquest camp és obligatori",})} 
-                            placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar"/>
+                            <input type="url" name="url_avatar" {...register("url_avatar", {required: "Aquest camp és obligatori",})} 
+                            placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar" onChange={handleUrlAvatarChange} value={urlAvatar} />
                         </div>
+                        
                         <div className="perfilesAdd-perfil-input">
                             <input type="text" name="nombre" {...register("nombre", {required: "Aquest camp és obligatori",})} 
                             placeholder='Profile name' id="nombre" minLength="2" maxLength="20"/>

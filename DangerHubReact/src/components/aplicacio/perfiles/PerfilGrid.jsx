@@ -16,10 +16,12 @@ export const PerfilGrid = ({v, deletePost}) => {
   // const { posts = [], page=0, isLoading=true, error="" } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [perfilCargado, setPerfilCargado] = useState(false);
+
   const handleClick = (id) => {
     dispatch(getPerfil(id, authToken));
     handlePerfilCargado(v);
   };
+
   useEffect(() => {
     if (perfilCargado) {
       navigate("/home");
@@ -32,6 +34,7 @@ export const PerfilGrid = ({v, deletePost}) => {
     dispatch(setSelectedPerfilId(v.id))
     setPerfilCargado(true);
   }, [dispatch]);
+
     return (
   
       <>
