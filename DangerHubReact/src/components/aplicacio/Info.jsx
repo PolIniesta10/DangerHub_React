@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import laMonja from '/imagenes/laMonja.jpg';
-import noRespires from '/imagenes/noRespires.jpg';
-import Saw from '/imagenes/Saw.jpg';
-import Saw4 from '/imagenes/Saw4.jpg';
-import Anabelle from '/imagenes/Anabelle.jpg';
-
+import loading from'/videos/loading.mp4';
+import { InfoGrid } from './InfoGrid';
+import { useContext } from 'react';
+import { UserContext } from '../../userContext';
+import { useDispatch, useSelector } from "react-redux";
 import { BsPlay } from 'react-icons/bs';
 import { MdBookmarkAdd } from 'react-icons/md';
 import { AiOutlineCloudDownload } from 'react-icons/ai';
@@ -13,38 +13,44 @@ import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
 import { Link } from "react-router-dom";
 import fondoojosrojos from '/videos/fondoojosrojos.mp4';
+import peliculasSlice from '../../slices/peliculas/peliculasSlice';
+import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 
 
-export const Info = () => {
+export const Info = (v) => {
   
   let [ contenidos,setContenidos ] = useState({});
+  const [descriptionVisible, setDescriptionVisible] = useState(true);
+  let { authToken,setAuthToken } = useContext(UserContext);
 
+  const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
 
-  const obtContenidos = async () => {
-    try{
-        const data = await fetch("http://127.0.0.1:8000/api/contenidos", {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer '  + authToken
-          },
-          method: "GET",
-        })
-          const resposta = await data.json();
-          if (resposta.success === true) {
-              console.log(resposta);
-              setContenidos(resposta.data);
-          }
-          else {
-            console.log("error");
-          }
+  const obtContenidos = async (authToken) => {
+    let data = null;
+    try {
+      data = await fetch("http://127.0.0.1:8000/api/contenidos", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer '  + authToken
+        },
+        method: "GET",
+      })
+      const resposta = await data.json();
+      if (resposta.success === true) {
+        console.log(resposta);
+        setContenidos(resposta.data);
+      }
+      else {
+        console.log("error");
+      }
     }
-    catch {
-      console.log(data);
+    catch (error) {
+      console.log(error);
       alert("Catch");
+      data = {};
     }
   };
-  const [descriptionVisible, setDescriptionVisible] = useState(true);
 
   useEffect(() => {
 
@@ -65,8 +71,6 @@ export const Info = () => {
     setDescriptionVisible(true);
     obtContenidos();
   }, []);
-
-  // Open the default tab on page load
   
 
   // Switch between tabs when a tab button is clicked
@@ -86,26 +90,31 @@ export const Info = () => {
     setDescriptionVisible(tabName === "description");
   }
 
+  const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getPeliculas(authToken));
+    }, [])
+
   return (
     <>
-      <div className="video-container">
+      <div className="video-container"style={{width: "100%"}}>
         <video autoPlay muted loop>
           <source src={fondoojosrojos} type="video/mp4" />
         </video>
       </div>
       <div className="container-info">
         <div className="portada-info">
-          <Link to={"/play"}><img src={laMonja} draggable="false"/></Link>
+          <Link to={"/play/"+v.id}><img src={v.url_imagen} draggable="false"/></Link> 
         </div>
 
         <div className="content-box-info">
           <Link to="/home"><div className="exit"><BiArrowBack/></div></Link>
-          <div className="title-content">La Monja</div>
+          <div className="title-content">{v.titulo}</div>
 
           <div className="details">
-            <div>2022</div>
+            <div>{v.fecha_lanzamiento}</div>
             <div>|</div>
-            <div>2h 23min</div>
+            <div>{v.duracion}</div>
             <div>|</div>
             <div>+18</div>
           </div>
@@ -114,9 +123,7 @@ export const Info = () => {
             <div className="tablink active" onClick={(e) => openTab(e, 'description')}>GENERAL</div>
             <div className="tablink" onClick={(e) => openTab(e, 'opciones')}>MÁS OPCIONES</div> 
           </div> 
-          <div id="description" className="tabcontent description" style={{display: descriptionVisible ? "flex" : "none"}}>
-          Tras la muerte de una joven monja en un convento de Rumanía El Vaticano envía para realizar una investigación a una monja a punto tomar los votos y a un cura experto en posesiones. Una terrible confrontación entre el mundo de los vivos y el de los muertos se producirá con su llegada al convento.
-          </div>
+          <div id="description" className="tabcontent description" style={{display: descriptionVisible ? "flex" : "none"}}>{v.descripcion}</div>
           <div id="opciones" className="tabcontent opciones" style={{display: descriptionVisible ? "none" : "flex", width: "250px"}}>
             <div><BsPlay/></div>
             <div><MdBookmarkAdd/></div>
@@ -134,44 +141,17 @@ export const Info = () => {
             <div className="carousel-arrow right-info"><BsFillArrowRightCircleFill/></div>
 
             <div className="films">
-              <div className="film">
-                <img src={noRespires} alt="" draggable="false"/>
-              </div>
-
-              <div className="film">
-                <img src={Saw} alt="" draggable="false"/>
-              </div>
-              
-              <div className="film">
-                <img src={Saw4} alt="" draggable="false"/>
-              </div>
-          
-              <div className="film">
-                  <img src={Anabelle} alt="" draggable="false"/>
-              </div>
-
-              <div className="film">
-                <img src={noRespires} alt="" draggable="false"/>
-              </div>
-
-              <div className="film">
-                <img src={Saw} alt="" draggable="false"/>
-              </div>
-
-              <div className="film">
-                <img src={Saw4} alt="" draggable="false"/>
-              </div>
-
-              <div className="film">
-                <img src={Anabelle} alt="" draggable="false"/>
-              </div>
-              
+              {isLoading ?  <div className="film"><video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video></div> : <>{peliculas.map((v) => {
+                return (
+                  <>
+                    <InfoGrid key={v.id} v={v}  {...v}/>
+                  </>
+                )
+              })}</>}
             </div>
           </div>
-
         </div>
       </div>
-              
     </>
   )
 }

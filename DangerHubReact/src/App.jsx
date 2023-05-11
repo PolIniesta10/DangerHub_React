@@ -5,7 +5,6 @@ import { UserContext } from './userContext'
 import { Routes,Route } from 'react-router-dom'
 import { Perfiles } from './components/aplicacio/perfiles/Perfiles'
 import { PerfilesEdit } from './components/aplicacio/perfiles/PerfilesEdit'
-
 import { PerfilesAdd } from './components/aplicacio/perfiles/PerfilesAdd'
 import { AdministrarPerfiles } from './components/aplicacio/perfiles/AdministrarPerfiles'
 import { About } from './components/aplicacio/About'
@@ -40,8 +39,8 @@ function App() {
             <Route path="/perfilesAdd" element={<PerfilesAdd/>}/>
             <Route path="/administrarPerfiles" element={<AdministrarPerfiles />} />
             <Route path="/about" element={<><Header/><Sidebar/><About /></>} />
-            <Route path="/play" element={<Play />} />
-            <Route path="/info" element={<Info />} />
+            <Route path="/play/:id" element={<Play />} />
+            <Route path="/info/:id" element={<Info />} />
             <Route path="/SubirContenido" element={<><Header /><Sidebar /><ContenidosAdd /></>} />
            
         </Routes>

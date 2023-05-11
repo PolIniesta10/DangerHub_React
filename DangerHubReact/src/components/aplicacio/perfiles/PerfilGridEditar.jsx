@@ -14,11 +14,11 @@ export const PerfilGridEditar = ({v, deletePost}) => {
     return (
   
       <>
-      <div className="home-perfil-users">
-          <div className="home-perfil-foto">
-              <Link to={"/perfiles/edit/"+v.id}><img className="home-perfil-img" src={v.url_avatar} alt=""/></Link>
+      <div className="perfiles-perfil-users">
+          <div className="perfiles-perfil-foto edit-perfil">
+              <Link to={"/perfiles/edit/"+v.id}><img className="perfiles-perfil-img" src={v.url_avatar} alt=""/></Link>
           </div>
-          <div className="home-perfil-name">
+          <div className="perfiles-perfil-name">
               <p>{v.nombre}</p>
           </div>
       </div>

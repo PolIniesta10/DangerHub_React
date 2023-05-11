@@ -14,11 +14,11 @@ export const PerfilGrid = ({v, deletePost}) => {
     return (
   
       <>
-      <div className="home-perfil-users">
-          <div className="home-perfil-foto">
-              <img className="home-perfil-img" src={v.url_avatar} alt=""/>
+      <div className="perfiles-perfil-users">
+          <div className="perfiles-perfil-foto">
+              <img className="perfiles-perfil-img" src={v.url_avatar} alt=""/>
           </div>
-          <div className="home-perfil-name">
+          <div className="perfiles-perfil-name">
               <p>{v.nombre}</p>
           </div>
       </div>

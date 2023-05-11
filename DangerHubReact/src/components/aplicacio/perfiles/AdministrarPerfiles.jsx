@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import mainLogo from'/imagenes/DANGERHubLOGO.png';
+import loading from'/videos/loading.mp4';
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
 import { UserContext } from '../../../userContext';
@@ -49,40 +50,43 @@ export const AdministrarPerfiles = () => {
 
   return (
     <>
-    <div className="home-container">
-        <div className="home-header">  
-            <Link to="/home"><img src={mainLogo} alt="" className="home-header-logo"/></Link>
+    <div className="perfiles-container">
+        <div className="perfiles-header">  
+            <Link to="/perfiles"><img src={mainLogo} alt="" className="perfiles-header-logo"/></Link>
         </div>
 
-        <div className="home-content">
-            <div className="home-titulo">
+        <div className="perfiles-content">
+            <div className="perfiles-titulo">
                 <h1>Administrar perfiles</h1>
             </div>
 
-            <div className="home-perfil">
-
-               {isLoading ? "Espera..." : <>{perfiles.map((v) => {
+            <div className="perfiles-perfil">
+                
+                {isLoading ?  <div className="perfiles-perfil-users "><video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video></div> : <>{perfiles.map((v) => {
                     return (
-            
-                      <>
-                      { v.id_usuario == userId ? (<PerfilGridEditar key={v.id_perfil} v={v}/>) : <></> }
-                        
-                      </>
-                      )
-                  })}</>}
+                    <>
+                        { v.id_usuario == userId ? (<PerfilGridEditar key={v.id_perfil} v={v}  {...v}/>) : <></> }
+                    </>
+                    )
+                })}</>}
 
-                <div className="home-perfil-users ">
-                    <Link to="/perfilesAdd"><div className="home-perfil-foto add-perfil"></div></Link>
-                    <div className="home-perfil-name">
-                        <p>Añadir perfil</p>
-                    </div>
-                </div>
+                {isLoading ? <div></div> : 
+
+                    <>
+                        <div className="perfiles-perfil-users ">
+                            <Link to="/perfilesAdd"><div className="perfiles-perfil-foto add-perfil"></div></Link>
+                            <div className="perfiles-perfil-name">
+                                <p>Añadir perfil</p>
+                            </div>
+                        </div>
+                    </>
+                }
 
                 
             </div>
             
-            <div className="home-perfil-config">
-                <Link to="/perfiles"><div className="home-perfil-config-button">Listo</div></Link>
+            <div className="perfiles-perfil-config">
+                <Link to="/perfiles"><div className="perfiles-perfil-config-button">Listo</div></Link>
             </div>
         </div>
     </div>

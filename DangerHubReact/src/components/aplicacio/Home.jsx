@@ -5,8 +5,22 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from "react-router-dom";
+import loading from'/videos/loading.mp4';
+import { RecomendedGrid } from './RecomendedGrid';
+import { useContext } from 'react';
+import { UserContext } from '../../userContext';
+import { useDispatch, useSelector } from "react-redux";
+import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 
-export const Home = () => {
+
+export const Home = (v) => {
+
+  let { authToken,setAuthToken } = useContext(UserContext);
+  const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  const dispatch = useDispatch();
+
+  const randomIndex = Math.floor(Math.random() * peliculas.length);
+  const peli_random = peliculas[randomIndex];
 
   useEffect(() => {
     const container1 = document.querySelector('.carousel-container');
@@ -44,23 +58,32 @@ export const Home = () => {
     rightArrow3.addEventListener('click', () => {
       container3.scrollBy({ left: 1000, behavior: 'smooth' });
     });
+
+    dispatch(getPeliculas(authToken));
+    console.log(peliculas)
   }, []);
 
   return (
     <>
         <div className="container">
-          <div className="video-container">
-            <video autoPlay muted>
-              <source src={ositoGominola} type="video/mp4"/>  
-            </video>
-            <div className="video_home_fade"></div>
-          </div>
+          {peli_random && (
+            <div className="video-container">
+              <video autoPlay muted>
+                <source src={peli_random.url_video} type="video/mp4"/>  
+              </video>
+              <div className="video_home_fade"></div>
+            </div>
+          )}
           <div className="content-box">
-            <h1>Título de la caja</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et felis eu risus consectetur blandit. Sed laoreet, est eu malesuada suscipit, arcu augue hendrerit ante, vel euismod nisl odio sed metus.</p>
+            {peli_random && (
+              <>
+                <h1>{peli_random.titulo}</h1>
+                <p>{peli_random.descripcion}</p>
+              </>
+            )}
             <div className="buttons">
-              <Link to="/play"><div className="button-play"><BsPlay/>Play</div></Link>
-              <Link to="/info"><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
+              <Link to={"/play/"+v.id}><div className="button-play"><BsPlay/>Play</div></Link>
+              <Link to={"/info/"+v.id}><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
             </div>
           
             {/* Carrusel de contenido */}
@@ -169,58 +192,17 @@ export const Home = () => {
                 <div className="carousel-arrow3 left"><BsFillArrowLeftCircleFill/></div>
                 <div className="carousel-arrow3 right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container3">
-                {/* Tarjetas de contenido */}
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 1" />
-                  <h3>Película 1</h3>
-                </div>
-                <div className="content-card">
-                  <img draggable="false" src="https://via.placeholder.com/150" alt="Película 2" />
-                  <h3>Película 2</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 3" />
-                  <h3>Película 3</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 4" />
-                  <h3>Película 4</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 5" />
-                  <h3>Película 5</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 6 " />
-                  <h3>Película 6</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 7" />
-                  <h3>Película 7</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 8" />
-                  <h3>Película 8</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 9" />
-                  <h3>Película 9</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 10" />
-                  <h3>Película 10</h3>
-                </div>
+
+              {isLoading ?  <div className="content-card"><video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video></div> : <>{peliculas.map((v) => {
+                return (
+                  <>
+                    <RecomendedGrid key={v.id} v={v}  {...v}/>
+                  </>
+                )
+              })}</>}
+
               </div>
             </section>
-
-            {/* <div className="video-list">
-              {videos.map((video) => (
-                <Link to={`/videos/${video.id}`} key={video.id}>
-                  <img src={video.thumbnailUrl} alt={video.title} />
-                  <h2>{video.title}</h2>
-                </Link>
-              ))}
-            </div> */}
 
           </div>
         </div>
