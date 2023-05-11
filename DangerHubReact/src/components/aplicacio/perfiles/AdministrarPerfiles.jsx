@@ -38,21 +38,11 @@ export const AdministrarPerfiles = () => {
                 
                 {isLoading ?  <div className="perfiles-perfil-users "><video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video></div> : <>{perfiles.map((v) => {
                     return (
-<<<<<<< HEAD
                     <>
-                        { v.id_usuario == userId ? (<PerfilGridEditar key={v.id_perfil} v={v}  {...v}/>) : <></> }
+                        <PerfilGridEditar key={v.id_perfil} v={v}  {...v}/>
                     </>
                     )
                 })}</>}
-=======
-            
-                      <>
-                      { <PerfilGridEditar key={v.id_perfil} v={v}/>}
-                        
-                      </>
-                      )
-                  })}</>}
->>>>>>> 5641ca4995ae22f3d427ba7886993c3e95271bc1
 
                 {isLoading ? <div></div> : 
 

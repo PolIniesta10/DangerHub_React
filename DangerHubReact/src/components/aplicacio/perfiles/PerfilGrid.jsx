@@ -35,15 +35,9 @@ export const PerfilGrid = ({v, deletePost}) => {
     return (
   
       <>
-<<<<<<< HEAD
       <div className="perfiles-perfil-users">
           <div className="perfiles-perfil-foto">
-              <img className="perfiles-perfil-img" src={v.url_avatar} alt=""/>
-=======
-      <div className="home-perfil-users">
-          <div className="home-perfil-foto">
-              <button onClick={() => handleClick(v.id)}><img className="home-perfil-img" src={v.url_avatar} alt=""/></button>
->>>>>>> 5641ca4995ae22f3d427ba7886993c3e95271bc1
+              <button onClick={() => handleClick(v.id)}><img className="perfiles-perfil-img" src={v.url_avatar} alt=""/></button>
           </div>
           <div className="perfiles-perfil-name">
               <p>{v.nombre}</p>

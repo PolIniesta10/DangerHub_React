@@ -600,6 +600,14 @@ h2 {
 	cursor: pointer;
 }
 
+.perfiles-perfil-foto  button {
+	width: 100%;
+    height: 100%;
+	padding: 0;
+	border: 0;
+	cursor: pointer;
+}
+
 .perfiles-perfil-loading{
 	width: 30vh;
     height: 40vh;

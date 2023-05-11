@@ -7,32 +7,6 @@ import { BiCloudDownload } from 'react-icons/bi';
 import { MdOutlineManageAccounts } from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
 import { BsPlusCircle } from 'react-icons/bs';
-<<<<<<< HEAD
-
-export const Sidebar =  () => {
-
-  const logOut = async (authToken) => {
-    try {
-      const data = await fetch("http://127.0.0.1:8000/api/logout", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer '  + authToken
-        },
-        method: "POST",
-      });
-      const resposta = await data.json();
-      if (resposta.success === true) {
-        setAuthToken("");
-      }
-    }
-    catch (error) {
-      console.log(error);
-      alert("Catch");
-    }
-  };
-
-=======
 import { UserContext } from '../../userContext';
 import { useSelector } from 'react-redux';
 
@@ -109,7 +83,6 @@ export const Sidebar =  () => {
 
 
 }
->>>>>>> 5641ca4995ae22f3d427ba7886993c3e95271bc1
   useEffect(() => {
     // seleccionar todos los elementos <a> del sidebar
     var sidebarIcons = document.querySelectorAll('.sidebar-navigation ul li');
@@ -132,7 +105,7 @@ export const Sidebar =  () => {
   return (
     <div className="sidebar">
       <div className='sidebar-perfil'>
-        <Link to="/perfiles"><img src={perfilActual.url_avatar} alt=""/></Link>
+        {perfilActual && <Link to="/perfiles"><img src={perfilActual.url_avatar} alt=""/></Link>}
       </div>
 
       <nav className="sidebar-navigation">
