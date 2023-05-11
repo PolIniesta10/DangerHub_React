@@ -1,6 +1,5 @@
-import { startLoadingPerfiles, setError, setPerfiles, setPerfil } from "./perfilesSlice";
+import { startLoadingPerfiles, setError, setPerfiles, setPerfil, setSelectedPerfilId } from "./perfilesSlice";
 import { useNavigate } from "react-router-dom";
-
 export const getPerfiles = (authToken) => {
     return async (dispatch, getState) => {
         let filter = getState().peliculas.filter;
@@ -55,7 +54,7 @@ export const getPerfiles = (authToken) => {
     };
     const url = "http://127.0.0.1:8000/api/perfiles";
 
-    const data = await fetch(url, headers);
+    const data   = await fetch(url, headers);
     
     const resposta = await data.json();
 
@@ -68,7 +67,7 @@ export const getPerfiles = (authToken) => {
   };
 }
 
-export const getPerfil = (id_perfil, authToken) => {
+export const getPerfil = (id, authToken) => {
     return async (dispatch, getState) => {
 
         dispatch(startLoadingPerfiles());
@@ -81,13 +80,16 @@ export const getPerfil = (id_perfil, authToken) => {
             },
             method: "GET",
         };
-        const url = "http://127.0.0.1:8000/api/perfiles/" + id_perfil
+        const url = "http://127.0.0.1:8000/api/perfiles/" + id
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
-
+        console.log(id)
         if (resposta.success == true) {
             dispatch(setPerfil(resposta.data));
+            console.log(id)
+            dispatch(setSelectedPerfilId(resposta.data.id))
+            console.log(resposta.data)
            
         } else {
             dispatch(setError(resposta.message));
@@ -104,7 +106,6 @@ export const editPerfil = (formulari, authToken, perfil) => {
     formData.append("nombre", nombre);
     formData.append("url_avatar", url_avatar);
 
-
     const data = await fetch(
       "http://127.0.0.1:8000/api/perfiles/" + perfil.id,
       {
@@ -117,7 +118,7 @@ export const editPerfil = (formulari, authToken, perfil) => {
       }
     );
     const resposta = await data.json();
-
+    
     if (resposta.success == true) {
         console.log("Perfil Editat");
     } else {
@@ -129,10 +130,10 @@ export const editPerfil = (formulari, authToken, perfil) => {
 export const delPerfil = (perfil, authToken) => {
     return async (dispatch, getState) => {
 
-        dispatch(startLoadingPosts());
+        dispatch(startLoadingPerfiles());
 
         const data = await fetch(
-            "https://backend.insjoaquimmir.cat/api/posts/" + perfil.id,
+            "http://127.0.0.1:8000/api/perfiles/" + perfil.id,
             {
                 headers: {
                 Accept: "application/json",
@@ -147,6 +148,9 @@ export const delPerfil = (perfil, authToken) => {
 
         if (resposta.success == true) {
             dispatch (getPerfiles(authToken))
+            console.log("Perfil Eliminat");
+        } else {
+            setError(resposta.message);
         }
     };
 };
