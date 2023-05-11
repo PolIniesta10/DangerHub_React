@@ -71,7 +71,7 @@ export const Header = () => {
   };
   return (
     <div className='cajamasterheader'>
-      <Link to="/home"><img src={perfiles.url_avatar} alt="" /></Link>
+      <Link to="/home"><img src={mainLogo} alt="" /></Link>
     </div>
   )
 }

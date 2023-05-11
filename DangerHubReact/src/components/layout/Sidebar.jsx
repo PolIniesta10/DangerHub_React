@@ -8,12 +8,15 @@ import { MdOutlineManageAccounts } from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
 import { BsPlusCircle } from 'react-icons/bs';
 import { UserContext } from '../../userContext';
+import { useSelector } from 'react-redux';
 
 export const Sidebar =  () => {
   
   let [ userId,setUserId ] = useState('');
-  let [ perfiles, setPerfiles ] = useState({});
   let { authToken, setAuthToken } = useContext(UserContext);
+  const { perfiles, error="", isLoading=true } = useSelector((state) => state.perfiles);
+  const selectedPerfilId = useSelector(state => state.perfiles.selectedPerfilId);
+  const perfilActual = perfiles.find((perfil) => perfil.id === selectedPerfilId);
   const obtUser = async () => {
     try{
         const data = await fetch("http://127.0.0.1:8000/api/user", {
@@ -27,6 +30,7 @@ export const Sidebar =  () => {
           const resposta = await data.json();
           if (resposta.success === true) {
               console.log(resposta);
+              console.log(selectedPerfilId)
               setUserId(resposta.user.id);
           }
           else {
@@ -40,7 +44,6 @@ export const Sidebar =  () => {
   
   useEffect(() => {
     obtUser();
-    obtPerfilUsuari();
   }, [])
   
   
@@ -96,12 +99,13 @@ export const Sidebar =  () => {
         this.classList.add('active');
       });
     });
+    
   }, []);
 
   return (
     <div className="sidebar">
       <div className='sidebar-perfil'>
-        <Link to="/perfiles"><img src={""} alt=""/></Link>
+        <Link to="/perfiles"><img src={perfilActual.url_avatar} alt=""/></Link>
       </div>
 
       <nav className="sidebar-navigation">

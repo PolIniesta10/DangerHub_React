@@ -1,6 +1,5 @@
-import { startLoadingPerfiles, setError, setPerfiles, setPerfil } from "./perfilesSlice";
+import { startLoadingPerfiles, setError, setPerfiles, setPerfil, setSelectedPerfilId } from "./perfilesSlice";
 import { useNavigate } from "react-router-dom";
-
 export const getPerfiles = (authToken) => {
     return async (dispatch, getState) => {
         let filter = getState().peliculas.filter;
@@ -85,9 +84,12 @@ export const getPerfil = (id, authToken) => {
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
-
+        console.log(id)
         if (resposta.success == true) {
             dispatch(setPerfil(resposta.data));
+            console.log(id)
+            dispatch(setSelectedPerfilId(resposta.data.id))
+            console.log(resposta.data)
            
         } else {
             dispatch(setError(resposta.message));
