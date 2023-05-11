@@ -16,6 +16,7 @@ export const PerfilesEdit = () => {
   const { perfil, page=0, error="", isLoading=true } = useSelector((state) => state.perfiles);
   const dispatch = useDispatch();
   const { id } = useParams();
+  
   let [ formulari, setFormulari] = useState({
     nombre: '',
     url_avatar: '',

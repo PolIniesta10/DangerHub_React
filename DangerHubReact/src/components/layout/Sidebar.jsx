@@ -105,7 +105,7 @@ export const Sidebar =  () => {
   return (
     <div className="sidebar">
       <div className='sidebar-perfil'>
-        <Link to="/perfiles"><img src={perfilActual.url_avatar} alt=""/></Link>
+        {perfilActual && <Link to="/perfiles"><img src={perfilActual.url_avatar} alt=""/></Link>}
       </div>
 
       <nav className="sidebar-navigation">

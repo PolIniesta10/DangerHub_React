@@ -10,7 +10,7 @@ import { addPerfil } from '../../../slices/perfiles/thunks';
 import { useForm } from "react-hook-form";
 
 export const PerfilesAdd = () => {
-  
+
     const { register, handleSubmit,formState: { errors }, setValue} = useForm();
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -18,11 +18,11 @@ export const PerfilesAdd = () => {
 
     const afegir = (data) => {
 
-        const data2 = { ...data, nombre: data.nombre, url_avatar: data.url_avatar}
-        console.log(data2);
-        dispatch(addPerfil(data2, authToken));
-    
-        navigate("/administrarPerfiles");
+      const data2 = { ...data, nombre: data.nombre, url_avatar: data.url_avatar}
+      console.log(data2);
+      dispatch(addPerfil(data2, authToken));
+  
+      navigate("/administrarPerfiles");
         
     }
   return (
@@ -45,28 +45,20 @@ export const PerfilesAdd = () => {
                     </div>
                     <div className="perfilesAdd-perfil-inputs-box">
                         <div className="perfilesAdd-perfil-input">
-                            <input type="url" name="url_avatar" {...register("url_avatar", {
-                              required: "Aquest camp és obligatori",
-                              
-                            
-                            })}
+                            <input type="url" name="url_avatar" {...register("url_avatar", {required: "Aquest camp és obligatori",})} 
                             placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar"/>
                         </div>
                         <div className="perfilesAdd-perfil-input">
-                            <input type="text" name="nombre" {...register("nombre", {
-                            required: "Aquest camp és obligatori",         
-                          })}
-                          placeholder='Profile name' id="nombre" minLength="2" maxLength="20"/>
+                            <input type="text" name="nombre" {...register("nombre", {required: "Aquest camp és obligatori",})} 
+                            placeholder='Profile name' id="nombre" minLength="2" maxLength="20"/>
                         </div>
                     </div>
                 </form>
             </div>
             
             <div className="perfilesAdd-perfil-config">
-                <Link to="/home"><button onClick={handleSubmit(afegir)} type="submit" className="perfilesAdd-perfil-config-button confirm-button">Continuar</button></Link>
-                <Link to="/administrarPerfiles"><button type="submit" className="perfilesAdd-perfil-config-button">Cancelar</button></Link>
-
-                
+              <Link to="/home"><button onClick={handleSubmit(afegir)} type="submit" className="perfilesAdd-perfil-config-button confirm-button">Continuar</button></Link>
+              <Link to="/administrarPerfiles"><button type="submit" className="perfilesAdd-perfil-config-button">Cancelar</button></Link>
             </div>
       </div>
     </div>
