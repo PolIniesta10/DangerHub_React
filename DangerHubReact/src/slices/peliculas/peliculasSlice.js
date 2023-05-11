@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     peliculas: [],
     pelicula: {
+        id:"",
         titulo: "",
         descripcion: "",
         url_imagen: "",

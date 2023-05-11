@@ -5,7 +5,7 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from "react-router-dom";
-import loading from'/videos/loading.mp4';
+import loading from'/videos/loadinghorizontal.mp4';
 import { RecomendedGrid } from './RecomendedGrid';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';
@@ -16,7 +16,8 @@ import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 export const Home = (v) => {
 
   let { authToken,setAuthToken } = useContext(UserContext);
-  const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  const { peliculas = [{}], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+
   const dispatch = useDispatch();
 
   const randomIndex = Math.floor(Math.random() * peliculas.length);
@@ -59,18 +60,28 @@ export const Home = (v) => {
       container3.scrollBy({ left: 1000, behavior: 'smooth' });
     });
 
-    dispatch(getPeliculas(authToken));
-    console.log(peliculas)
+    
+    
   }, []);
+
+  useEffect(() => {
+    dispatch(getPeliculas(authToken));
+    console.log(peliculas);
+    
+  }, []);
+  
+ 
 
   return (
     <>
         <div className="container">
           {peli_random && (
             <div className="video-container">
-              <video autoPlay muted>
-                <source src={peli_random.url_video} type="video/mp4"/>  
-              </video>
+                {peli_random && (
+                  <>
+                    <iframe width="100%" height="100%" src={peli_random.url_video + "?autoplay=1&amp;mute=1&amp;controls=0"} frameborder="0" allow="accelerometer; autoplay; mute;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </>
+                )}
               <div className="video_home_fade"></div>
             </div>
           )}
@@ -78,14 +89,14 @@ export const Home = (v) => {
             {peli_random && (
               <>
                 <h1>{peli_random.titulo}</h1>
+                <h1>{peli_random.id}</h1>
                 <p>{peli_random.descripcion}</p>
-              </>
+                <div className="buttons">
+                  <Link to={"/play/"+peli_random.id}><div className="button-play"><BsPlay/>Play</div></Link>
+                  <Link to={"/info/"+peli_random.id}><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
+                </div>
+            </>
             )}
-            <div className="buttons">
-              <Link to={"/play/"+v.id}><div className="button-play"><BsPlay/>Play</div></Link>
-              <Link to={"/info/"+v.id}><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
-            </div>
-          
             {/* Carrusel de contenido */}
             <section className="content-carousel">
                 <p>Mi Lista</p>
@@ -194,15 +205,11 @@ export const Home = (v) => {
               <div className="carousel-container3">
 
               {isLoading ?  
-                <div className="content-card">
+              <div className="prueba">
                   <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                </div> 
+              </div>
+                  
+                
                   
                 : <>{peliculas.map((v) => {
                 return (

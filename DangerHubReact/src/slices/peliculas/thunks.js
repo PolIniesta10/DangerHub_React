@@ -1,7 +1,7 @@
 import { startLoadingPeliculas, setError, setPeliculas, setPelicula, setPages, setFilter } from "./peliculasSlice";
 import { useNavigate } from "react-router-dom";
 
-export const getPeliculas = (authToken,page = 0) => {
+export const getPeliculas = (authToken) => {
     return async (dispatch, getState) => {
         let filter = getState().peliculas.filter;
         dispatch(startLoadingPeliculas());
@@ -15,39 +15,16 @@ export const getPeliculas = (authToken,page = 0) => {
             },
             method: "GET",
         };
-        let url =  page > 0 ? 
-        "https://backend.insjoaquimmir.cat/api/posts?paginate=1&page=" + page 
-        : 
-        "http://127.0.0.1:8000/api/peliculas" ;
-
-        let primsimbolo = page > 0 ? "&" : "?";
-
-        let body = filter.body != "" ? "body="+filter.body : "";
-        
-        let author = filter.author != "" ? "author="+filter.author : "";
-        
-        if (body != "" && author != ""){
-            url = url+primsimbolo+body+"&"+author;
-        }
-
-        else if (author != ""){
-            url = url+primsimbolo+author;
-        }
-
-        else if (body != "" ){
-            url = url+primsimbolo+body;
-        }
+        let url = "http://127.0.0.1:8000/api/peliculas" ;
 
         const data = await fetch(url, headers);
         const resposta = await data.json();
 
         if(resposta.success == true) {
-            if (page > 0) {
-                dispatch(setPeliculas(resposta.data));
-                console.log(resposta.data);
-            } else {
-                dispatch(setPeliculas(resposta.data));
-            }
+            
+            dispatch(setPeliculas(resposta.data));
+            console.log(resposta.data);
+            
         }else {
             setError(resposta.message);
         }

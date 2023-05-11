@@ -9,7 +9,7 @@ export const Play = () => {
   return (
     <>
       <div className="video-player">
-        <Link to="/"><div className="exit"><BiArrowBack/></div></Link>
+        <Link to="/home"><div className="exit"><BiArrowBack/></div></Link>
         <video autoPlay controls ref={videoRef}>
           <source src={ositoGominola} type="video/mp4" />
         </video>
