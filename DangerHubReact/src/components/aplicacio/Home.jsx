@@ -1,5 +1,4 @@
 import React, { useEffect} from 'react';
-import ositoGominola from '/videos/ositoGominola.mp4';
 import { BsPlay } from 'react-icons/bs';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
@@ -21,6 +20,7 @@ export const Home = (v) => {
 
   const randomIndex = Math.floor(Math.random() * peliculas.length);
   const peli_random = peliculas[randomIndex];
+  
 
   useEffect(() => {
     const container1 = document.querySelector('.carousel-container');
@@ -61,6 +61,8 @@ export const Home = (v) => {
 
     dispatch(getPeliculas(authToken));
     console.log(peliculas)
+    console.log(peli_random)
+
   }, []);
 
   return (
@@ -69,23 +71,23 @@ export const Home = (v) => {
           {peli_random && (
             <div className="video-container">
               <video autoPlay muted>
-                <source src={peli_random.url_video} type="video/mp4"/>  
+                <source src={peli_random.url_video} type="video/mp4"/>
               </video>
               <div className="video_home_fade"></div>
             </div>
           )}
           <div className="content-box">
-            {peli_random && (
+            {peli_random && peli_random.id && (
               <>
                 <h1>{peli_random.titulo}</h1>
                 <p>{peli_random.descripcion}</p>
+
+              <div className="buttons">
+                <Link to={"/play/"+peli_random.id}><div className="button-play"><BsPlay/>Play</div></Link>
+                <Link to={"/info/"+peli_random.id}><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
+              </div>
               </>
             )}
-            <div className="buttons">
-              <Link to={"/play/"+v.id}><div className="button-play"><BsPlay/>Play</div></Link>
-              <Link to={"/info/"+v.id}><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
-            </div>
-          
             {/* Carrusel de contenido */}
             <section className="content-carousel">
                 <p>Mi Lista</p>
@@ -194,16 +196,8 @@ export const Home = (v) => {
               <div className="carousel-container3">
 
               {isLoading ?  
-                <div className="content-card">
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-                </div> 
-                  
+                  <video autoPlay muted loop src={loading} style={{width: "100%", height:"200px"}}></video>
+               
                 : <>{peliculas.map((v) => {
                 return (
                   <>

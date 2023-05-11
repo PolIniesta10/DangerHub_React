@@ -834,6 +834,61 @@ h2 {
 ##################################################### */
 
 /* #####################################################
+					CONTENIDOS ADD
+##################################################### */
+
+.perfilesAdd-perfil-inputs-box fieldset{
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	color:rgba(225, 225, 225, 0.61);
+	font-size: 100%;
+	font-weight: bold;
+	font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	padding: 0;
+	border: 3px solid #5d5c5c;
+}
+
+.perfilesAdd-perfil-inputs-box fieldset div:first-of-type {
+	display: flex;
+	align-items: flex-start;
+	margin-bottom: 5px;
+}
+
+.perfilesAdd-perfil-inputs-box fieldset label {
+	margin-right: 15px;
+	line-height: 32px;
+}
+
+.perfilesAdd-perfil-inputs-box fieldset input {
+	appearance: none;
+	border-radius: 50%;
+	width: 16px;
+	height: 16px;
+	border: 2px solid #999;
+	transition: 0.2s all linear;
+	margin-right: 5px;
+	position: relative;
+	top: 5px;
+}
+
+.contentAdd-perfil-input{
+	margin: 10px 200px 10px 0;
+	justify-content: space-around;
+
+}
+
+.perfilesAdd-perfil-inputs-box fieldset div input:checked {
+	border: 6px solid black;
+}
+
+
+
+/* #####################################################
+					END CONTENIDOS ADD
+##################################################### */
+
+/* #####################################################
 						HOME
 ##################################################### */
 

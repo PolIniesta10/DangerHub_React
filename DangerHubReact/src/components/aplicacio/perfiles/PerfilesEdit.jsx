@@ -75,15 +75,14 @@ export const PerfilesEdit = () => {
                       <div className="perfilesAdd-perfil-inputs-box">
 
                         {perfil &&
+                          <>
                             <div className="perfilesAdd-perfil-input">
                                 <input onChange={handleChange} onBlur={handleUrlChange} type="url" name="url_avatar" value= { formulari.url_avatar } placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar" />
                             </div>
-                        }
-                        
-                        {perfil &&
                             <div className="perfilesAdd-perfil-input">
-                                <input onChange={ handleChange}type="text" name="nombre" value= { formulari.nombre } placeholder='Profile name' id="nombre"  minLength="2" maxLength="20" required/>
+                                <input onChange={ handleChange} type="text" name="nombre" value= { formulari.nombre } placeholder='Profile name' id="nombre"  minLength="2" maxLength="20" required/>
                             </div>
+                          </>
                         }
 
                       </div>
@@ -94,7 +93,7 @@ export const PerfilesEdit = () => {
             
             <div className="perfilesAdd-perfil-config">
               { error ? (<div className="flex w-full items-center space-x-2 rounded-2xl bg-red-50 mb-4 px-4 ring-2 ring-red-200 ">{error}</div>) : (<></>)  }
-              <Link to="/home"><button  onClick={(e) => dispatch( editPerfil(formulari, authToken, perfil)) } type="submit" className="perfilesAdd-perfil-config-button confirm-button">Continuar</button></Link>
+              <button  onClick={(e) => dispatch( editPerfil(formulari, authToken, perfil)) } type="submit" className="perfilesAdd-perfil-config-button confirm-button">Continuar</button>
               <Link to="/administrarPerfiles"><button type="submit" className="perfilesAdd-perfil-config-button">Cancelar</button></Link>
               <Link to="/administrarPerfiles"><button onClick={(e) => dispatch( delPerfil(perfil, authToken)) } type="submit" className="perfilesAdd-perfil-config-button">Eliminar perfil</button></Link>
             </div>

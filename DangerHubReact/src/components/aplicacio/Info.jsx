@@ -22,6 +22,7 @@ export const Info = (v) => {
   let [ contenidos,setContenidos ] = useState({});
   const [descriptionVisible, setDescriptionVisible] = useState(true);
   let { authToken,setAuthToken } = useContext(UserContext);
+  const dispatch = useDispatch();
 
   const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
 
@@ -37,7 +38,7 @@ export const Info = (v) => {
         method: "GET",
       })
       const resposta = await data.json();
-      if (resposta.success === true) {
+      if (resposta.success === true && resposta.data) {
         console.log(resposta);
         setContenidos(resposta.data);
       }
@@ -70,6 +71,7 @@ export const Info = (v) => {
 
     setDescriptionVisible(true);
     obtContenidos();
+    dispatch(getPeliculas(authToken));
   }, []);
   
 
@@ -90,14 +92,9 @@ export const Info = (v) => {
     setDescriptionVisible(tabName === "description");
   }
 
-  const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getPeliculas(authToken));
-    }, [])
-
   return (
     <>
-      <div className="video-container"style={{width: "100%"}}>
+      <div className="video-container" style={{width: "100%"}}>
         <video autoPlay muted loop>
           <source src={fondoojosrojos} type="video/mp4" />
         </video>
