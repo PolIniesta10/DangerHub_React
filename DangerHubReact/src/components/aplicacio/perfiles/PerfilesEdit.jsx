@@ -1,6 +1,7 @@
 import React from 'react'
 import mainLogo from'/imagenes/DANGERHubLOGO.png';
 import DHUB from'/imagenes/DHUB.png';
+import loading from'/videos/loading.mp4';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react'
@@ -16,7 +17,7 @@ export const PerfilesEdit = () => {
   const { perfil, page=0, error="", isLoading=true } = useSelector((state) => state.perfiles);
   const dispatch = useDispatch();
   const { id } = useParams();
-  
+
   let [ formulari, setFormulari] = useState({
     nombre: '',
     url_avatar: '',
@@ -65,26 +66,30 @@ export const PerfilesEdit = () => {
             </div>
 
             <div className="perfilesAdd-perfil-users">
-                <form action="">
-                    <div className="perfilesAdd-perfil-foto">
-                      <img key={formulari.url_avatar} className="perfiles-perfil-img" src={formulari.url_avatar ? formulari.url_avatar : DHUB} alt=""/>
-                    </div>
-                    <div className="perfilesAdd-perfil-inputs-box">
+              {isLoading ? <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video> : 
+                <>
+                  <form action="">
+                      <div className="perfilesAdd-perfil-foto">
+                        <img key={formulari.url_avatar} className="perfiles-perfil-img" src={formulari.url_avatar ? formulari.url_avatar : DHUB} alt=""/>
+                      </div>
+                      <div className="perfilesAdd-perfil-inputs-box">
 
-                      {perfil &&
-                          <div className="perfilesAdd-perfil-input">
-                              <input onChange={handleChange} onBlur={handleUrlChange} type="url" name="url_avatar" value= { formulari.url_avatar } placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar" />
-                          </div>
-                      }
-                      
-                      {perfil &&
-                          <div className="perfilesAdd-perfil-input">
-                              <input onChange={ handleChange}type="text" name="nombre" value= { formulari.nombre } placeholder='Profile name' id="nombre"  minLength="2" maxLength="20" required/>
-                          </div>
-                      }
+                        {perfil &&
+                            <div className="perfilesAdd-perfil-input">
+                                <input onChange={handleChange} onBlur={handleUrlChange} type="url" name="url_avatar" value= { formulari.url_avatar } placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar" />
+                            </div>
+                        }
+                        
+                        {perfil &&
+                            <div className="perfilesAdd-perfil-input">
+                                <input onChange={ handleChange}type="text" name="nombre" value= { formulari.nombre } placeholder='Profile name' id="nombre"  minLength="2" maxLength="20" required/>
+                            </div>
+                        }
 
-                    </div>
-                </form>
+                      </div>
+                  </form>
+                </>
+              }
             </div>
             
             <div className="perfilesAdd-perfil-config">

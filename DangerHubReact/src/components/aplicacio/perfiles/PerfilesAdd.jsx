@@ -2,29 +2,32 @@ import React from 'react'
 import mainLogo from'/imagenes/DANGERHubLOGO.png';
 import DHUB from'/imagenes/DHUB.png';
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../../../userContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { addPerfil } from '../../../slices/perfiles/thunks';
 import { useForm } from "react-hook-form";
 
 export const PerfilesAdd = () => {
 
-    const { register, handleSubmit,formState: { errors }, setValue} = useForm();
-    let navigate = useNavigate();
-    const dispatch = useDispatch();
-    const { usuari, email, setUsuari, authToken, setAuthToken } = useContext(UserContext);
+  const { register, handleSubmit,formState: { errors }, setValue} = useForm();
+  const { usuari, email, setUsuari, authToken, setAuthToken } = useContext(UserContext);
 
-    const afegir = (data) => {
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
 
-      const data2 = { ...data, nombre: data.nombre, url_avatar: data.url_avatar}
-      console.log(data2);
-      dispatch(addPerfil(data2, authToken));
-  
-      navigate("/administrarPerfiles");
-        
-    }
+  const [imagenUrl, setImagenUrl] = useState(DHUB);
+
+  const afegir = (data) => {
+
+    const data2 = { ...data, nombre: data.nombre, url_avatar: data.url_avatar}
+    console.log(data2);
+    dispatch(addPerfil(data2, authToken));
+
+    navigate("/administrarPerfiles"); 
+  }
+
   return (
     <>
     <div className="perfiles-container">
@@ -41,11 +44,11 @@ export const PerfilesAdd = () => {
             <div className="perfilesAdd-perfil-users">
                 <form action="">
                     <div className="perfilesAdd-perfil-foto">
-                        <img className="perfiles-perfil-img" src={DHUB} alt=""/>
+                    <img className="perfiles-perfil-img" src={imagenUrl} alt=""  />
                     </div>
                     <div className="perfilesAdd-perfil-inputs-box">
                         <div className="perfilesAdd-perfil-input">
-                            <input type="url" name="url_avatar" {...register("url_avatar", {required: "Aquest camp és obligatori",})} 
+                            <input onChange={(event) => {  setValue("url_avatar", event.target.value); setImagenUrl(event.target.value);}} type="url" name="url_avatar" {...register("url_avatar", {required: "Aquest camp és obligatori",})} 
                             placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar"/>
                         </div>
                         <div className="perfilesAdd-perfil-input">

@@ -141,7 +141,15 @@ export const Info = (v) => {
             <div className="carousel-arrow right-info"><BsFillArrowRightCircleFill/></div>
 
             <div className="films">
-              {isLoading ?  <div className="film"><video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video></div> : <>{peliculas.map((v) => {
+              {isLoading ?  
+              
+                <div className="film">
+                  <video autoPlay muted loop src={loading} style={{width: "100%", height: "100%"}}></video>
+                  <video autoPlay muted loop src={loading} style={{width: "100%", height: "100%"}}></video>
+                  <video autoPlay muted loop src={loading} style={{width: "100%", height: "100%"}}></video>
+                </div> 
+
+              : <>{peliculas.map((v) => {
                 return (
                   <>
                     <InfoGrid key={v.id} v={v}  {...v}/>

@@ -193,7 +193,18 @@ export const Home = (v) => {
                 <div className="carousel-arrow3 right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container3">
 
-              {isLoading ?  <div className="content-card"><video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video></div> : <>{peliculas.map((v) => {
+              {isLoading ?  
+                <div className="content-card">
+                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
+                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
+                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
+                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
+                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
+                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
+                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
+                </div> 
+                  
+                : <>{peliculas.map((v) => {
                 return (
                   <>
                     <RecomendedGrid key={v.id} v={v}  {...v}/>
