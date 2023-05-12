@@ -21,8 +21,8 @@ export const Home = (v) => {
 
   const randomIndex = Math.floor(Math.random() * peliculas.length);
   const peli_random = peliculas[randomIndex];
+  const videoId = peli_random && peli_random.url_video && peli_random.url_video.split('embed/')[1];
   
-
   useEffect(() => {
     const container1 = document.querySelector('.carousel-container');
     const leftArrow1 = document.querySelector('.carousel-arrow.left');
@@ -60,8 +60,6 @@ export const Home = (v) => {
       container3.scrollBy({ left: 1000, behavior: 'smooth' });
     });
 
-    
-    
   }, []);
 
   useEffect(() => {
@@ -69,8 +67,6 @@ export const Home = (v) => {
     console.log(peliculas);
     
   }, []);
-  
- 
 
   return (
     <>
