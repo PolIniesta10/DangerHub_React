@@ -476,21 +476,22 @@ h2 {
 	padding: 0;
 }
 
-.sidebar-navigation a, .sidebar-navigation #icon1, .sidebar-navigation #icon6 {
-	margin-bottom: 40px;	
+.sidebar-navigation li{
+	height: 80px;
 }
 
-.sidebar-navigation li {
+.sidebar-navigation #icon1, .sidebar-navigation #icon7, .sidebar-navigation li, .sidebar-navigation li a{
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	color: #fff;
 	text-decoration: none;
 	font-size: 25px;
-	height: 50px;
+	padding: 0;
+	margin: 0;
 }
 
-.sidebar-navigation li:hover, .sidebar-logout:hover {
+.sidebar-navigation li:hover a, .sidebar-logout:hover {
 	color: #e50914;
 	cursor: pointer;
 }
@@ -543,7 +544,7 @@ h2 {
 .perfiles-header-logo{
 	width: 10%;
     height: 10%;
-	margin-left: 2%;
+	margin-left: 8%;
 }
 
 .perfiles-content{
@@ -837,6 +838,7 @@ h2 {
 					CONTENIDOS ADD
 ##################################################### */
 
+
 .perfilesAdd-perfil-inputs-box fieldset{
 	display: flex;
 	align-items: center;
@@ -849,18 +851,18 @@ h2 {
 	border: 3px solid #5d5c5c;
 }
 
-.perfilesAdd-perfil-inputs-box fieldset div:first-of-type {
+.perfilesAdd-perfil-inputs-box > fieldset div:first-of-type {
 	display: flex;
 	align-items: flex-start;
 	margin-bottom: 5px;
 }
 
-.perfilesAdd-perfil-inputs-box fieldset label {
+.perfilesAdd-perfil-inputs-box > fieldset label {
 	margin-right: 15px;
 	line-height: 32px;
 }
 
-.perfilesAdd-perfil-inputs-box fieldset input {
+.perfilesAdd-perfil-inputs-box > fieldset input {
 	appearance: none;
 	border-radius: 50%;
 	width: 16px;
@@ -872,18 +874,63 @@ h2 {
 	top: 5px;
 }
 
+.perfilesAdd-perfil-inputs-box > fieldset div input:checked {
+	border: 6px solid black;
+}
+
 .contentAdd-perfil-input{
-	margin: 10px 200px 10px 0;
+	margin: 10px 0px 10px 0;
 	justify-content: space-around;
 
 }
 
-.perfilesAdd-perfil-inputs-box fieldset div input:checked {
-	border: 6px solid black;
+.contentAdd-perfil-input > input{
+	display: flex;
+    justify-content: center;
+	width: 100%;
+	font-size: 100%;
+	font-weight: bold;
+	color: rgba(225, 225, 225, 0.61);
+	background-color: #5d5c5c00;
+	padding: 10px 20px 10px 20px;
+	border: 3px solid #5d5c5c;
 }
 
+.contentAdd-perfil-input textarea{
+	width: 100%;
+	height: 150px;
+	font-size: 100%;
+	font-weight: bold;
+	color: rgba(225, 225, 225, 0.61);
+	background-color: #5d5c5c00;
+	padding: 10px 20px 10px 20px;
+	border: 3px solid #5d5c5c;
+	font-family: "Inter var",ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	resize: none;
+}
 
+.contentAdd-perfil-time-box{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+}
 
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator{
+	background-image: url('imagenes/calendar.png');
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+  background-image: url('imagenes/clock.png');
+}
 /* #####################################################
 					END CONTENIDOS ADD
 ##################################################### */
@@ -920,13 +967,25 @@ h2 {
 }
 
 .video_home_fade {
-	background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
 	position: absolute;
 	top: 0;
-	left: 0;
 	width: 100%;
 	height: 100%;
 	z-index: 1;
+}
+
+.top_fade {
+	background: linear-gradient(180deg, rgba(0,0,0,1) 5%, rgba(255,255,255,0) 30%);
+}
+
+.left_fade {
+	background: linear-gradient(360deg, rgba(0,0,0,1) 0%, rgba(255,255,255,0) 100%);
+	left: 0;
+}
+
+.right_fade {
+	background: linear-gradient(270deg, rgba(0,0,0,1) 5%, rgba(255,255,255,0) 50%);
+	right: 0;
 }
 
 .content-box {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext} from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { FiSearch } from 'react-icons/fi';
 import { RiHome2Line } from 'react-icons/ri';
 import { RiFileListLine } from 'react-icons/ri';
@@ -17,6 +17,15 @@ export const Sidebar =  () => {
   const { perfiles, error="", isLoading=true } = useSelector((state) => state.perfiles);
   const selectedPerfilId = useSelector(state => state.perfiles.selectedPerfilId);
   const perfilActual = perfiles.find((perfil) => perfil.id === selectedPerfilId);
+
+  const location = useLocation();
+  const [activeLink, setActiveLink] = useState('');
+
+  useEffect(() => {
+    const pathname = location.pathname;
+    setActiveLink(pathname);
+  }, [location]);
+  
   const obtUser = async () => {
     try{
         const data = await fetch("http://127.0.0.1:8000/api/user", {
@@ -80,27 +89,7 @@ export const Sidebar =  () => {
     .catch((data) => {
         
     })
-
-
-}
-  useEffect(() => {
-    // seleccionar todos los elementos <a> del sidebar
-    var sidebarIcons = document.querySelectorAll('.sidebar-navigation ul li');
-
-    // agregar un evento click a cada elemento <a>
-    sidebarIcons.forEach(function(icon) {
-      icon.addEventListener('click', function(event) {
-        event.preventDefault(); // evitar que se siga el enlace
-        // eliminar la clase .active de todos los elementos <a>
-        sidebarIcons.forEach(function(icon) {
-          icon.classList.remove('active');
-        });
-        // agregar la clase .active al elemento <a> que se ha hecho clic
-        this.classList.add('active');
-      });
-    });
-    
-  }, []);
+  }
 
   return (
     <div className="sidebar">
@@ -111,17 +100,29 @@ export const Sidebar =  () => {
       <nav className="sidebar-navigation">
         <ul>
           <li id="icon1"><FiSearch/></li>
-          <Link to="/home"><li id="icon2"><RiHome2Line/></li></Link>
-          <Link to="/Milista"><li id="icon3"><RiFileListLine/></li></Link>
-          <Link to="/MisDescargas"><li id="icon4"><BiCloudDownload/></li></Link>
-          <Link to="/MiCuenta"><li id="icon5"><MdOutlineManageAccounts/></li></Link>
-          <Link to="/SubirContenido"><li id="icon5"><BsPlusCircle/></li></Link>
+
+          <li id="icon2" className={activeLink === '/home' ? 'active' : ''}>
+            <Link to="/home"><RiHome2Line/></Link>
+          </li>
+          <li id="icon3" className={activeLink === '/Milista' ? 'active' : ''}>
+            <Link to="/Milista"><RiFileListLine/></Link>
+          </li>
+          <li id="icon4" className={activeLink === '/MisDescargas' ? 'active' : ''}>
+            <Link to="/MisDescargas"><BiCloudDownload/></Link>
+          </li>
+          <li id="icon5" className={activeLink === '/MiCuenta' ? 'active' : ''}>
+            <Link to="/MiCuenta"><MdOutlineManageAccounts/></Link>
+          </li>
+          <li id="icon6" className={activeLink === '/SubirContenido' ? 'active' : ''}>
+            <Link to="/SubirContenido"><BsPlusCircle/></Link>
+          </li>
+
         </ul>
       </nav>
 
       <nav className="sidebar-navigation sidebar-logout">
         <ul>
-          <li id="icon6"><FiLogOut onClick={logOut}/></li>
+          <li id="icon7"><FiLogOut onClick={logOut}/></li>
         </ul>
       </nav>
     </div>

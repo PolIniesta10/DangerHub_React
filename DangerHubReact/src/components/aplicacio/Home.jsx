@@ -77,12 +77,14 @@ export const Home = (v) => {
         <div className="container">
           {peli_random && (
             <div className="video-container">
+               <div className="video_home_fade top_fade"></div>
                 {peli_random && (
                   <>
-                    <iframe width="100%" height="100%" src={peli_random.url_video + "?autoplay=1&amp;mute=1&amp;controls=0"} frameborder="0" allow="accelerometer; autoplay; mute;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe width="100%" height="100%" src={peli_random.url_video + "?autoplay=1&amp;mute=1&amp;loop=1&ampcontrols=0"} frameBorder="0" allow="accelerometer; autoplay; mute;loop;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                   </>
                 )}
-              <div className="video_home_fade"></div>
+              <div className="video_home_fade left_fade"></div>
+              <div className="video_home_fade right_fade"></div>
             </div>
           )}
           <div className="content-box">

@@ -59,13 +59,13 @@ export const PerfilesAdd = () => {
                     <div className="perfilesAdd-perfil-inputs-box">
                         
                         <div className="perfilesAdd-perfil-input">
-                            <input type="url" name="url_avatar" {...register("url_avatar", {required: "Aquest camp és obligatori",})} 
+                            <input type="url" name="url_avatar" {...register("url_avatar", {required: "Este campo és obligatorio",})} 
                             placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar" onChange={handleUrlAvatarChange} value={urlAvatar} />
                         </div>
                         
                         <div className="perfilesAdd-perfil-input">
-                            <input type="text" name="nombre" {...register("nombre", {required: "Aquest camp és obligatori",})} 
-                            placeholder='Profile name' id="nombre" minLength="2" maxLength="20"/>
+                            <input type="text" name="nombre" {...register("nombre", {required: "Este campo és obligatorio",})} 
+                            placeholder='Nombre del perfil' id="nombre" minLength="2" maxLength="20"/>
                         </div>
                     </div>
                 </form>
