@@ -21,8 +21,8 @@ export const Home = (v) => {
 
   const randomIndex = Math.floor(Math.random() * peliculas.length);
   const peli_random = peliculas[randomIndex];
+  const videoId = peli_random && peli_random.url_video && peli_random.url_video.split('embed/')[1];
   
-
   useEffect(() => {
     const container1 = document.querySelector('.carousel-container');
     const leftArrow1 = document.querySelector('.carousel-arrow.left');
@@ -60,8 +60,6 @@ export const Home = (v) => {
       container3.scrollBy({ left: 1000, behavior: 'smooth' });
     });
 
-    
-    
   }, []);
 
   useEffect(() => {
@@ -69,8 +67,6 @@ export const Home = (v) => {
     console.log(peliculas);
     
   }, []);
-  
- 
 
   return (
     <>
@@ -80,7 +76,7 @@ export const Home = (v) => {
                <div className="video_home_fade top_fade"></div>
                 {peli_random && (
                   <>
-                    <iframe width="100%" height="100%" src={peli_random.url_video + "?autoplay=1&amp;mute=1&amp;loop=1&ampcontrols=0"} frameBorder="0" allow="accelerometer; autoplay; mute;loop;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+                    <iframe width="100%" height="100%" src={`${peli_random.url_video}?autoplay=1&mute=1&controls=0&playlist=${videoId}`} frameBorder="0" allow="accelerometer; autoplay; mute;loop;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                   </>
                 )}
               <div className="video_home_fade left_fade"></div>

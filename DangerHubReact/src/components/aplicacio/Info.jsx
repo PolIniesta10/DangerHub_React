@@ -121,8 +121,7 @@ export const Info = (v) => {
             <div className="tablink" onClick={(e) => openTab(e, 'opciones')}>MÁS OPCIONES</div> 
           </div> 
           <div id="description" className="tabcontent description" style={{display: descriptionVisible ? "flex" : "none"}}>{v.descripcion}</div>
-          <div id="opciones" className="tabcontent opciones" style={{display: descriptionVisible ? "none" : "flex", width: "250px"}}>
-            <div><BsPlay/></div>
+          <div id="opciones" className="tabcontent opciones" style={{display: descriptionVisible ? "none" : "flex", width: "150px"}}>
             <div><MdBookmarkAdd/></div>
             <div><AiOutlineCloudDownload/></div>
           </div>

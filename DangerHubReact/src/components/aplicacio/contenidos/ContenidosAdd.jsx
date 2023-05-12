@@ -48,14 +48,14 @@ export const ContenidosAdd = () => {
                             <legend>Select a maintenance drone:</legend>    
 
                             <div>
-                                <input type="radio" id="Pelicula" name="Pelicula" value="1" checked/>
+                                <input type="radio" id="Pelicula" name="Contenido" value="1" checked/>
                                 <label htmlFor="Pelicula">Pelicula</label>
                             
-                                <input type="radio" id="Serie" name="Serie" value="2"/>
+                                <input type="radio" id="Serie" name="Contenido" value="2"/>
                                 <label htmlFor="Serie">Serie</label>
                             
-                                <input type="radio" id="Contenido" name="Contenido" value="3"/>
-                                <label htmlFor="Contenido">Contenido</label>
+                                <input type="radio" id="Documental" name="Contenido" value="3"/>
+                                <label htmlFor="Documental">Documental</label>
                             </div>
                         </fieldset>
                         

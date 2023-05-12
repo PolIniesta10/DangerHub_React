@@ -10,6 +10,7 @@ import { AdministrarPerfiles } from './components/aplicacio/perfiles/Administrar
 import { About } from './components/aplicacio/About'
 import { Header } from './components/layout/Header'
 import { Home } from './components/aplicacio/Home'
+import { Welcome } from './components/aplicacio/Welcome'
 import { Play } from './components/aplicacio/Play'
 import { NotFound } from './components/aplicacio/NotFound'
 import { Sidebar } from './components/layout/Sidebar'
@@ -42,6 +43,7 @@ function App() {
             <Route path="/play/:id" element={<Play />} />
             <Route path="/info/:id" element={<Info />} />
             <Route path="/SubirContenido" element={<><Sidebar/><ContenidosAdd /></>} />
+            <Route path="/Welcome" element={<><Welcome /></>} />
            
         </Routes>
 

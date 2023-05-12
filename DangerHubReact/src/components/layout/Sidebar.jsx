@@ -104,8 +104,8 @@ export const Sidebar =  () => {
           <li id="icon2" className={activeLink === '/home' ? 'active' : ''}>
             <Link to="/home"><RiHome2Line/></Link>
           </li>
-          <li id="icon3" className={activeLink === '/Milista' ? 'active' : ''}>
-            <Link to="/Milista"><RiFileListLine/></Link>
+          <li id="icon3" className={activeLink === '/MiLista' ? 'active' : ''}>
+            <Link to="/MiLista"><RiFileListLine/></Link>
           </li>
           <li id="icon4" className={activeLink === '/MisDescargas' ? 'active' : ''}>
             <Link to="/MisDescargas"><BiCloudDownload/></Link>
