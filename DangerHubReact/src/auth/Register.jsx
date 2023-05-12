@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useContext } from 'react';
 import { UserContext } from '../userContext';
+import { useNavigate } from 'react-router-dom';
 
 import { useForm } from "react-hook-form"; 
 import { useLogin } from '../hooks/useLogin';
@@ -9,7 +10,7 @@ export const Register = ({ setLogin }) => {
 
     let [ error, setError2] = useState("");
     let { usuari, setUsuari, authToken, setAuthToken } = useContext(UserContext);
-
+    const navigate = useNavigate();
     const { checkAuthToken } = useLogin(); 
 
   const onSubmit = data => handleRegister(data);
@@ -20,6 +21,7 @@ export const Register = ({ setLogin }) => {
         let email = data.email;
         let password = data.password;
         let password2 = data.password2;
+        let id_suscripcion = data.id_suscripcion;
 
         if (password !== password2)
         {
@@ -32,7 +34,7 @@ export const Register = ({ setLogin }) => {
             "Content-Type": "application/json"
             },
             method: "POST",
-            body: JSON.stringify({ name: name, email: email, password: password})
+            body: JSON.stringify({ name: name, email: email, password: password, id_suscripcion: id_suscripcion})
 
         })
         .then((data) => data.json())
@@ -52,8 +54,7 @@ export const Register = ({ setLogin }) => {
             alert("Catchch");
           });
 
-        alert("He enviat les Dades:  " + email + "/" + password);
-
+        navigate('/');
     }
     
   return (
@@ -72,11 +73,6 @@ export const Register = ({ setLogin }) => {
                         value: 4,
                         message: "El nom ha de contenir minim 4 caràcters"
                         },
-                        pattern: {
-                        value: /^[a-zA-Z]+\s[a-zA-Z]+$/,
-                        message:
-                            "Has de escriure nom, espai, cognom"
-                        }
 
                         })} 
                         type="text"  placeholder="Name" 
@@ -90,12 +86,6 @@ export const Register = ({ setLogin }) => {
                     <input 
                         {...register("email", {
                             required: "Aquest camp és obligatori",
-                            pattern: {
-                              value: /^[a-zA-Z0-9._%+-]+@insjoaquimmir\.cat$/,
-                              message:
-                                "El correu ha de ser de la organització insjoaquimmir.cat"
-                            }
-                
                         })} 
 
                         type="text" placeholder="Email" 

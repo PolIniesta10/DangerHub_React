@@ -1153,11 +1153,21 @@ text-align: center;
 ##################################################### */
 
 .video-player{
-	height: 1000px;
-}
-.video-player video{
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
+	overflow: hidden;
+	height: 935px;
+}
+.video-player iframe{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 95%;
 	height: 100%;
+	object-fit: cover;
+	z-index: 1
 }
 
 .exit{
@@ -1203,7 +1213,7 @@ text-align: center;
 
 .container-info{
 	display: flex;
-	height: 100%;
+	height: 935px;
 	width: 100%;
 	background-color: rgb(32, 32, 32);
 }

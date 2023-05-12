@@ -11,25 +11,27 @@ import { AiOutlineCloudDownload } from 'react-icons/ai';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
-import { Link } from "react-router-dom";
-import fondoojosrojos from '/videos/fondoojosrojos.mp4';
+import { Link, useParams } from "react-router-dom";
+import fondoparticulas from '/videos/fondoparticulas.mp4';
 import peliculasSlice from '../../slices/peliculas/peliculasSlice';
 import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 
 
-export const Info = (v) => {
+export const Info = () => {
   
-  let [ contenidos,setContenidos ] = useState({});
+  let [ contenido,setContenido ] = useState({});
+  let [ lista_reproduccion, setLista_reproduccion] = useState([]);
   const [descriptionVisible, setDescriptionVisible] = useState(true);
   let { authToken,setAuthToken } = useContext(UserContext);
   const dispatch = useDispatch();
-
+  const {id} = useParams();
   const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
 
-  const obtContenidos = async (authToken) => {
+  const obtContenido = async (id, authToken) => {
     let data = null;
+    console.log(id);
     try {
-      data = await fetch("http://127.0.0.1:8000/api/contenidos", {
+      data = await fetch("http://127.0.0.1:8000/api/peliculas/" + id, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -40,7 +42,7 @@ export const Info = (v) => {
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
         console.log(resposta);
-        setContenidos(resposta.data);
+        setContenido(resposta.data);
       }
       else {
         console.log("error");
@@ -52,7 +54,34 @@ export const Info = (v) => {
       data = {};
     }
   };
-
+  const obtLista = async (authToken) => {
+    let data = null;
+    try {
+      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer '  + authToken
+        },
+        method: "GET",
+      })
+      const resposta = await data.json();
+      if (resposta.success === true && resposta.data) {
+        console.log(resposta);
+        setLista_reproduccion(resposta.data);
+        console.log(resposta.data);
+      }
+      else {
+        console.log("error");
+      }
+    }
+    catch (error) {
+      console.log(error);
+      alert("Catch");
+      data = {};
+    }
+  };
+  
   useEffect(() => {
 
     const container1 = document.querySelector('.films');
@@ -70,10 +99,42 @@ export const Info = (v) => {
     document.getElementById("description").style.display = "block";
 
     setDescriptionVisible(true);
-    obtContenidos();
     dispatch(getPeliculas(authToken));
+    obtContenido(id, authToken);
+    
   }, []);
-  
+  useEffect(() => {
+    obtLista(authToken);
+    console.log(lista_reproduccion);      
+  }, []) 
+
+  const guardarContenido = async (id, id_lista) => {
+    let data = null;
+    console.log(id);
+    console.log(id_lista);
+    try {
+      data = await fetch("http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer '  + authToken
+        },
+        method: "POST",
+      })
+      const resposta = await data.json();
+      if (resposta.success === true && resposta.data) {
+        console.log(resposta);
+      }
+      else {
+        console.log("error");
+      }
+    }
+    catch (error) {
+      console.log(error);
+      alert("Catch");
+      data = {};
+    }
+  };
 
   // Switch between tabs when a tab button is clicked
   function openTab(evt, tabName) {
@@ -96,22 +157,22 @@ export const Info = (v) => {
     <>
       <div className="video-container" style={{width: "100%"}}>
         <video autoPlay muted loop>
-          <source src={fondoojosrojos} type="video/mp4" />
+          <source src={fondoparticulas} type="video/mp4" />
         </video>
       </div>
       <div className="container-info">
         <div className="portada-info">
-          <Link to={"/play/"+v.id}><img src={v.url_imagen} draggable="false"/></Link> 
+          <Link to={"/play/"+contenido.id}><img src={contenido.url_imagen} draggable="false"/></Link> 
         </div>
 
         <div className="content-box-info">
           <Link to="/home"><div className="exit"><BiArrowBack/></div></Link>
-          <div className="title-content">{v.titulo}</div>
+          <div className="title-content">{contenido.titulo}</div>
 
           <div className="details">
-            <div>{v.fecha_lanzamiento}</div>
+            <div>{contenido.fecha_lanzamiento}</div>
             <div>|</div>
-            <div>{v.duracion}</div>
+            <div>{contenido.duracion}</div>
             <div>|</div>
             <div>+18</div>
           </div>
@@ -120,10 +181,9 @@ export const Info = (v) => {
             <div className="tablink active" onClick={(e) => openTab(e, 'description')}>GENERAL</div>
             <div className="tablink" onClick={(e) => openTab(e, 'opciones')}>MÁS OPCIONES</div> 
           </div> 
-          <div id="description" className="tabcontent description" style={{display: descriptionVisible ? "flex" : "none"}}>{v.descripcion}</div>
+          <div id="description" className="tabcontent description" style={{display: descriptionVisible ? "flex" : "none"}}>{contenido.descripcion}</div>
           <div id="opciones" className="tabcontent opciones" style={{display: descriptionVisible ? "none" : "flex", width: "250px"}}>
-            <div><BsPlay/></div>
-            <div><MdBookmarkAdd/></div>
+            <div><button onClick={() => guardarContenido(contenido.id, lista_reproduccion[0].id)}><MdBookmarkAdd/></button></div>
             <div><AiOutlineCloudDownload/></div>
           </div>
           
