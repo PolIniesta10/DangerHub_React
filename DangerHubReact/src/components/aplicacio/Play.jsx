@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 import { Link, useParams } from "react-router-dom";
 import { UserContext } from '../../userContext'
-import loading from'/videos/loading.mp4';
+import loading from'/videos/introDangerHub.mp4';
 
 
 export const Play = () => {
@@ -25,7 +25,7 @@ export const Play = () => {
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
         console.log(resposta);
-        setContenido(resposta.data);
+        setContenido(resposta.data.contenido);
       }
       else {
         console.log("error");
@@ -52,10 +52,10 @@ export const Play = () => {
         <Link to="/home"><div className="exit"><BiArrowBack/></div></Link>
         {isLoading ?  
               <div className="loadingPeliculas">
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
+                  <video autoPlay muted loop src={loading}></video>
               </div> : <>
         <div className="video_home_fade top_fade"></div>
-        <iframe src={contenido.url_video + "?autoplay=1&amp;mute=1&amp;loop=1&ampcontrols=0"} frameBorder="0" allow="accelerometer; autoplay; mute;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loop></iframe>
+        <iframe src={contenido.url_video + "?autoplay=1&amp;loop=1&ampcontrols=0"} frameBorder="0" allow="accelerometer; autoplay; mute;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loop></iframe>
         <div className="video_home_fade left_fade"></div>
         <div className="video_home_fade right_fade"></div>
         </>}

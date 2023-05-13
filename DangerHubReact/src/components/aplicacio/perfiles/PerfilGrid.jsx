@@ -6,7 +6,7 @@ import { UserContext } from '../../../userContext';
 import { useDispatch, useSelector } from 'react-redux';
 // import { delPost } from '../slices/posts/thunks';
 import { getPerfil } from '../../../slices/perfiles/thunks'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { setPerfil, setSelectedPerfilId  } from '../../../slices/perfiles/perfilesSlice';
 export const PerfilGrid = ({v, deletePost}) => {
   
@@ -23,8 +23,13 @@ export const PerfilGrid = ({v, deletePost}) => {
   };
 
   useEffect(() => {
+    let perfil = v.id;
     if (perfilCargado) {
-      navigate("/home");
+      console.log(perfil);
+      navigate({
+        pathname: "/home",
+        state: { perfil: perfil }
+      });
     }
   }, [perfilCargado, navigate]);
 
@@ -40,7 +45,7 @@ export const PerfilGrid = ({v, deletePost}) => {
       <>
       <div className="perfiles-perfil-users">
           <div className="perfiles-perfil-foto">
-              <button onClick={() => handleClick(v.id)}><img className="perfiles-perfil-img" src={v.url_avatar} alt=""/></button>
+              <button onClick={() => handleClick(v.id)}><Link to={"/home"}><img className="perfiles-perfil-img" src={v.url_avatar} alt=""/></Link></button>
           </div>
           <div className="perfiles-perfil-name">
               <p>{v.nombre}</p>

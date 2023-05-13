@@ -62,6 +62,7 @@ export const getPerfiles = (authToken) => {
         console.log("Perfil Creat");
         dispatch(getPerfiles(authToken));
     } else {
+        alert('Solo puedes tener como maximo 4 perfiles!');
         setError(resposta.message);
     }
   };

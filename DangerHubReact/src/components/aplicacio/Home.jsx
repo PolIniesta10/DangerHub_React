@@ -1,21 +1,26 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsPlay } from 'react-icons/bs';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from "react-router-dom";
-import loading from'/videos/loadinghorizontal.mp4';
+import loading from'/videos/introDangerHub.mp4';
 import { RecomendedGrid } from './RecomendedGrid';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';
 import { useDispatch, useSelector } from "react-redux";
 import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
+import { useLocation } from 'react-router-dom';
 
-
-export const Home = (v) => {
+export const Home = () => {
 
   let { authToken,setAuthToken } = useContext(UserContext);
-  const { peliculas = [{}], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  
+  const location = useLocation();
+  const perfil = location.state && location.state.perfil;
+
+  console.log(perfil); // Aquí debería imprimir el valor de "perfil" si se ha pasado desde el componente anterior
 
   const dispatch = useDispatch();
 
@@ -59,7 +64,7 @@ export const Home = (v) => {
     rightArrow3.addEventListener('click', () => {
       container3.scrollBy({ left: 1000, behavior: 'smooth' });
     });
-
+    console.log(perfil)
   }, []);
 
   useEffect(() => {
@@ -70,7 +75,16 @@ export const Home = (v) => {
 
   return (
     <>
+    
         <div className="container">
+        {isLoading ?  
+              <div className="loadingPeliculas">
+                  <video autoPlay muted loop src={loading}></video>
+              </div>
+                  
+                
+                  
+                : <>
           {peli_random && (
             <div className="video-container">
                <div className="video_home_fade top_fade"></div>
@@ -91,7 +105,7 @@ export const Home = (v) => {
                 <p>{peli_random.descripcion}</p>
                 <div className="buttons">
                   <Link to={"/play/"+peli_random.id}><div className="button-play"><BsPlay/>Play</div></Link>
-                  <Link to={"/info/"+peli_random.id}><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
+                  <Link to={{ pathname: "/info/" + peli_random.id, perfil}}><div className="button-info" ><AiOutlineInfoCircle/>Más Info</div></Link>
                 </div>
             </>
             )}
@@ -202,26 +216,21 @@ export const Home = (v) => {
                 <div className="carousel-arrow3 right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container3">
 
-              {isLoading ?  
-              <div className="loadingPeliculas">
-                  <video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video>
-              </div>
-                  
-                
-                  
-                : <>{peliculas.map((v) => {
+              {peliculas.map((v) => {
                 return (
                   <>
                     <RecomendedGrid key={v.id} v={v}  {...v}/>
                   </>
                 )
-              })}</>}
+              })}
 
               </div>
             </section>
 
           </div>
+          </>}
         </div>
+        
     </>
   )
 }

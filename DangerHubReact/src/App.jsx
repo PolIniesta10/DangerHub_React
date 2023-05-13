@@ -22,7 +22,7 @@ function App() {
   let [usuari, setUsuari] = useState("");
   let [authToken,setAuthToken] = useState("");
   let [idUsuari, setIdUsuari] = useState("");
-
+  let [ perfil, setPerfil ] = useState("");
   
   return (
   <>
@@ -34,14 +34,14 @@ function App() {
          <Routes>
             <Route path='*' element={<NotFound />} />
             <Route path="/" element={<><Perfiles /></>}/>
-            <Route path="/home" element={<><Header/><Sidebar/><Home /></>}/>
+            <Route path="/home" element={<><Header/><Sidebar/><Home perfil={perfil}/></>}/>
             <Route path="/perfiles" element={<Perfiles/>}/>
             <Route path="/perfiles/edit/:id" element={<PerfilesEdit/>}/>
             <Route path="/perfilesAdd" element={<PerfilesAdd/>}/>
             <Route path="/administrarPerfiles" element={<AdministrarPerfiles />} />
             <Route path="/about" element={<><Header/><Sidebar/><About /></>} />
             <Route path="/play/:id" element={<Play />} />
-            <Route path="/info/:id" element={<Info />} />
+            <Route path="/info/:id" element={<Info perfil={perfil}/>} />
             <Route path="/SubirContenido" element={<><Sidebar/><ContenidosAdd /></>} />
             <Route path="/Welcome" element={<><Welcome /></>} />
            

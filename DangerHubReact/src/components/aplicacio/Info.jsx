@@ -11,22 +11,21 @@ import { AiOutlineCloudDownload } from 'react-icons/ai';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation  } from "react-router-dom";
 import fondoparticulas from '/videos/fondoparticulas.mp4';
 import peliculasSlice from '../../slices/peliculas/peliculasSlice';
 import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 
-
-export const Info = () => {
+export const Info = (perfil) => {
   
   let [ contenido,setContenido ] = useState({});
+  let [ user, setUser ] = useState('');
   let [ lista_reproduccion, setLista_reproduccion] = useState([]);
   const [descriptionVisible, setDescriptionVisible] = useState(true);
   let { authToken,setAuthToken } = useContext(UserContext);
   const dispatch = useDispatch();
   const {id} = useParams();
   const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
-
   const obtContenido = async (id, authToken) => {
     let data = null;
     console.log(id);
@@ -42,7 +41,9 @@ export const Info = () => {
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
         console.log(resposta);
-        setContenido(resposta.data);
+        setContenido(resposta.data.contenido);
+        setUser(resposta.data.user);
+        
       }
       else {
         console.log("error");
@@ -106,6 +107,7 @@ export const Info = () => {
   useEffect(() => {
     obtLista(authToken);
     console.log(lista_reproduccion);      
+    console.log(perfil);
   }, []) 
 
   const guardarContenido = async (id, id_lista) => {
@@ -189,7 +191,7 @@ export const Info = () => {
           
           <div className="specific-info-box">
             <div className="specific-title">Autor:</div>
-            <div className="specific-name">Pol Iniesta González</div>
+            <div className="specific-name">{user} </div>
           </div> 
 
           <div className="related_films">
