@@ -1,4 +1,4 @@
-import { startLoadingPeliculas, setError, setPeliculas, setPelicula, setPages, setFilter } from "./peliculasSlice";
+import { startLoadingPeliculas, setError, setPeliculas, setPeliculasGuardadas, setPelicula, setPages, setFilter } from "./peliculasSlice";
 import { useNavigate } from "react-router-dom";
 
 export const getPeliculas = (authToken) => {
@@ -23,6 +23,35 @@ export const getPeliculas = (authToken) => {
         if(resposta.success == true) {
             
             dispatch(setPeliculas(resposta.data));
+            console.log(resposta.data);
+            
+        }else {
+            setError(resposta.message);
+        }
+    }
+}
+export const getPeliculasGuardadas = (authToken) => {
+    return async (dispatch, getState) => {
+        let filter = getState().peliculas.filter;
+        dispatch(startLoadingPeliculas());
+
+        const headers = {
+
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + authToken,
+            },
+            method: "GET",
+        };
+        let url = "http://127.0.0.1:8000/api/peliculas" ;
+
+        const data = await fetch(url, headers);
+        const resposta = await data.json();
+
+        if(resposta.success == true) {
+            
+            dispatch(setPeliculasGuardadas(resposta.data));
             console.log(resposta.data);
             
         }else {
