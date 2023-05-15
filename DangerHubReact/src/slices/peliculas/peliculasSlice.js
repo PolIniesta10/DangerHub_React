@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     peliculas: [],
+    peliculasGuardadas: [],
     pelicula: {
         id:"",
         titulo: "",
@@ -29,6 +30,10 @@ export const peliculasSlice = createSlice({
 
         setPeliculas: (state, action ) => {
             state.peliculas = action.payload
+            state.isLoading = false
+        },
+        setPeliculasGuardadas: (state, action ) => {
+            state.peliculasGuardadas = action.payload
             state.isLoading = false
         },
 

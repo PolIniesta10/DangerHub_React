@@ -1,11 +1,11 @@
-import { startLoadingPeliculas, setError, setPeliculas, setPelicula, setPages, setFilter } from "./peliculasSlice";
+import { startLoadingGuardados, setGuardados, setGuardado, setError } from "../guardados/guardadosSlice";
 import { useNavigate } from "react-router-dom";
 
-export const getPeliculas = (authToken) => {
+export const getPeliculasGuardadas = (authToken, id_lista) => {
     return async (dispatch, getState) => {
-        let filter = getState().peliculas.filter;
-        dispatch(startLoadingPeliculas());
-
+        let filter = getState().guardados.filter;
+        dispatch(startLoadingGuardados());
+        console.log(id_lista);
         const headers = {
 
             headers: {
@@ -15,14 +15,14 @@ export const getPeliculas = (authToken) => {
             },
             method: "GET",
         };
-        let url = "http://127.0.0.1:8000/api/peliculas" ;
+        let url = "http://127.0.0.1:8000/api/contenidosGuardados/"+ id_lista;
 
         const data = await fetch(url, headers);
         const resposta = await data.json();
 
         if(resposta.success == true) {
             
-            dispatch(setPeliculas(resposta.data));
+            dispatch(setGuardados(resposta.data));
             console.log(resposta.data);
             
         }else {
@@ -31,49 +31,10 @@ export const getPeliculas = (authToken) => {
     }
 }
 
-// export const addPost = (formulari, authToken) => {
-    export const addContenido = (data2, authToken) => {
-    return async (dispatch, getState) => {
-        dispatch(startLoadingPeliculas());
-
-    // let { body, upload, latitude, longitude, visibility } = formulari;
-    let { titulo, descripcion, url_imagen, url_video, duracion, fecha_lanzamiento, id_categoria } = data2;
-    const formData = new FormData();
-        
-    formData.append("titulo", titulo);
-    formData.append("descripcion", descripcion);
-    formData.append("url_imagen", url_imagen);
-    formData.append("url_video", url_video);
-    formData.append("duracion", duracion);
-    formData.append("fecha_lanzamiento", fecha_lanzamiento);
-    formData.append("id_categoria", id_categoria);
-    const headers = {
-
-        headers: {
-            Accept: "application/json",
-            Authorization: "Bearer " + authToken,
-        },
-        method: "POST",
-        body: formData
-    };
-    const url = "http://127.0.0.1:8000/api/contenidos";
-
-    const data = await fetch(url, headers);
-    
-    const resposta = await data.json();
-
-    if (resposta.success == true) {
-        console.log("Contenido Creado");
-    } else {
-        setError(resposta.message);
-    }
-  };
-}
-
-export const getPelicula = (id, authToken) => {
+export const getGuardado = (id, authToken) => {
     return async (dispatch, getState) => {
 
-        dispatch(startLoadingPeliculas());
+        dispatch(startLoadingGuardados());
 
         const headers = {
             headers: {
@@ -83,13 +44,15 @@ export const getPelicula = (id, authToken) => {
             },
             method: "GET",
         };
-        const url = "http://127.0.0.1:8000/api/contenidos/" + id
+        const url = "https://backend.insjoaquimmir.cat/api/posts/" + id
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
 
         if (resposta.success == true) {
-            dispatch(setPelicula(resposta.data));
+            dispatch(setPost(resposta.data));
+            dispatch(setLikes(resposta.data.likes_count));
+            dispatch(testLikes(id, authToken));
 
         } else {
             dispatch(setError(resposta.message));

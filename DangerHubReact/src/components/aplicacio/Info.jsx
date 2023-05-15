@@ -16,18 +16,19 @@ import fondoparticulas from '/videos/fondoparticulas.mp4';
 import peliculasSlice from '../../slices/peliculas/peliculasSlice';
 import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 import { getPerfil } from '../../slices/perfiles/thunks';
-
+import { getPeliculasGuardadas } from '../../slices/guardados/thunks'
 export const Info = (perfil) => {
   
   let [ contenido,setContenido ] = useState({});
   let [ user, setUser ] = useState('');
-  let [ lista_reproduccion, setLista_reproduccion] = useState([]);
+  let [ lista, setLista_reproduccion] = useState({});
   const [descriptionVisible, setDescriptionVisible] = useState(true);
   let { authToken,setAuthToken } = useContext(UserContext);
   const dispatch = useDispatch();
   const {id} = useParams();
   const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
   const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
+  const { guardados = [] } = useSelector((state) => state.guardados);
   const obtContenido = async (id, authToken) => {
     let data = null;
     console.log(id);
@@ -104,18 +105,21 @@ export const Info = (perfil) => {
     setDescriptionVisible(true);
     dispatch(getPeliculas(authToken));
     dispatch(getPerfil(selectedPerfilId, authToken));
+    
+    dispatch(getPeliculasGuardadas(authToken, lista.id))
     obtContenido(id, authToken);
   }, []);
   useEffect(() => {
     obtLista(selectedPerfilId, authToken);
   }, []) 
+  
 
-  const guardarContenido = async (id, id_lista) => {
+  const guardarContenido = async (authToken, id, id_lista, selectedPerfilId) => {
     let data = null;
     console.log(id);
     console.log(id_lista);
     try {
-      data = await fetch("http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista, {
+      data = await fetch("http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -185,7 +189,7 @@ export const Info = (perfil) => {
           </div> 
           <div id="description" className="tabcontent description" style={{display: descriptionVisible ? "flex" : "none"}}>{contenido.descripcion}</div>
           <div id="opciones" className="tabcontent opciones" style={{display: descriptionVisible ? "none" : "flex", width: "250px"}}>
-            <div><button onClick={() => guardarContenido(contenido.id, lista_reproduccion[0].id)}><MdBookmarkAdd/></button></div>
+            <div><button onClick={() => guardarContenido(authToken, contenido.id, lista.id, selectedPerfilId)}><MdBookmarkAdd/></button></div>
             <div><AiOutlineCloudDownload/></div>
           </div>
           

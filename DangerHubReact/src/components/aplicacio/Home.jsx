@@ -6,21 +6,24 @@ import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import loading from'/videos/introDangerHub.mp4';
 import { RecomendedGrid } from './RecomendedGrid';
+import { GuardadosGrid } from './GuardadosGrid';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';
 import { useDispatch, useSelector } from "react-redux";
 import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 import { useLocation } from 'react-router-dom';
+import { getPeliculasGuardadas } from '../../slices/guardados/thunks'
 
 export const Home = () => {
 
   let { authToken,setAuthToken } = useContext(UserContext);
   const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
-  
+  const { guardados = [] } = useSelector((state) => state.guardados);
+  const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const location = useLocation();
   const perfil = location.state && location.state.perfil;
-
-  console.log(perfil); // Aquí debería imprimir el valor de "perfil" si se ha pasado desde el componente anterior
+  let [ lista, setLista_reproduccion] = useState({});
+  console.log(selectedPerfilId); // Aquí debería imprimir el valor de "perfil" si se ha pasado desde el componente anterior
 
   const dispatch = useDispatch();
 
@@ -28,6 +31,35 @@ export const Home = () => {
   const peli_random = peliculas[randomIndex];
   const videoId = peli_random && peli_random.url_video && peli_random.url_video.split('embed/')[1];
   
+  const obtLista = async (selectedPerfilId, authToken) => {
+    let data = null;
+    try {
+      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion/" + selectedPerfilId, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer '  + authToken
+        },
+        method: "GET",
+      })
+      const resposta = await data.json();
+      if (resposta.success === true && resposta.data) {
+        console.log(resposta);
+        setLista_reproduccion(resposta.data);
+        console.log(resposta.data);
+        
+      }
+      else {
+        console.log("error");
+      }
+    }
+    catch (error) {
+      console.log(error);
+      alert("Catch");
+      data = {};
+    }
+  };
+
   useEffect(() => {
     const container1 = document.querySelector('.carousel-container');
     const leftArrow1 = document.querySelector('.carousel-arrow.left');
@@ -64,14 +96,20 @@ export const Home = () => {
     rightArrow3.addEventListener('click', () => {
       container3.scrollBy({ left: 1000, behavior: 'smooth' });
     });
-    console.log(perfil)
-  }, []);
-
-  useEffect(() => {
-    dispatch(getPeliculas(authToken));
-    console.log(peliculas);
     
   }, []);
+
+  
+  useEffect(() => {
+    obtLista(selectedPerfilId, authToken);
+    
+    dispatch(getPeliculas(authToken));
+    
+  }, []) 
+  useEffect(() => {
+    console.log(lista); // Aquí se imprimirá el valor actualizado de `lista`
+    dispatch(getPeliculasGuardadas(authToken, lista.id))
+  }, [lista]);
 
   return (
     <>
@@ -116,46 +154,13 @@ export const Home = () => {
                 <div className="carousel-arrow right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container">
                 {/* Tarjetas de contenido */}
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 1" />
-                  <h3>Película 1</h3>
-                </div>
-                <div className="content-card">
-                  <img draggable="false" src="https://via.placeholder.com/150" alt="Película 2" />
-                  <h3>Película 2</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 3" />
-                  <h3>Película 3</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 4" />
-                  <h3>Película 4</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 5" />
-                  <h3>Película 5</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 6 " />
-                  <h3>Película 6</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 7" />
-                  <h3>Película 7</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 8" />
-                  <h3>Película 8</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 9" />
-                  <h3>Película 9</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 10" />
-                  <h3>Película 10</h3>
-                </div>
+                {guardados.map((v) => {
+                return (
+                  <>
+                    <GuardadosGrid v={v.contenido}  {...v}/>
+                  </>
+                )
+              })}
               </div>
             </section>
 
