@@ -15,6 +15,7 @@ import { Link, useParams, useLocation  } from "react-router-dom";
 import fondoparticulas from '/videos/fondoparticulas.mp4';
 import peliculasSlice from '../../slices/peliculas/peliculasSlice';
 import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
+import { getPerfil } from '../../slices/perfiles/thunks';
 
 export const Info = (perfil) => {
   
@@ -26,6 +27,7 @@ export const Info = (perfil) => {
   const dispatch = useDispatch();
   const {id} = useParams();
   const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const obtContenido = async (id, authToken) => {
     let data = null;
     console.log(id);
@@ -55,10 +57,10 @@ export const Info = (perfil) => {
       data = {};
     }
   };
-  const obtLista = async (authToken) => {
+  const obtLista = async (selectedPerfilId, authToken) => {
     let data = null;
     try {
-      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion", {
+      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion/" + selectedPerfilId, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -101,13 +103,11 @@ export const Info = (perfil) => {
 
     setDescriptionVisible(true);
     dispatch(getPeliculas(authToken));
+    dispatch(getPerfil(selectedPerfilId, authToken));
     obtContenido(id, authToken);
-    
   }, []);
   useEffect(() => {
-    obtLista(authToken);
-    console.log(lista_reproduccion);      
-    console.log(perfil);
+    obtLista(selectedPerfilId, authToken);
   }, []) 
 
   const guardarContenido = async (id, id_lista) => {
