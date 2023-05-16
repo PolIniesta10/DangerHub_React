@@ -105,13 +105,10 @@ export const Sidebar =  () => {
           <li id="icon2" className={activeLink === '/home' ? 'active' : ''}>
             <Link to="/home"><RiHome2Line/></Link>
           </li>
-          <li id="icon4" className={activeLink === '/MisDescargas' ? 'active' : ''}>
+          <li id="icon3" className={activeLink === '/MisDescargas' ? 'active' : ''}>
             <Link to="/MisDescargas"><BiCloudDownload/></Link>
           </li>
-          <li id="icon5" className={activeLink === '/MiCuenta' ? 'active' : ''}>
-            <Link to="/MiCuenta"><MdOutlineManageAccounts/></Link>
-          </li>
-          <li id="icon6" className={activeLink === '/SubirContenido' ? 'active' : ''}>
+          <li id="icon4" className={activeLink === '/SubirContenido' ? 'active' : ''}>
             <Link to="/SubirContenido"><BsPlusCircle/></Link>
           </li>
 
@@ -120,7 +117,7 @@ export const Sidebar =  () => {
 
       <nav className="sidebar-navigation sidebar-logout">
         <ul>
-          <li id="icon7"><FiLogOut onClick={logOut}/></li>
+          <li id="icon5"><FiLogOut onClick={logOut}/></li>
         </ul>
       </nav>
     </div>

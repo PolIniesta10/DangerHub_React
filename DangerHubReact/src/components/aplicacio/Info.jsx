@@ -92,16 +92,16 @@ export const Info = (perfil) => {
   
   useEffect(() => {
 
-    const container1 = document.querySelector('.films');
-    const leftArrow1 = document.querySelector('.carousel-arrow.left-info');
-    const rightArrow1 = document.querySelector('.carousel-arrow.right-info');
+    const containerInfo = document.querySelector('.films');
+    const leftArrowInfo = document.querySelector('.carousel-arrow.left-info');
+    const rightArrowInfo = document.querySelector('.carousel-arrow.right-info');
 
-    leftArrow1.addEventListener('click', () => {
-      container1.scrollBy({ left: -1000, behavior: 'smooth' });
+    leftArrowInfo.addEventListener('click', () => {
+      containerInfo.scrollBy({ left: -1000, behavior: 'smooth' });
     });
 
-    rightArrow1.addEventListener('click', () => {
-      container1.scrollBy({ left: 1000, behavior: 'smooth' });
+    rightArrowInfo.addEventListener('click', () => {
+      containerInfo.scrollBy({ left: 1000, behavior: 'smooth' });
     });
 
     document.getElementById("description").style.display = "block";
