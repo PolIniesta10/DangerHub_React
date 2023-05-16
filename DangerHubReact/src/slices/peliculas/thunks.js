@@ -85,6 +85,7 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
         method: "POST",
         body: formData
     };
+    console.log(data2);
     const url = "http://127.0.0.1:8000/api/contenidos";
 
     const data = await fetch(url, headers);

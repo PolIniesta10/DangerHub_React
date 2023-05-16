@@ -15,8 +15,7 @@ export const ContenidosAdd = () => {
     const hoy = fechaHoy.toISOString().slice(0, 10);
     const { authToken } = useContext(UserContext);
     const [tipoContenido, setTipoContenido] = useState("1"); 
-    const { setValue } = useForm();    
-
+    const { handleSubmit, setValue } = useForm();    
     useEffect(() => {
       if (urlAvatar) {
         setValue("url_avatar", urlAvatar);
@@ -35,6 +34,7 @@ export const ContenidosAdd = () => {
             ...data,
             titulo: data.titulo,
             descripcion: data.descripcion,
+            descripcionLarga: data.descripcionLarga,
             url_imagen: data.url_imagen,
             url_video: data.url_video,
             duracion: data.duracion,
@@ -82,12 +82,15 @@ export const ContenidosAdd = () => {
                         </fieldset>
                         
                         <div className="contentAdd-perfil-input">
-                            <input type="text" name="titulo"
-                            placeholder='Nombre del contenido' id="titulo" minLength="2" maxLength="20"/>
+                            <input type="text" name="titulo" id="titulo"
+                            placeholder='Nombre del contenido' minLength="2" maxLength="20" ref={register}/>
                         </div>
 
                         <div className="contentAdd-perfil-input">
-                            <textarea name="textarea" placeholder="Descripcion del contenido"></textarea>
+                            <input name="descripcion" id="descripcion" placeholder="Descripcion corta del contenido" ref={register}></input>
+                        </div>
+                        <div className="contentAdd-perfil-input">
+                            <textarea name="descripcionLarga" id="descripcionLarga" placeholder="Descripcion larga del contenido" ref={register}></textarea>
                         </div>
 
                         <div className="contentAdd-perfil-input">
@@ -97,7 +100,7 @@ export const ContenidosAdd = () => {
 
                         <div className="contentAdd-perfil-input">
                             <input type="url" name="url_video"
-                            placeholder='URL del video ( Etiqueta "src" del iframe insertado de Youtube: "https://www.youtube.com/embed/f5omY8jVrSM" )' id="url_video"/>
+                            placeholder='URL del video ( Etiqueta "src" del iframe insertado de Youtube: "https://www.youtube.com/embed/f5omY8jVrSM" )' id="url_video" ref={register}/>
                         </div>
                         <div className="contentAdd-perfil-time-box">
 
@@ -105,7 +108,7 @@ export const ContenidosAdd = () => {
                                 <legend>Duracion del contenido:</legend>    
 
                                 <div className="contentAdd-perfil-input time-picker">
-                                    <input id="duracion" type="time" name="duracion" step="2" />
+                                    <input id="duracion" type="time" name="duracion" step="2" ref={register}/>
                                 </div>
                             </fieldset>
 
@@ -113,7 +116,7 @@ export const ContenidosAdd = () => {
                                 <legend>Fecha de lanzamiento:</legend>    
 
                                 <div className="contentAdd-perfil-input date-picker">
-                                    <input type="date" name="fecha_lanzamiento" id="fecha_lanzamiento"  min="2000-01-01" max={hoy}/>
+                                    <input type="date" name="fecha_lanzamiento" id="fecha_lanzamiento"  min="2000-01-01" max={hoy} ref={register}/>
                                 </div>
                             </fieldset>
                             
@@ -123,7 +126,7 @@ export const ContenidosAdd = () => {
             </div>
             
             <div className="perfilesAdd-perfil-config"  style={{width:"65%",}}>
-              <Link to="/home"><button type="submit" onClick={afegir} className="perfilesAdd-perfil-config-button confirm-button">Continuar</button></Link>
+              <Link to="/home"><button type="submit" onClick={handleSubmit(afegir)} className="perfilesAdd-perfil-config-button confirm-button">Continuar</button></Link>
               <Link to="/home"><button type="submit" className="perfilesAdd-perfil-config-button">Cancelar</button></Link>
             </div>
       </div>
