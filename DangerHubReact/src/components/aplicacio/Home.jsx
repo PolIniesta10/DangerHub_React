@@ -6,21 +6,23 @@ import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import loading from'/videos/introDangerHubNegra.webm';
 import { RecomendedGrid } from './RecomendedGrid';
+import { GuardadosGrid } from './GuardadosGrid';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';
 import { useDispatch, useSelector } from "react-redux";
 import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 import { useLocation } from 'react-router-dom';
+import { getPeliculasGuardadas } from '../../slices/peliculas/thunks'
 
 export const Home = () => {
 
   let { authToken,setAuthToken } = useContext(UserContext);
-  const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
-  
+  const { peliculas = [], peliculasGuardadas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const location = useLocation();
   const perfil = location.state && location.state.perfil;
-
-  console.log(perfil); // Aquí debería imprimir el valor de "perfil" si se ha pasado desde el componente anterior
+  let [ lista, setLista_reproduccion] = useState({});
+  console.log(selectedPerfilId); // Aquí debería imprimir el valor de "perfil" si se ha pasado desde el componente anterior
 
   const dispatch = useDispatch();
 
@@ -28,50 +30,86 @@ export const Home = () => {
   const peli_random = peliculas[randomIndex];
   const videoId = peli_random && peli_random.url_video && peli_random.url_video.split('embed/')[1];
   
+  const obtLista = async (selectedPerfilId, authToken) => {
+    let data = null;
+    try {
+      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion/" + selectedPerfilId, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer '  + authToken
+        },
+        method: "GET",
+      })
+      const resposta = await data.json();
+      if (resposta.success === true && resposta.data) {
+        console.log(resposta);
+        setLista_reproduccion(resposta.data);
+        console.log(resposta.data);
+        
+      }
+      else {
+        console.log("error");
+      }
+    }
+    catch (error) {
+      console.log(error);
+      alert("Catch");
+      data = {};
+    }
+  };
+
   useEffect(() => {
     const container1 = document.querySelector('.carousel-container');
     const leftArrow1 = document.querySelector('.carousel-arrow.left');
     const rightArrow1 = document.querySelector('.carousel-arrow.right');
 
-    leftArrow1.addEventListener('click', () => {
-      container1.scrollBy({ left: -1000, behavior: 'smooth' });
-    });
-
-    rightArrow1.addEventListener('click', () => {
-      container1.scrollBy({ left: 1000, behavior: 'smooth' });
-    });
+    if (container1 && leftArrow1 && rightArrow1) {
+      leftArrow1.addEventListener('click', () => {
+        container1.scrollBy({ left: -1000, behavior: 'smooth' });
+      });
+  
+      rightArrow1.addEventListener('click', () => {
+        container1.scrollBy({ left: 1000, behavior: 'smooth' });
+      });
+    }
 
     const container2 = document.querySelector('.carousel-container2');
     const leftArrow2 = document.querySelector('.carousel-arrow2.left');
     const rightArrow2 = document.querySelector('.carousel-arrow2.right');
 
-    leftArrow2.addEventListener('click', () => {
-      container2.scrollBy({ left: -1000, behavior: 'smooth' });
-    });
-
-    rightArrow2.addEventListener('click', () => {
-      container2.scrollBy({ left: 1000, behavior: 'smooth' });
-    });
+    if (container2 && leftArrow2 && rightArrow2) {
+      leftArrow2.addEventListener('click', () => {
+        container2.scrollBy({ left: -1000, behavior: 'smooth' });
+      });
+  
+      rightArrow2.addEventListener('click', () => {
+        container2.scrollBy({ left: 1000, behavior: 'smooth' });
+      });
+    }
 
     const container3 = document.querySelector('.carousel-container3');
     const leftArrow3 = document.querySelector('.carousel-arrow3.left');
     const rightArrow3 = document.querySelector('.carousel-arrow3.right');
 
-    leftArrow3.addEventListener('click', () => {
-      container3.scrollBy({ left: -1000, behavior: 'smooth' });
-    });
+    if (container3 && leftArrow3 && rightArrow3) {
+      leftArrow3.addEventListener('click', () => {
+        container3.scrollBy({ left: -1000, behavior: 'smooth' });
+      });
+  
+      rightArrow3.addEventListener('click', () => {
+        container3.scrollBy({ left: 1000, behavior: 'smooth' });
+      });
+    }
 
-    rightArrow3.addEventListener('click', () => {
-      container3.scrollBy({ left: 1000, behavior: 'smooth' });
-    });
-    console.log(perfil)
-  }, []);
-
-  useEffect(() => {
+    obtLista(selectedPerfilId, authToken);
     dispatch(getPeliculas(authToken));
-    console.log(peliculas);
-    
   }, []);
+
+   
+  useEffect(() => {
+    dispatch(getPeliculasGuardadas(authToken, lista.id))
+  }, [lista]);
 
   return (
     <>
@@ -101,7 +139,6 @@ export const Home = () => {
             {peli_random && peli_random.id && (
               <>
                 <h1>{peli_random.titulo}</h1>
-                <h1>{peli_random.id}</h1>
                 <p>{peli_random.descripcion}</p>
                 <div className="buttons">
                   <Link to={"/play/"+peli_random.id}><div className="button-play"><BsPlay/>Play</div></Link>
@@ -116,46 +153,13 @@ export const Home = () => {
                 <div className="carousel-arrow right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container">
                 {/* Tarjetas de contenido */}
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 1" />
-                  <h3>Película 1</h3>
-                </div>
-                <div className="content-card">
-                  <img draggable="false" src="https://via.placeholder.com/150" alt="Película 2" />
-                  <h3>Película 2</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 3" />
-                  <h3>Película 3</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 4" />
-                  <h3>Película 4</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 5" />
-                  <h3>Película 5</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 6 " />
-                  <h3>Película 6</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 7" />
-                  <h3>Película 7</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 8" />
-                  <h3>Película 8</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 9" />
-                  <h3>Película 9</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 10" />
-                  <h3>Película 10</h3>
-                </div>
+                {peliculasGuardadas.map((v) => {
+                return (
+                  <>
+                    <GuardadosGrid v={v.id}  {...v}/>
+                  </>
+                )
+              })}
               </div>
             </section>
 
