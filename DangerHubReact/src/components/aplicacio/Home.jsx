@@ -12,13 +12,12 @@ import { UserContext } from '../../userContext';
 import { useDispatch, useSelector } from "react-redux";
 import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
 import { useLocation } from 'react-router-dom';
-import { getPeliculasGuardadas } from '../../slices/guardados/thunks'
+import { getPeliculasGuardadas } from '../../slices/peliculas/thunks'
 
 export const Home = () => {
 
   let { authToken,setAuthToken } = useContext(UserContext);
-  const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
-  const { guardados = [] } = useSelector((state) => state.guardados);
+  const { peliculas = [], peliculasGuardadas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
   const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const location = useLocation();
   const perfil = location.state && location.state.perfil;
@@ -96,18 +95,13 @@ export const Home = () => {
     rightArrow3.addEventListener('click', () => {
       container3.scrollBy({ left: 1000, behavior: 'smooth' });
     });
-    
+    obtLista(selectedPerfilId, authToken);
+
+    dispatch(getPeliculas(authToken));
   }, []);
 
-  
+   
   useEffect(() => {
-    obtLista(selectedPerfilId, authToken);
-    
-    dispatch(getPeliculas(authToken));
-    
-  }, []) 
-  useEffect(() => {
-    console.log(lista); // Aquí se imprimirá el valor actualizado de `lista`
     dispatch(getPeliculasGuardadas(authToken, lista.id))
   }, [lista]);
 
@@ -139,7 +133,6 @@ export const Home = () => {
             {peli_random && peli_random.id && (
               <>
                 <h1>{peli_random.titulo}</h1>
-                <h1>{peli_random.id}</h1>
                 <p>{peli_random.descripcion}</p>
                 <div className="buttons">
                   <Link to={"/play/"+peli_random.id}><div className="button-play"><BsPlay/>Play</div></Link>
@@ -154,10 +147,10 @@ export const Home = () => {
                 <div className="carousel-arrow right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container">
                 {/* Tarjetas de contenido */}
-                {guardados.map((v) => {
+                {peliculasGuardadas.map((v) => {
                 return (
                   <>
-                    <GuardadosGrid v={v.contenido}  {...v}/>
+                    <GuardadosGrid v={v.id}  {...v}/>
                   </>
                 )
               })}

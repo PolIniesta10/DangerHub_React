@@ -1,4 +1,4 @@
-import { startLoadingPeliculas, setError, setPeliculas, setPeliculasGuardadas, setPelicula, setPages, setFilter } from "./peliculasSlice";
+import { startLoadingPeliculas, setError, setPeliculas, setPeliculasGuardadas, setPelicula, setGuardado, setPages, setFilter } from "./peliculasSlice";
 import { useNavigate } from "react-router-dom";
 
 export const getPeliculas = (authToken) => {
@@ -30,7 +30,7 @@ export const getPeliculas = (authToken) => {
         }
     }
 }
-export const getPeliculasGuardadas = (authToken) => {
+export const getPeliculasGuardadas = (authToken, id_lista) => {
     return async (dispatch, getState) => {
         let filter = getState().peliculas.filter;
         dispatch(startLoadingPeliculas());
@@ -44,7 +44,7 @@ export const getPeliculasGuardadas = (authToken) => {
             },
             method: "GET",
         };
-        let url = "http://127.0.0.1:8000/api/peliculas" ;
+        let url = "http://127.0.0.1:8000/api/contenidosGuardados/" + id_lista ;
 
         const data = await fetch(url, headers);
         const resposta = await data.json();
@@ -184,46 +184,8 @@ export const delPost = (post, authToken) => {
     };
 };
 
-export const testLikes = (id, authToken) => {
-    return async (dispatch, getState) => {
-        
-        const headers = {
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + authToken,
-            },
-            method: "POST",
-        };
-        const url = "https://backend.insjoaquimmir.cat/api/posts/" + id + "/likes"
 
-        const data = await fetch(url,  headers  );
-        const resposta = await data.json();
-
-        if (resposta.success == true) {
-            dispatch(setLiked(false));
-            console.log('liked False')
-            const headers = {
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + authToken,
-                },
-                method: "DELETE",
-            };
-            const url = "https://backend.insjoaquimmir.cat/api/posts/" + id + "/likes"
-    
-            const data = await fetch(url,  headers  );
-            const resposta = await data.json();
-
-        } else {
-            dispatch(setLiked(true));
-            console.log("Liked");
-        }
-    };
-}
-
-export const like = (id, authToken, likes) => {
+export const guardarContenido = (authToken, id, id_lista, selectedPerfilId) => {
     return async (dispatch, getState) => {
 
         const headers = {
@@ -234,21 +196,23 @@ export const like = (id, authToken, likes) => {
             },
             method: "POST",
         };
-        const url = "https://backend.insjoaquimmir.cat/api/posts/" + id + "/likes"
+        const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
 
         if (resposta.success == true) {
-            dispatch(setLiked(true));
-            dispatch(setLikes(likes + 1));
+            dispatch(setGuardado(true));
+            localStorage.setItem('guardado', 'true');
+            console.log(resposta.data);
+            alert("Contenido añadido a tu lista!");
         } else {
-            dispatch(setLiked(false));
+            dispatch(setGuardado(false));
         }
     };
 }
 
-export const unlike = (id, authToken, likes) => {
+export const quitarContenido = (authToken, id, id_lista, selectedPerfilId) => {
     return async (dispatch, getState) => {
 
         const headers = {
@@ -259,14 +223,16 @@ export const unlike = (id, authToken, likes) => {
             },
             method: "DELETE",
         };
-        const url = "https://backend.insjoaquimmir.cat/api/posts/" + id + "/likes"
+        const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
 
         if (resposta.success == true) {
-            dispatch(setLiked(false));
-            dispatch(setLikes(likes - 1));
+            dispatch(setGuardado(false));
+            localStorage.removeItem('guardado');
+            console.log(resposta.data);
+            alert("Contenido eliminado de tu lista!");
         }
     };
 }

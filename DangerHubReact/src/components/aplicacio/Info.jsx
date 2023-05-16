@@ -11,12 +11,15 @@ import { AiOutlineCloudDownload } from 'react-icons/ai';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
+import { AiFillDelete } from 'react-icons/ai';
+import { FiSave }from 'react-icons/fi';
 import { Link, useParams, useLocation  } from "react-router-dom";
 import fondoparticulas from '/videos/fondoparticulas.mp4';
 import peliculasSlice from '../../slices/peliculas/peliculasSlice';
-import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
+import { getPelicula, getPeliculas, guardarContenido, quitarContenido } from '../../slices/peliculas/thunks';
 import { getPerfil } from '../../slices/perfiles/thunks';
 import { getPeliculasGuardadas } from '../../slices/guardados/thunks'
+
 export const Info = (perfil) => {
   
   let [ contenido,setContenido ] = useState({});
@@ -26,7 +29,8 @@ export const Info = (perfil) => {
   let { authToken,setAuthToken } = useContext(UserContext);
   const dispatch = useDispatch();
   const {id} = useParams();
-  const { peliculas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  const { peliculas = [], isLoading=true, error="", guardado } = useSelector((state) => state.peliculas);
+  const guardadoPersistente = localStorage.getItem('guardado') === 'true';
   const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const { guardados = [] } = useSelector((state) => state.guardados);
   const obtContenido = async (id, authToken) => {
@@ -114,34 +118,6 @@ export const Info = (perfil) => {
   }, []) 
   
 
-  const guardarContenido = async (authToken, id, id_lista, selectedPerfilId) => {
-    let data = null;
-    console.log(id);
-    console.log(id_lista);
-    try {
-      data = await fetch("http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer '  + authToken
-        },
-        method: "POST",
-      })
-      const resposta = await data.json();
-      if (resposta.success === true && resposta.data) {
-        console.log(resposta);
-      }
-      else {
-        console.log("error");
-      }
-    }
-    catch (error) {
-      console.log(error);
-      alert("Catch");
-      data = {};
-    }
-  };
-
   // Switch between tabs when a tab button is clicked
   function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
@@ -189,7 +165,12 @@ export const Info = (perfil) => {
           </div> 
           <div id="description" className="tabcontent description" style={{display: descriptionVisible ? "flex" : "none"}}>{contenido.descripcion}</div>
           <div id="opciones" className="tabcontent opciones" style={{display: descriptionVisible ? "none" : "flex", width: "250px"}}>
-            <div><button onClick={() => guardarContenido(authToken, contenido.id, lista.id, selectedPerfilId)}><MdBookmarkAdd/></button></div>
+              {guardado || guardadoPersistente ? (<div><button onClick={(e) => dispatch(quitarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}>Borrar</button></div>) : 
+              
+              (<div><button onClick={(e) => dispatch(guardarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}>Guardar</button></div>)}
+            
+            
+            
             <div><AiOutlineCloudDownload/></div>
           </div>
           
