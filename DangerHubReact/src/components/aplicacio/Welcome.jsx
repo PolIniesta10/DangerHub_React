@@ -17,7 +17,8 @@ export const Welcome = () => {
             <p>Contenido de terror donde y cuando quieras.</p>
 
             <div className="welcome_buttons">
-                <Link to="/home"><button>Registra-te ahora</button></Link>
+                <Link to="/login"><button>Inicia sesión</button></Link>
+                <Link to="/register"><button>Registra-te ahora</button></Link>
             </div>
         </div>
 

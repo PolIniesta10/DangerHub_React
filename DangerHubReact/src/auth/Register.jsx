@@ -1,5 +1,5 @@
-import React from 'react'
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react'
+import Anabelle from'/imagenes/DHUB.png';
 import { UserContext } from '../userContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,8 +13,8 @@ export const Register = ({ setLogin }) => {
     const navigate = useNavigate();
     const { checkAuthToken } = useLogin(); 
 
-  const onSubmit = data => handleRegister(data);
-  const { register, handleSubmit , formState: { errors }} = useForm();
+    const onSubmit = data => handleRegister(data);
+    const { register, handleSubmit , formState: { errors }} = useForm();
 
     const handleRegister = async (data) => {
         let name = data.name;
@@ -58,107 +58,99 @@ export const Register = ({ setLogin }) => {
     }
     
   return (
-   
-    <section
-            className="absolute top-1/2 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
-            <div x-show="isLoginPage" className="space-y-4">
-                <header className="mb-3 text-2xl font-bold">Crea Usuari</header>
-                
-                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    {/* <input type="text" name="name" placeholder="Name" onChange={onInputChange} value={name}
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" /> */}
+    <>
+    <div className="welcome_container" style={{opacity:"0.15",backgroundImage: "url(/imagenes/Welcome2.jpg)"}}></div>
+
+    <div className="login_section">
+        <div x-show="isLoginPage" className="register_box">
+            <div><img className="register_logo" src={Anabelle} alt="Imagen"/></div>
+
+            <div className="login_content" style={{height: "auto"}}>
+                <h1>Registrate</h1>
+
+                <div className="login-input">
                         <input {...register("name", {
-                        required: "Aquest camp és obligatori",
-                        minLength: {
-                        value: 4,
-                        message: "El nom ha de contenir minim 4 caràcters"
-                        },
-
-                        })} 
-                        type="text"  placeholder="Name" 
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
-                </div>
-                {errors.name && <p>{errors.name.message}</p>}
-
-                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    {/* <input type="text" name="email" placeholder="Email" onChange={onInputChange} value={email}
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" /> */}
-                    <input 
-                        {...register("email", {
                             required: "Aquest camp és obligatori",
-                        })} 
-
-                        type="text" placeholder="Email" 
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                            minLength: {
+                                value: 4,
+                                message: "El nom ha de contenir minim 4 caràcters"
+                            },
+                        })} type="text"  placeholder="Name" style={{paddingTop:"20px"}} />
                 </div>
-                {errors.email && <p>{errors.email.message}</p>}
 
-                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    {/* <input type="password" name="password" placeholder="Password" onChange={onInputChange} value={password}
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" /> */}
+                {errors.name && <p className='errores'>{errors.name.message}</p>}
+
+                <div className="login-input">
+                    <input {...register("email", {
+                            required: "Aquest camp és obligatori",
+                        })} type="text" placeholder="Email" style={{paddingTop:"20px"}}/>
+                </div>
+
+                {errors.email && <p className='errores'>{errors.email.message}</p>}
+
+                <div className="login-input">
                     <input 
                         {...register("password", {
                             required: "Aquest camp és obligatori",
                             minLength: {
-                              value: 8,
-                              message: "La contrasenya ha de tenir al menys 8 caràcters"
+                                value: 8,
+                                message: "La contrasenya ha de tenir al menys 8 caràcters"
                             },
                             pattern: {
-                              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).+$/,
-                              message:
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).+$/,
+                                message:
                                 "La contrasenya ha de contenir al menys una minúscula, una majúscula, un número i un caracter especial"
                             }
-                          })} 
-
-                        type="password" placeholder="Password" 
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                        })} type="password" placeholder="Password" style={{paddingTop:"20px"}}/>
                 </div>
-                {errors.password && <p>{errors.password.message}</p>}
 
-                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    {/* <input type="password2" name="password2" placeholder="Repeat Password"  onChange={onInputChange}
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" /> */}
+                {errors.password && <p className='errores'>{errors.password.message}</p>}
+
+                <div className="login-input">
                     <input 
                         {...register("password2", {
                             required: "Aquest camp és obligatori",
                             minLength: {
-                              value: 8,
-                              message: "La contrasenya ha de tenir al menys 8 caràcters"
+                                value: 8,
+                                message: "La contrasenya ha de tenir al menys 8 caràcters"
                             },
                             pattern: {
-                              value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).+$/,
-                              message:
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).+$/,
+                                message:
                                 "La contrasenya ha de contenir al menys una minúscula, una majúscula, un número i un caracter especial"
                             }
-                          })} 
-                        type="password2" placeholder="Repeat Password" 
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                        })} type="password" placeholder="Repeat Password" style={{paddingTop:"20px"}}/>
                 </div>
-                {errors.password2 && <p>{errors.password2.message}</p>}
-                <div className="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    {/* <input type="text" name="name" placeholder="Name" onChange={onInputChange} value={name}
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" /> */}
-                        <input {...register("id_suscripcion", {
-                        required: "Aquest camp és obligatori",
-        
 
-                        })} 
-                        type="text"  placeholder="id_suscripcion" 
-                        className="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
-                </div>
-                {/* { error ? (<div className="flex w-full items-center space-x-2 rounded-2xl bg-red-50 px-4 ring-2 ring-red-200 ">{error}</div>) : (<></>)  } */}
-                <button 
-                // onClick={handleSubmit }
-                    onClick={handleSubmit(onSubmit)}
-                    className="w-full rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">
-                    CREA COMPTE
-                </button>
+                {errors.password2 && <p className='errores'>{errors.password2.message}</p>}
 
-                <div className="mt-8 text-sm text-gray-400">
-                    <button onClick={ ()=> setLogin(true) } className="underline">Ja registrat?</button>                    
+                <div className="perfilesAdd-perfil-inputs-box" style={{width: "auto"}}>     
+                    <fieldset className="contentAdd-perfil-input" >
+                        <legend>Tipo de suscripcion</legend>    
+
+                        <div className='register_fieldset'>
+
+                            <input {...register("id_suscripcion")} type="radio" id="Básica" name="id_suscripcion" value="1" defaultChecked/>
+                            <label htmlFor="Básica">Básica</label>
+                        
+                            <input {...register("id_suscripcion")} type="radio" id="Básica_HD" name="id_suscripcion" value="2"/>
+                            <label htmlFor="Básica_HD">Básica HD</label>
+                        
+                            <input {...register("id_suscripcion")} type="radio" id="Estandár" name="id_suscripcion" value="3"/>
+                            <label htmlFor="Estandár">Estandár</label>
+
+                            <input {...register("id_suscripcion")} type="radio" id="Danger" name="id_suscripcion" value="4"/>
+                            <label htmlFor="Danger">Danger</label>
+
+                        </div>
+                    </fieldset>
                 </div>
+
+                <button onClick={handleSubmit(onSubmit)} className="perfilesAdd-perfil-config-button confirm-button" style={{margin:"10% 0 0 0"}}>CREA COMPTE</button>
+                <button onClick={ ()=> setLogin(true) } className="perfilesAdd-perfil-config-button" style={{margin:"2% 0 2% 0"}}>Ja registrat?</button>                    
             </div>
-    </section>
-
+        </div>
+    </div>
+    </>
   )
 }

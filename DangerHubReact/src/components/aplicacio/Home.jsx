@@ -4,7 +4,7 @@ import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from "react-router-dom";
-import loading from'/videos/introDangerHub.mp4';
+import loading from'/videos/introDangerHubNegra.webm';
 import { RecomendedGrid } from './RecomendedGrid';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';

@@ -2,17 +2,18 @@ import React from 'react'
 import mainLogo from'/imagenes/DANGERHubLOGO.png';
 import DHUB from'/imagenes/DHUB.png';
 import { Link } from "react-router-dom";
+import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { UserContext } from "../../../userContext";
 import { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 
 export const ContenidosAdd = () => {
 
     const [urlAvatar, setUrlAvatar] = useState("");
     const [fechaHoy, setFechaHoy] = useState(new Date());
     const hoy = fechaHoy.toISOString().slice(0, 10);
+    const { setValue } = useForm();
 
     useEffect(() => {
       if (urlAvatar) {
@@ -45,10 +46,10 @@ export const ContenidosAdd = () => {
                     <div className="perfilesAdd-perfil-inputs-box">
                         
                         <fieldset className="contentAdd-perfil-input">
-                            <legend>Select a maintenance drone:</legend>    
+                            <legend>Tipo de contenido: </legend>    
 
                             <div>
-                                <input type="radio" id="Pelicula" name="Contenido" value="1" checked/>
+                                <input type="radio" id="Pelicula" name="Contenido" value="1" defaultChecked/>
                                 <label htmlFor="Pelicula">Pelicula</label>
                             
                                 <input type="radio" id="Serie" name="Contenido" value="2"/>

@@ -1,9 +1,11 @@
 import { UserContext } from "../userContext";
 import { useEffect, useContext } from "react";
+import { useNavigate } from 'react-router-dom'
 
 export const useLogin = () => {
 
     let { usuari, setUsuari, authToken, setAuthToken, idUsuari, setIdUsuari } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const checkAuthToken = () => {
 
@@ -27,6 +29,7 @@ export const useLogin = () => {
                     console.log("Token Correcte: " + token);
                     setUsuari(resposta.user.email);
                     setIdUsuari(resposta.user.id);
+                    navigate("/perfiles");
                 }else{
                     setAuthToken("");
                 }
@@ -61,6 +64,7 @@ export const useLogin = () => {
                     localStorage.setItem('authToken', resposta.authToken);
                     // setUsuari(resposta.user.email);
                     console.log(usuari)
+                    navigate("/perfiles");
                 }
                 else
                 { 

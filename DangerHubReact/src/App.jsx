@@ -1,8 +1,9 @@
 import './App.css'
+import { Routes, Route } from 'react-router-dom'
+
 import { LoginRegister } from './auth/LoginRegister'
 import { useState } from 'react'
 import { UserContext } from './userContext'
-import { Routes,Route } from 'react-router-dom'
 import { Perfiles } from './components/aplicacio/perfiles/Perfiles'
 import { PerfilesEdit } from './components/aplicacio/perfiles/PerfilesEdit'
 import { PerfilesAdd } from './components/aplicacio/perfiles/PerfilesAdd'
@@ -31,26 +32,30 @@ function App() {
         <>
           {/* <Header/> */}
     
-         <Routes>
-            <Route path='*' element={<NotFound />} />
-            <Route path="/" element={<><Perfiles /></>}/>
-            <Route path="/home" element={<><Header/><Sidebar/><Home perfil={perfil}/></>}/>
-            <Route path="/perfiles" element={<Perfiles/>}/>
-            <Route path="/perfiles/edit/:id" element={<PerfilesEdit/>}/>
-            <Route path="/perfilesAdd" element={<PerfilesAdd/>}/>
-            <Route path="/administrarPerfiles" element={<AdministrarPerfiles />} />
-            <Route path="/about" element={<><Header/><Sidebar/><About /></>} />
-            <Route path="/play/:id" element={<Play />} />
-            <Route path="/info/:id" element={<Info perfil={perfil}/>} />
-            <Route path="/SubirContenido" element={<><Sidebar/><ContenidosAdd /></>} />
-            <Route path="/Welcome" element={<><Welcome /></>} />
-           
+        <Routes>
+         <Route path="/" element={<Perfiles/>}/>
+          <Route path='*' element={<NotFound />} />
+          <Route path="/home" element={<><Header/><Sidebar/><Home perfil={perfil}/></>}/>
+          <Route path="/perfiles" element={<Perfiles/>}/>
+          <Route path="/perfiles/edit/:id" element={<PerfilesEdit/>}/>
+          <Route path="/perfilesAdd" element={<PerfilesAdd/>}/>
+          <Route path="/administrarPerfiles" element={<AdministrarPerfiles />} />
+          <Route path="/about" element={<><Header/><Sidebar/><About /></>} />
+          <Route path="/play/:id" element={<Play />} />
+          <Route path="/info/:id" element={<Info perfil={perfil}/>} />
+          <Route path="/SubirContenido" element={<><Sidebar/><ContenidosAdd /></>} />          
         </Routes>
 
         {/* <Footer/> */}
        </>
 
-  ) :  <LoginRegister /> }
+  ) :   <LoginRegister/>
+        // <Routes>
+        //   <Route path="/" element={<Welcome />} />
+        //   <Route path="/login" element={<LoginRegister/>} />
+        //   <Route path="/register" element={<LoginRegister />} />
+        // </Routes> 
+  }
     
   </UserContext.Provider>
 

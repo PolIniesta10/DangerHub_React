@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext} from 'react';
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { FiSearch } from 'react-icons/fi';
 import { RiHome2Line } from 'react-icons/ri';
 import { RiFileListLine } from 'react-icons/ri';
@@ -20,6 +20,7 @@ export const Sidebar =  () => {
 
   const location = useLocation();
   const [activeLink, setActiveLink] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const pathname = location.pathname;
@@ -79,10 +80,10 @@ export const Sidebar =  () => {
             
             if (resposta.success == true )
             {
-                console.log(resposta); 
-                setAuthToken("");
-                localStorage.setItem('authToken', "");
-              
+              console.log(resposta); 
+              setAuthToken("");
+              localStorage.setItem('authToken', "");
+              navigate("/login");
             }
             
         } ) 

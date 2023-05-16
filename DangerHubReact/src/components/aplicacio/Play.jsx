@@ -10,6 +10,7 @@ export const Play = () => {
   let { authToken,setAuthToken } = useContext(UserContext);
   let [ isLoading, setLoading] = useState(true);
   const {id} = useParams();
+
   const obtContenido = async (id, authToken) => {
     let data = null;
     console.log(id);
@@ -37,8 +38,6 @@ export const Play = () => {
       data = {};
     }
   };
-
-  
 
   useEffect(() => {
     obtContenido(id, authToken);
