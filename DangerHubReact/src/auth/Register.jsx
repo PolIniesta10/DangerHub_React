@@ -59,13 +59,13 @@ export const Register = ({ setLogin }) => {
     
   return (
     <>
-    <div className="welcome_container" style={{opacity:"0.15",backgroundImage: "url(/imagenes/Welcome2.jpg)"}}></div>
+    <div className="welcome_container" style={{opacity:"0.25",backgroundImage: "url(/imagenes/Welcome2.jpg)"}}></div>
 
     <div className="login_section">
         <div x-show="isLoginPage" className="register_box">
             <div><img className="register_logo" src={Anabelle} alt="Imagen"/></div>
 
-            <div className="login_content" style={{height: "auto"}}>
+            <div className="login_content register_content">
                 <h1>Registrate</h1>
 
                 <div className="login-input">

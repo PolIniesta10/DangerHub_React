@@ -191,6 +191,10 @@ body {
 	margin: 40px 0 0 0;
 }
 
+.register_content {
+	padding: 0 15% 5%;
+	height: auto;
+}
 
 .errores {
 	background-color: rgb(255, 173, 173);
@@ -202,9 +206,30 @@ body {
 	width: 280px;
 }
 
+@media only screen and (min-width: 1640px) {
+	.login_degradado{
+		height: 240px;
+	}
+	
+}
+
 @media only screen and (min-width: 1780px) {
 	.login_degradado{
 		height: 280px;
+	}
+	
+}
+
+@media only screen and (min-width: 1870px) {
+	.login_degradado{
+		height: 350px;
+	}
+	.login_content {
+		height: 80%;
+
+	}
+	.register_box {
+		width: 45%;
 	}
 	
 }
@@ -213,7 +238,12 @@ body {
 	.login_degradado{
 		height: 400px;
 	}
-	
+	.login_content {
+		height: 80%;
+	}
+	.register_box {
+		width: 45%;
+	}
 }
 
 /* #####################################################
@@ -375,7 +405,7 @@ body {
 	height: 80px;
 }
 
-.sidebar-navigation #icon1, .sidebar-navigation #icon7, .sidebar-navigation li, .sidebar-navigation li a{
+.sidebar-navigation #icon1, .sidebar-navigation #icon5, .sidebar-navigation li, .sidebar-navigation li a{
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -592,6 +622,20 @@ body {
 	z-index: 1;
 }
 
+@media only screen and (max-width: 1000px) {
+	.perfiles-perfil {
+		flex-direction: column;
+	}
+}
+
+@media only screen and (max-width: 1500px) {
+	.perfilesAdd-perfil-users,
+	.perfilesAdd-titulo,
+	.perfilesAdd-perfil-config {
+		width: 70%;
+	}
+	
+}
 
 /* #####################################################
 					END PERFILES

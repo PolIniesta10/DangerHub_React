@@ -60,7 +60,7 @@ export const PerfilesAdd = () => {
                         
                         <div className="perfilesAdd-perfil-input">
                             <input type="url" name="url_avatar" {...register("url_avatar", {required: "Este campo és obligatorio",})} 
-                            placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar" onChange={handleUrlAvatarChange} value={urlAvatar} />
+                            placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar" onChange={handleUrlAvatarChange} value={urlAvatar||DHUB} />
                         </div>
                         
                         <div className="perfilesAdd-perfil-input">
