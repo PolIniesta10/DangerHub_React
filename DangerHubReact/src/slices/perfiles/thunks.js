@@ -100,7 +100,8 @@ export const getPerfil = (id, authToken) => {
 
 export const editPerfil = (formulari, authToken, perfil) => {
     return async (dispatch, getState) => {
-
+    console.log(formulari);
+    console.log(perfil);
     let { nombre, url_avatar } = formulari;
     const formData = new FormData();
         
@@ -108,7 +109,7 @@ export const editPerfil = (formulari, authToken, perfil) => {
     formData.append("url_avatar", url_avatar);
 
     const data = await fetch(
-      "http://127.0.0.1:8000/api/perfiles/" + perfil.id,
+      "http://127.0.0.1:8000/api/perfiles/" + perfil.id + "?nombre=" + formulari.nombre +"&url_avatar=" + formulari.url_avatar,
       {
         headers: {
           Accept: "application/json",
