@@ -15,7 +15,7 @@ export const ContenidosAdd = () => {
     const hoy = fechaHoy.toISOString().slice(0, 10);
     const { authToken } = useContext(UserContext);
     const [tipoContenido, setTipoContenido] = useState("1"); 
-    const { handleSubmit, setValue } = useForm();    
+    const { register, handleSubmit , setValue } = useForm();   
     useEffect(() => {
       if (urlAvatar) {
         setValue("url_avatar", urlAvatar);
@@ -83,7 +83,7 @@ export const ContenidosAdd = () => {
                         
                         <div className="contentAdd-perfil-input">
                             <input type="text" name="titulo" id="titulo"
-                            placeholder='Nombre del contenido' minLength="2" maxLength="20" ref={register}/>
+                            placeholder='Nombre del contenido' minLength={2} maxLength={20} ref={register}/>
                         </div>
 
                         <div className="contentAdd-perfil-input">
