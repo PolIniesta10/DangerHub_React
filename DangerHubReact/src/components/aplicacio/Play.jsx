@@ -53,10 +53,10 @@ export const Play = () => {
               <div className="loadingPeliculas">
                   <video autoPlay muted loop src={loading}></video>
               </div> : <>
-        <div className="video_home_fade top_fade"></div>
+        <div className="video_play_fade"></div> 
         <iframe src={contenido.url_video + "?autoplay=1&amp;loop=1&ampcontrols=0"} frameBorder="0" allow="accelerometer; autoplay; mute;clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen loop></iframe>
-        <div className="video_home_fade left_fade"></div>
-        <div className="video_home_fade right_fade"></div>
+        {/* <div className="video_home_fade left_fade"></div>
+        <div className="video_home_fade right_fade"></div> */}
         </>}
       </div>
     </>

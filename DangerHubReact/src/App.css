@@ -210,7 +210,6 @@ body {
 	.login_degradado{
 		height: 240px;
 	}
-	
 }
 
 @media only screen and (min-width: 1780px) {
@@ -628,15 +627,6 @@ body {
 	}
 }
 
-@media only screen and (max-width: 1500px) {
-	.perfilesAdd-perfil-users,
-	.perfilesAdd-titulo,
-	.perfilesAdd-perfil-config {
-		width: 70%;
-	}
-	
-}
-
 /* #####################################################
 					END PERFILES
 ##################################################### */
@@ -737,6 +727,7 @@ body {
 .perfilesAdd-perfil-config a{
 	text-decoration: none;
 	color: rgb(225, 225, 225);
+	margin-right: 30px;
 }
 
 .perfilesAdd-perfil-config-button {
@@ -751,7 +742,7 @@ body {
     line-height: 1.6rem;
     padding: 0.75rem 5rem;
     cursor: pointer;
-	margin-right: 30px;
+
 }
 
 .perfilesAdd-perfil-config-button:hover {
@@ -762,11 +753,78 @@ body {
 	background-color: #ff0000;
 	border-color: #ff0000;
 	color: rgb(255, 255, 255);
+	margin-right: 30px;
 
 }
 
 .confirm-button:hover {
 	box-shadow: 0px 0px 10px 3px rgba(255, 0, 0, 0.53);
+}
+
+
+@media only screen and (max-width: 1760px) {
+
+	.perfilesAdd-perfil-config-button{
+		padding: 0.75rem 3rem;
+	}
+	.perfilesAdd-perfil-foto {
+		height: auto;
+	}
+	.perfilesAdd-perfil-input{
+		margin-right: 	10px;
+	}
+	
+}
+
+@media only screen and (max-width: 1200px) {
+	.perfilesAdd-perfil-config-button{
+		padding: 0.75rem 1rem;
+	}
+	
+}
+
+@media only screen and (max-width: 1000px) {
+
+	.perfilesAdd-perfil-users form {
+		flex-direction: column;
+	}
+	.perfilesAdd-perfil-foto {
+		width: auto;
+		height: 300px;
+		margin-bottom: 20px;
+	}
+	.perfilesAdd-perfil-inputs-box {
+		width: 90%;
+	}
+	.perfilesAdd-perfil-config {
+		justify-content: space-around;
+	}
+	.perfilesAdd-perfil-config a, .perfilesAdd-perfil-config button{
+		margin: 0;
+	}
+}
+
+@media only screen and (max-width: 800px) {
+	.perfiles-header-logo {
+		width: 25%;
+	}
+	.perfilesAdd-titulo, .perfilesAdd-perfil-users{
+		width: 90%;
+	}
+	.perfilesAdd-perfil-config {
+		flex-direction: column;
+		width: 90%;
+		height: 200px;
+	}
+	.perfilesAdd-perfil-config-button{
+		width: 100%;
+		padding: 0.75rem 5rem;
+	}
+
+	.perfilesAdd-perfil-config a {
+		width: 100%;
+
+	}
 }
 
 /* #####################################################
@@ -1112,6 +1170,15 @@ text-align: center;
 	z-index: 1;
 }
 
+.video_play_fade {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 20%;
+    z-index: 9;
+	background: linear-gradient(180deg, rgba(0,0,0,1) 30%, rgba(255,255,255,0) 100%);
+}
+
 .exit{
 	position: fixed;
 	top: 3%;
@@ -1142,6 +1209,15 @@ text-align: center;
 	text-decoration: none;
 	font-size: 4rem;
 
+}
+
+@media only screen and (max-width: 2000px) {
+	.content-box-info {
+		width: auto;
+	}
+	.portada-info {
+		height: auto;
+	}
 }
 
 /* #####################################################
@@ -1360,6 +1436,80 @@ right: -3.8%;
 	border-radius: 3px;
 } 
 
+@media only screen and (max-width: 2000px) {
+	.content-box-info {
+		width: auto;
+	}
+	.portada-info {
+		height: auto;
+	}
+}
+
+@media only screen and (max-width: 1700px) {
+	.content-box-info {
+		padding: 5% 5% 0 0;
+	}
+	.portada-info {
+		margin: 10% 5% 5% 5%;
+	}
+}
+
+@media only screen and (max-width: 1500px) {
+	.container-info {
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: auto;
+	}
+	.video-container {
+		height: 200%;
+	}
+	.content-box-info {
+		padding: 0;
+	}
+	.portada-info {
+		height: 61.3vh;
+		margin: 5%;
+	}
+}
+
+@media only screen and (max-width: 1150px) {
+	.video-container {
+		height: 400%;
+	}
+	.content-box-info .related_films .films {
+		flex-direction: column;
+		width: 670px;
+	}
+	.content-box-info .related_films .films .film {
+		margin-bottom: 20px;
+		margin-right: 0;
+		width: auto;
+		height: auto;
+	}
+	.left-info, .right-info {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 730px) {
+	.portada-info {
+		height: auto;
+	}
+	.content-box-info .title-content {
+		font-size: 2rem;
+	}
+	.content-box-info .details {
+		width: 50%;
+	}
+	.content-box-info .tablink, .content-box-info .tabcontent, .content-box-info .specific-info-box .specific-name, .content-box-info .specific-info-box .specific-title{
+		font-size: 1rem;
+	}
+	.content-box-info .related_films .films {
+		width: auto;
+	}
+}
+
 /* #####################################################
 						END INFO
 ##################################################### */
@@ -1486,6 +1636,98 @@ right: -3.8%;
 	background-color: rgb(151, 0, 0);
 }
 
+@media only screen and (max-width: 1870px) {
+	.welcome_container {
+		background-size: 120%;
+	}
+	.register_box {
+		width: 50%;
+	}
+}
+
+@media only screen and (max-width: 1600px) {
+	.welcome_container {
+		background-size: 140%;
+	}
+	.register_box {
+		width: 60%;
+	}
+	.login_box {
+		width: 40%;
+	}
+	.login_degradado {
+		height: 307px;
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	.welcome_container {
+		background-size: 220%;
+	}
+	.register_box {
+		width: 70%;
+	}
+	.login_box {
+		width: 60%;
+	}
+	.login_degradado {
+		height: 340px;
+		top: 20%;
+	}
+}
+
+@media only screen and (max-width: 850px) {
+	.welcome_container {
+		background-size: 300%;
+	}
+	.register_box {
+		width: 80%;
+	}
+	.login_box {
+		width: 70%;
+	}
+	.login_degradado {
+		height: 225px;
+	}
+}
+
+@media only screen and (max-width: 680px) {
+	.welcome_container {
+		background-size: 350%;
+	}
+	.login_box .login_fondo {
+		background-size: 200%;
+	}
+	.login_box {
+		width: 80%;
+	}
+	.login_degradado {
+		height: 212px;
+		top: 15%;
+	}
+	.perfilesAdd-perfil-inputs-box > fieldset div:first-of-type {
+		flex-direction: column;
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	
+	.login_content h1 {
+		font-size: 1.2em;
+	}
+
+	.login_content .login-input > input {
+		font-size: auto;
+		padding: 1px;
+	}
+	.perfilesAdd-perfil-config-button {
+		padding: 0.75rem 1rem;
+	}
+	.login_degradado {
+		height: 333px;
+    	top: -20%;
+	}
+}
 
 
 /* #####################################################
