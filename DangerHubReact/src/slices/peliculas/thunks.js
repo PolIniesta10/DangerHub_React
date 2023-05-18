@@ -66,11 +66,12 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
         dispatch(startLoadingPeliculas());
 
     // let { body, upload, latitude, longitude, visibility } = formulari;
-    let { titulo, descripcion, url_imagen, url_video, duracion, fecha_lanzamiento, id_categoria } = data2;
+    let { titulo, descripcion, descripcionLarga, url_imagen, url_video, duracion, fecha_lanzamiento, id_categoria } = data2;
     const formData = new FormData();
         
     formData.append("titulo", titulo);
     formData.append("descripcion", descripcion);
+    formData.append("descripcionLarga", descripcionLarga);
     formData.append("url_imagen", url_imagen);
     formData.append("url_video", url_video);
     formData.append("duracion", duracion);
