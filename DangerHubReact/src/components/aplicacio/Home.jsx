@@ -124,7 +124,7 @@ export const Home = () => {
                   
                 : <>
           {peli_random && (
-            <div className="video-container">
+            <div className="home_video_container">
                <div className="video_home_fade top_fade"></div>
                 {peli_random && (
                   <>
