@@ -5,6 +5,7 @@ import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { Link } from "react-router-dom";
 import loading from'/videos/introDangerHubNegra.webm';
+import NoResults from'/imagenes/NoResults.jpg';
 import { RecomendedGrid } from './RecomendedGrid';
 import { GuardadosGrid } from './GuardadosGrid';
 import { useContext } from 'react';
@@ -128,42 +129,14 @@ export const Home = () => {
     }
     
   }, []);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     await obtUser();
-  //   };
   
-  //   fetchData();
-  // }, [authToken]);
-  
-  // useEffect(() => {
-  //   const delay = 4000;
-
-  //   const timer = setTimeout(() => {
-  //     if (selectedPerfilId) {
-  //       obtLista(selectedPerfilId, authToken);
-  //       dispatch(getPeliculas(authToken));
-  //       dispatch(getPeliculasGuardadas(authToken, lista.id));
-       
-  //     }
-  //   }, delay);
-
-  //   return () => clearTimeout(timer);
+  useEffect(() => {
+    obtUser();
+    console.log(selectedPerfilId);
+    obtLista(selectedPerfilId, authToken);
+    dispatch(getPeliculas(authToken));
     
-  // }, []);
-  
-  //   useEffect(() => {
-  //     dispatch(getTusPeliculas(authToken, userId));
-  // }, [userId])
-
-    useEffect(() => {
-      obtUser();
-      console.log(selectedPerfilId);
-      obtLista(selectedPerfilId, authToken);
-      dispatch(getPeliculas(authToken));
-      
-      dispatch(getTusPeliculas(authToken, userId));
+    dispatch(getTusPeliculas(authToken, userId));
   }, [])
   
   useEffect(() => {
@@ -192,9 +165,6 @@ export const Home = () => {
               <div className="loadingPeliculas">
                   <video autoPlay muted loop src={loading}></video>
               </div>
-                  
-                
-                  
                 : <>
           {peli_random && (
             <div className="home_video_container">
@@ -220,10 +190,21 @@ export const Home = () => {
             </>
             )}
             {/* Carrusel de contenido */}
+            {peliculasGuardadas.length === 0 ? ( 
             <section className="content-carousel">
-                <p>Mi Lista</p>
-                <div className="carousel-arrow left"><BsFillArrowLeftCircleFill/></div>
-                <div className="carousel-arrow right"><BsFillArrowRightCircleFill/></div>
+              <p>Mi Lista</p>
+              <div className="carousel-container">
+                <div className="content-card">
+                  <img  draggable="false"  src={NoResults} alt="Ninguna contenido añadido a tu lista"/>
+                  <h3>Sin contenido en la lista</h3>
+                </div>
+              </div>
+            </section> ) : (
+
+            <section className="content-carousel">
+              <p>Mi Lista</p>
+              <div className="carousel-arrow left"><BsFillArrowLeftCircleFill/></div>
+              <div className="carousel-arrow right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container">
                 {/* Tarjetas de contenido */}
                 {peliculasGuardadas.map((v) => {
@@ -234,7 +215,7 @@ export const Home = () => {
                 )
               })}
               </div>
-            </section>
+            </section> )}
 
             {/* Carrusel de contenido */}
             <section className="content-carousel">
@@ -253,13 +234,25 @@ export const Home = () => {
             </section>
 
             {/* Carrusel de contenido */}
+
+            {misPublicaciones.length === 0 ? ( 
             <section className="content-carousel">
-                <p>Publicados por la comunidad</p>
+              <p>Mis publicaciones</p>
+              <div className="carousel-container">
+                <div className="content-card">
+                  <img  draggable="false"  src={NoResults} alt="Ninguna publicacion"/>
+                  <h3>No hay publicaciones hechas por esta cuenta</h3>
+                </div>
+              </div>
+            </section> ) : (
+
+            <section className="content-carousel">
+                <p>Mis publicaciones</p>
                 <div className="carousel-arrow3 left"><BsFillArrowLeftCircleFill/></div>
                 <div className="carousel-arrow3 right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container3">
 
-              {peliculas.map((v) => {
+              {misPublicaciones.map((v) => {
                 return (
                   <>
                     <RecomendedGrid key={v.id} v={v}  {...v}/>
@@ -268,7 +261,7 @@ export const Home = () => {
               })}
 
               </div>
-            </section>
+            </section>)}
 
           </div>
           </>}
