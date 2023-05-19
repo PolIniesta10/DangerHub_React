@@ -16,7 +16,7 @@ import { FiSave }from 'react-icons/fi';
 import { Link, useParams, useLocation  } from "react-router-dom";
 import fondoparticulas from '/videos/fondoparticulas.mp4';
 import peliculasSlice from '../../slices/peliculas/peliculasSlice';
-import { getPelicula, getPeliculas, guardarContenido, quitarContenido } from '../../slices/peliculas/thunks';
+import { getPelicula, getPeliculas, guardarContenido, quitarContenido, testGuardados } from '../../slices/peliculas/thunks';
 import { getPerfil } from '../../slices/perfiles/thunks';
 import { getPeliculasGuardadas } from '../../slices/guardados/thunks'
 
@@ -109,14 +109,15 @@ export const Info = (perfil) => {
     setDescriptionVisible(true);
     dispatch(getPeliculas(authToken));
     dispatch(getPerfil(selectedPerfilId, authToken));
-    
+    obtLista(selectedPerfilId, authToken);
     dispatch(getPeliculasGuardadas(authToken, lista.id))
     obtContenido(id, authToken);
+    
   }, []);
-  useEffect(() => {
-    obtLista(selectedPerfilId, authToken);
-  }, []) 
   
+  useEffect(() => {
+    dispatch(testGuardados(authToken, id, lista.id, selectedPerfilId))
+  }, []);
 
   // Switch between tabs when a tab button is clicked
   function openTab(evt, tabName) {

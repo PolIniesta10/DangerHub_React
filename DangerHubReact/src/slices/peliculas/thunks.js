@@ -101,7 +101,7 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
   };
 }
 
-export const getPelicula = (id, authToken) => {
+export const getPelicula = (authToken, id, id_lista, selectedPerfilId) => {
     return async (dispatch, getState) => {
 
         dispatch(startLoadingPeliculas());
@@ -121,6 +121,7 @@ export const getPelicula = (id, authToken) => {
 
         if (resposta.success == true) {
             dispatch(setPelicula(resposta.data));
+            dispatch(testGuardados(authToken, id, id_lista, selectedPerfilId));
 
         } else {
             dispatch(setError(resposta.message));
@@ -186,6 +187,44 @@ export const delPost = (post, authToken) => {
     };
 };
 
+export const testGuardados = (authToken, id, id_lista, selectedPerfilId) => {
+    return async (dispatch, getState) => {
+        console.log(id_lista)
+        const headers = {
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + authToken,
+            },
+            method: "POST",
+        };
+        const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
+
+        const data = await fetch(url,  headers  );
+        const resposta = await data.json();
+
+        if (resposta.success == true) {
+            dispatch(setGuardado(false));
+            console.log('No está guardado!')
+            const headers = {
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + authToken,
+                },
+                method: "DELETE",
+            };
+            const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
+    
+            const data = await fetch(url,  headers  );
+            const resposta = await data.json();
+
+        } else {
+            dispatch(setGuardado(true));
+            console.log("Guardado!");
+        }
+    };
+}
 
 export const guardarContenido = (authToken, id, id_lista, selectedPerfilId) => {
     return async (dispatch, getState) => {
