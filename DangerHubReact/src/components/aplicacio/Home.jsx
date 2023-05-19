@@ -19,7 +19,7 @@ export const Home = () => {
 
   const [ isLoadingAllPage, setisLoadingAllPage ] = useState(true);
   let { authToken,setAuthToken } = useContext(UserContext);
-  const { peliculas = [], peliculasGuardadas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  const { peliculas = [], peliculasGuardadas = [], isLoading=true, error="", tusPeliculas = [] } = useSelector((state) => state.peliculas);
   const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const location = useLocation();
   const perfil = location.state && location.state.perfil;
@@ -136,15 +136,16 @@ export const Home = () => {
     obtLista(selectedPerfilId, authToken);
     dispatch(getPeliculas(authToken));
     
-    dispatch(getTusPeliculas(authToken, userId));
+    
   }, [])
   
   useEffect(() => {
-    const delay = 5000;
+    const delay = 7000;
 
     const timer = setTimeout(() => {
     if (lista.id) {
       dispatch(getPeliculasGuardadas(authToken, lista.id));
+      dispatch(getTusPeliculas(authToken, userId));
       setisLoadingAllPage(false);
     }
     }, delay);
@@ -235,7 +236,7 @@ export const Home = () => {
 
             {/* Carrusel de contenido */}
 
-            {misPublicaciones.length === 0 ? ( 
+            {tusPeliculas.length === 0 ? ( 
             <section className="content-carousel">
               <p>Mis publicaciones</p>
               <div className="carousel-container">
@@ -252,7 +253,7 @@ export const Home = () => {
                 <div className="carousel-arrow3 right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container3">
 
-              {misPublicaciones.map((v) => {
+              {tusPeliculas.map((v) => {
                 return (
                   <>
                     <RecomendedGrid key={v.id} v={v}  {...v}/>
