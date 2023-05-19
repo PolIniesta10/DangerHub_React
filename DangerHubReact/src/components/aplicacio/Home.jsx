@@ -169,47 +169,13 @@ export const Home = () => {
                 <div className="carousel-arrow2 left"><BsFillArrowLeftCircleFill/></div>
                 <div className="carousel-arrow2 right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container2">
-                {/* Tarjetas de contenido */}
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 1" />
-                  <h3>Película 1</h3>
-                </div>
-                <div className="content-card">
-                  <img draggable="false" src="https://via.placeholder.com/150" alt="Película 2" />
-                  <h3>Película 2</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 3" />
-                  <h3>Película 3</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 4" />
-                  <h3>Película 4</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 5" />
-                  <h3>Película 5</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 6 " />
-                  <h3>Película 6</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 7" />
-                  <h3>Película 7</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 8" />
-                  <h3>Película 8</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 9" />
-                  <h3>Película 9</h3>
-                </div>
-                <div className="content-card">
-                  <img  draggable="false"  src="https://via.placeholder.com/150" alt="Película 10" />
-                  <h3>Película 10</h3>
-                </div>
+              {peliculas.map((v) => {
+                return (
+                  <>
+                    <RecomendedGrid key={v.id} v={v}  {...v}/>
+                  </>
+                )
+              })}
               </div>
             </section>
 

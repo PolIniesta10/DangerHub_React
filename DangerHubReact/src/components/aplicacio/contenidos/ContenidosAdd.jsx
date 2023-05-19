@@ -10,35 +10,59 @@ import { addContenido } from '../../../slices/peliculas/thunks';
 
 export const ContenidosAdd = () => {
 
-    const [urlAvatar, setUrlAvatar] = useState("");
+    const [urlImagen, setUrlImagen] = useState("");
     const [fechaHoy, setFechaHoy] = useState(new Date());
     const hoy = fechaHoy.toISOString().slice(0, 10);
     const { authToken } = useContext(UserContext);
     const [tipoContenido, setTipoContenido] = useState("1"); 
-    const { register, handleSubmit , setValue } = useForm();   
+    const [tituloContenido, setTitulo] = useState('');
+    const [descripcionContenido, setDescripcion] = useState('');
+    const [descripcionLargaContenido, setDescripcionLarga] = useState('');
+    const [urlVideoContenido, setUrlVideo] = useState('');
+    const [duracionContenido, setDuracion] = useState('');
+    const [fecha_lanzamientoContenido, setFecha_Lanzamiento] = useState('');
+    const { handleSubmit, setValue } = useForm();    
     useEffect(() => {
-      if (urlAvatar) {
-        setValue("url_avatar", urlAvatar);
+      if (urlImagen) {
+        setValue("url_imagen", urlImagen);
       }
-    }, [urlAvatar]);
+    }, [urlImagen]);
   
     const handleUrlAvatarChange = (event) => {
-      setUrlAvatar(event.target.value);
+        setUrlImagen(event.target.value);
     };
-
+    const handleUrlVideorChange = (event) => {
+        setUrlVideo(event.target.value);
+    };
+    const handleTituloChange = (event) => {
+        setTitulo(event.target.value);
+    };
+    const handleDescripcionChange = (event) => {
+        setDescripcion(event.target.value);
+    };
+    const handleDescripcionLargaChange = (event) => {
+        setDescripcionLarga(event.target.value);
+    };
+    const handleDuracionChange = (event) => {
+        setDuracion(event.target.value);
+    };
+    const handleFecha_LanzamientoChange = (event) => {
+        setFecha_Lanzamiento(event.target.value);
+    };
+      
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const afegir = (data) => {
         const data2 = {
             ...data,
-            titulo: data.titulo,
-            descripcion: data.descripcion,
-            descripcionLarga: data.descripcionLarga,
+            titulo: tituloContenido,
+            descripcion: descripcionContenido,
+            descripcionLarga: descripcionLargaContenido,
             url_imagen: data.url_imagen,
-            url_video: data.url_video,
-            duracion: data.duracion,
-            fecha_lanzamiento: data.fecha_lanzamiento,
+            url_video: urlVideoContenido,
+            duracion: duracionContenido,
+            fecha_lanzamiento: fecha_lanzamientoContenido,
             id_categoria: tipoContenido,
         };
         console.log(data2);
@@ -62,7 +86,7 @@ export const ContenidosAdd = () => {
             <div className="perfilesAdd-perfil-users"  style={{width:"65%",}}>
                 <form action="">
                     <div className="perfilesAdd-perfil-foto">
-                    <img className="perfiles-perfil-img" src={urlAvatar||DHUB} alt=""  />
+                    <img className="perfiles-perfil-img" src={urlImagen||DHUB} alt=""  />
                     </div>
                     <div className="perfilesAdd-perfil-inputs-box">
                         
@@ -83,24 +107,24 @@ export const ContenidosAdd = () => {
                         
                         <div className="contentAdd-perfil-input">
                             <input type="text" name="titulo" id="titulo"
-                            placeholder='Nombre del contenido' minLength={2} maxLength={20} ref={register}/>
+                            placeholder='Nombre del contenido' minLength="2" maxLength="20" onChange={handleTituloChange}/>
                         </div>
 
                         <div className="contentAdd-perfil-input">
-                            <input name="descripcion" id="descripcion" placeholder="Descripcion corta del contenido" ref={register}></input>
+                            <input name="descripcion" id="descripcion" placeholder="Descripcion corta del contenido" onChange={handleDescripcionChange}></input>
                         </div>
                         <div className="contentAdd-perfil-input">
-                            <textarea name="descripcionLarga" id="descripcionLarga" placeholder="Descripcion larga del contenido" ref={register}></textarea>
+                            <textarea name="descripcionLarga" id="descripcionLarga" placeholder="Descripcion larga del contenido" onChange={handleDescripcionLargaChange}></textarea>
                         </div>
 
                         <div className="contentAdd-perfil-input">
-                            <input type="url" name="url_avatar"
-                            placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_avatar" onChange={handleUrlAvatarChange} value={urlAvatar} />
+                            <input type="url" name="url_imagen"
+                            placeholder='URL de la imagen ( Por defecto es el logo de DangeHub )' id="url_imagen" onChange={handleUrlAvatarChange} value={urlImagen} />
                         </div>
 
                         <div className="contentAdd-perfil-input">
                             <input type="url" name="url_video"
-                            placeholder='URL del video ( Etiqueta "src" del iframe insertado de Youtube: "https://www.youtube.com/embed/f5omY8jVrSM" )' id="url_video" ref={register}/>
+                            placeholder='URL del video ( Etiqueta "src" del iframe insertado de Youtube: "https://www.youtube.com/embed/f5omY8jVrSM" )' id="url_video" onChange={handleUrlVideorChange}/>
                         </div>
                         <div className="contentAdd-perfil-time-box">
 
@@ -108,7 +132,7 @@ export const ContenidosAdd = () => {
                                 <legend>Duracion del contenido:</legend>    
 
                                 <div className="contentAdd-perfil-input time-picker">
-                                    <input id="duracion" type="time" name="duracion" step="2" ref={register}/>
+                                    <input id="duracion" type="time" name="duracion" step="2" onChange={handleDuracionChange}/>
                                 </div>
                             </fieldset>
 
@@ -116,7 +140,7 @@ export const ContenidosAdd = () => {
                                 <legend>Fecha de lanzamiento:</legend>    
 
                                 <div className="contentAdd-perfil-input date-picker">
-                                    <input type="date" name="fecha_lanzamiento" id="fecha_lanzamiento"  min="2000-01-01" max={hoy} ref={register}/>
+                                    <input type="date" name="fecha_lanzamiento" id="fecha_lanzamiento"  min="2000-01-01" max={hoy} onChange={handleFecha_LanzamientoChange}/>
                                 </div>
                             </fieldset>
                             
