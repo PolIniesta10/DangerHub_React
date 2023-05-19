@@ -10,26 +10,51 @@ import { GuardadosGrid } from './GuardadosGrid';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';
 import { useDispatch, useSelector } from "react-redux";
-import { getPelicula, getPeliculas } from '../../slices/peliculas/thunks';
+import { getPelicula, getPeliculas, getTusPeliculas } from '../../slices/peliculas/thunks';
 import { useLocation } from 'react-router-dom';
 import { getPeliculasGuardadas } from '../../slices/peliculas/thunks'
 
 export const Home = () => {
 
+  const [ isLoadingAllPage, setisLoadingAllPage ] = useState(true);
   let { authToken,setAuthToken } = useContext(UserContext);
   const { peliculas = [], peliculasGuardadas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
   const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const location = useLocation();
   const perfil = location.state && location.state.perfil;
   let [ lista, setLista_reproduccion] = useState({});
-  console.log(selectedPerfilId); // Aquí debería imprimir el valor de "perfil" si se ha pasado desde el componente anterior
-
+  let [ userId,setUserId ] = useState('');
   const dispatch = useDispatch();
 
   const randomIndex = Math.floor(Math.random() * peliculas.length);
   const peli_random = peliculas[randomIndex];
   const videoId = peli_random && peli_random.url_video && peli_random.url_video.split('embed/')[1];
   
+  const obtUser = async () => {
+    try{
+        const data = await fetch("http://127.0.0.1:8000/api/user", {
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer '  + authToken
+        },
+        method: "GET",
+        })
+        const resposta = await data.json();
+        if (resposta.success === true) {
+            console.log(resposta.user);
+            setUserId(resposta.user.id);
+        }
+        else {
+            console.log("error");
+        }
+    }
+    catch {
+    console.log(data);
+    alert("Catch");
+    }
+  };
+
   const obtLista = async (selectedPerfilId, authToken) => {
     let data = null;
     try {
@@ -101,16 +126,64 @@ export const Home = () => {
         container3.scrollBy({ left: 1000, behavior: 'smooth' });
       });
     }
-
-    obtLista(selectedPerfilId, authToken);
-    dispatch(getPeliculas(authToken));
+    
   }, []);
 
-   
-  useEffect(() => {
-    dispatch(getPeliculasGuardadas(authToken, lista.id))
-  }, [lista]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await obtUser();
+  //   };
+  
+  //   fetchData();
+  // }, [authToken]);
+  
+  // useEffect(() => {
+  //   const delay = 4000;
 
+  //   const timer = setTimeout(() => {
+  //     if (selectedPerfilId) {
+  //       obtLista(selectedPerfilId, authToken);
+  //       dispatch(getPeliculas(authToken));
+  //       dispatch(getPeliculasGuardadas(authToken, lista.id));
+       
+  //     }
+  //   }, delay);
+
+  //   return () => clearTimeout(timer);
+    
+  // }, []);
+  
+  //   useEffect(() => {
+  //     dispatch(getTusPeliculas(authToken, userId));
+  // }, [userId])
+
+    useEffect(() => {
+      obtUser();
+      console.log(selectedPerfilId);
+      obtLista(selectedPerfilId, authToken);
+      dispatch(getPeliculas(authToken));
+      
+      dispatch(getTusPeliculas(authToken, userId));
+  }, [])
+  
+  useEffect(() => {
+    const delay = 5000;
+
+    const timer = setTimeout(() => {
+    if (lista.id) {
+      dispatch(getPeliculasGuardadas(authToken, lista.id));
+      setisLoadingAllPage(false);
+    }
+    }, delay);
+
+    return () => clearTimeout(timer);
+
+  }, [lista, authToken, dispatch])
+  if (isLoadingAllPage) {
+    return <div className="loadingPeliculas">
+      <video autoPlay muted loop src={loading}></video>
+      </div>;
+  }
   return (
     <>
     

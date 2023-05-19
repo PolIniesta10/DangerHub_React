@@ -24,7 +24,6 @@ export const getPerfiles = (authToken) => {
         if(resposta.success == true) {
             
             dispatch(setPerfiles(resposta.data));
-            console.log(resposta.data);
             
         }else {
             setError(resposta.message);
@@ -59,7 +58,6 @@ export const getPerfiles = (authToken) => {
     const resposta = await data.json();
 
     if (resposta.success == true) {
-        console.log("Perfil Creat");
         dispatch(getPerfiles(authToken));
     } else {
         alert('Solo puedes tener como maximo 4 perfiles!');
@@ -85,12 +83,9 @@ export const getPerfil = (id, authToken) => {
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
-        console.log(id)
         if (resposta.success == true) {
             dispatch(setPerfil(resposta.data));
-            console.log(id)
             dispatch(setSelectedPerfilId(resposta.data.id))
-            console.log(resposta.data)
            
         } else {
             dispatch(setError(resposta.message));
@@ -100,8 +95,6 @@ export const getPerfil = (id, authToken) => {
 
 export const editPerfil = (formulari, authToken, perfil) => {
     return async (dispatch, getState) => {
-    console.log(formulari);
-    console.log(perfil);
     let { nombre, url_avatar } = formulari;
     const formData = new FormData();
         
@@ -122,7 +115,7 @@ export const editPerfil = (formulari, authToken, perfil) => {
     const resposta = await data.json();
     
     if (resposta.success == true) {
-        console.log("Perfil Editat");
+        alert("Perfil Editat!");
     } else {
         setError(resposta.message);
     }
@@ -146,11 +139,9 @@ export const delPerfil = (perfil, authToken) => {
             }
         );
         const resposta = await data.json();
-        console.log(resposta);
 
         if (resposta.success == true) {
             dispatch (getPerfiles(authToken))
-            console.log("Perfil Eliminat");
         } else {
             setError(resposta.message);
         }

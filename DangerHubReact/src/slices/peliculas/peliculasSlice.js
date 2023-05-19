@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     peliculas: [],
     peliculasGuardadas: [],
+    tusPeliculas: [],
     pelicula: {
         id:"",
         titulo: "",
@@ -42,6 +43,10 @@ export const peliculasSlice = createSlice({
             state.pelicula = action.payload
             state.isLoading = false
         },
+        setTusPeliculas: (state, action ) => {
+            state.tusPeliculas = action.payload
+            state.isLoading = false
+        },
         setGuardado: (state, action ) => {
             state.guardado = action.payload
         },
@@ -63,5 +68,5 @@ export const peliculasSlice = createSlice({
     }
 });
 
-export const { startLoadingPeliculas, setPeliculas, setPeliculasGuardadas, setPelicula, setGuardado, setError, setPage, setPages, setFilter } = peliculasSlice.actions;
+export const { startLoadingPeliculas, setPeliculas, setPeliculasGuardadas, setPelicula, setGuardado, setTusPeliculas, setError, setPage, setPages, setFilter } = peliculasSlice.actions;
 export default peliculasSlice.reducer

@@ -1,4 +1,4 @@
-import { startLoadingPeliculas, setError, setPeliculas, setPeliculasGuardadas, setPelicula, setGuardado, setPages, setFilter } from "./peliculasSlice";
+import { startLoadingPeliculas, setError, setPeliculas, setPeliculasGuardadas, setPelicula, setGuardado, setTusPeliculas, setPages, setFilter } from "./peliculasSlice";
 import { useNavigate } from "react-router-dom";
 
 export const getPeliculas = (authToken) => {
@@ -23,7 +23,6 @@ export const getPeliculas = (authToken) => {
         if(resposta.success == true) {
             
             dispatch(setPeliculas(resposta.data));
-            console.log(resposta.data);
             
         }else {
             setError(resposta.message);
@@ -34,7 +33,6 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
     return async (dispatch, getState) => {
         let filter = getState().peliculas.filter;
         dispatch(startLoadingPeliculas());
-
         const headers = {
 
             headers: {
@@ -52,7 +50,37 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
         if(resposta.success == true) {
             
             dispatch(setPeliculasGuardadas(resposta.data));
-            console.log(resposta.data);
+            console.log(resposta.data)
+            
+        }else {
+            setError(resposta.message);
+        }
+    }
+}
+export const getTusPeliculas = (authToken, userId) => {
+    return async (dispatch, getState) => {
+        console.log(userId);
+        let filter = getState().peliculas.filter;
+        dispatch(startLoadingPeliculas());
+
+        const headers = {
+
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + authToken,
+            },
+            method: "GET",
+        };
+        let url = "http://127.0.0.1:8000/api/peliculas/user/" + userId ;
+
+        const data = await fetch(url, headers);
+        const resposta = await data.json();
+
+        if(resposta.success == true) {
+            
+            dispatch(setTusPeliculas(resposta.data.contenidos));
+            console.log(resposta.data.contenidos);
             
         }else {
             setError(resposta.message);
@@ -86,7 +114,6 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
         method: "POST",
         body: formData
     };
-    console.log(data2);
     const url = "http://127.0.0.1:8000/api/contenidos";
 
     const data = await fetch(url, headers);
@@ -94,7 +121,7 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
     const resposta = await data.json();
 
     if (resposta.success == true) {
-        console.log("Contenido Creado");
+        alert("Contenido Creado");
     } else {
         setError(resposta.message);
     }
@@ -129,74 +156,72 @@ export const getPelicula = (authToken, id, id_lista, selectedPerfilId) => {
     };
 }
 
-export const editPost = (formulari, authToken, post) => {
-    return async (dispatch, getState) => {
+// export const editPost = (formulari, authToken, post) => {
+//     return async (dispatch, getState) => {
 
-    let { body, upload, latitude, longitude, visibility } = formulari;
-    const formData = new FormData();
+//     let { body, upload, latitude, longitude, visibility } = formulari;
+//     const formData = new FormData();
         
-    formData.append("body", body);
-    formData.append("upload", upload);
-    formData.append("latitude", latitude);
-    formData.append("longitude", longitude);
-    formData.append("visibility", visibility);
+//     formData.append("body", body);
+//     formData.append("upload", upload);
+//     formData.append("latitude", latitude);
+//     formData.append("longitude", longitude);
+//     formData.append("visibility", visibility);
 
-    const data = await fetch(
-      "https://backend.insjoaquimmir.cat/api/posts/" + post.id,
-      {
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + authToken,
-        },
-        method: "POST",
-        body: formData,
-      }
-    );
-    const resposta = await data.json();
+//     const data = await fetch(
+//       "https://backend.insjoaquimmir.cat/api/posts/" + post.id,
+//       {
+//         headers: {
+//           Accept: "application/json",
+//           Authorization: "Bearer " + authToken,
+//         },
+//         method: "POST",
+//         body: formData,
+//       }
+//     );
+//     const resposta = await data.json();
 
-    if (resposta.success == true) {
-        console.log("Post Editat");
-    } else {
-        setError(resposta.message);
-    }
-  };
-}
+//     if (resposta.success == true) {
+//         console.log("Post Editat");
+//     } else {
+//         setError(resposta.message);
+//     }
+//   };
+// }
 
-export const delPost = (post, authToken) => {
-    return async (dispatch, getState) => {
+// export const delPost = (post, authToken) => {
+//     return async (dispatch, getState) => {
 
-        dispatch(startLoadingPosts());
+//         dispatch(startLoadingPosts());
 
-        const data = await fetch(
-            "https://backend.insjoaquimmir.cat/api/posts/" + post.id,
-            {
-                headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + authToken,
-                },
-                method: "DELETE",
-            }
-        );
-        const resposta = await data.json();
-        console.log(resposta);
+//         const data = await fetch(
+//             "https://backend.insjoaquimmir.cat/api/posts/" + post.id,
+//             {
+//                 headers: {
+//                 Accept: "application/json",
+//                 "Content-Type": "application/json",
+//                 Authorization: "Bearer " + authToken,
+//                 },
+//                 method: "DELETE",
+//             }
+//         );
+//         const resposta = await data.json();
 
-        if (resposta.success == true) {
-            dispatch (getPosts(0, authToken))
-        }
-    };
-};
+//         if (resposta.success == true) {
+//             dispatch (getPosts(0, authToken))
+//         }
+//     };
+// };
 
 export const testGuardados = (authToken, id, id_lista, selectedPerfilId) => {
     return async (dispatch, getState) => {
-        console.log(id_lista)
         const headers = {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
                 Authorization: "Bearer " + authToken,
             },
-            method: "POST",
+            method: "POST", 
         };
         const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
 
@@ -205,7 +230,6 @@ export const testGuardados = (authToken, id, id_lista, selectedPerfilId) => {
 
         if (resposta.success == true) {
             dispatch(setGuardado(false));
-            console.log('No está guardado!')
             const headers = {
                 headers: {
                     Accept: "application/json",
@@ -221,7 +245,6 @@ export const testGuardados = (authToken, id, id_lista, selectedPerfilId) => {
 
         } else {
             dispatch(setGuardado(true));
-            console.log("Guardado!");
         }
     };
 }
@@ -245,7 +268,6 @@ export const guardarContenido = (authToken, id, id_lista, selectedPerfilId) => {
         if (resposta.success == true) {
             dispatch(setGuardado(true));
             localStorage.setItem('guardado', 'true');
-            console.log(resposta.data);
             alert("Contenido añadido a tu lista!");
         } else {
             dispatch(setGuardado(false));
@@ -272,7 +294,6 @@ export const quitarContenido = (authToken, id, id_lista, selectedPerfilId) => {
         if (resposta.success == true) {
             dispatch(setGuardado(false));
             localStorage.removeItem('guardado');
-            console.log(resposta.data);
             alert("Contenido eliminado de tu lista!");
         }
     };

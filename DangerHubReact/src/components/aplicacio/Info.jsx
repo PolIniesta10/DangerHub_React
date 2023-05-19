@@ -29,8 +29,7 @@ export const Info = (perfil) => {
   let { authToken,setAuthToken } = useContext(UserContext);
   const dispatch = useDispatch();
   const {id} = useParams();
-  const { peliculas = [], isLoading=true, error="", guardado } = useSelector((state) => state.peliculas);
-  const guardadoPersistente = localStorage.getItem('guardado') === 'true';
+  const { peliculas = [], isLoading=true, error="", guardado=false } = useSelector((state) => state.peliculas);
   const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const { guardados = [] } = useSelector((state) => state.guardados);
   const obtContenido = async (id, authToken) => {
@@ -116,8 +115,15 @@ export const Info = (perfil) => {
   }, []);
   
   useEffect(() => {
-    dispatch(testGuardados(authToken, id, lista.id, selectedPerfilId))
-  }, []);
+    // Resto del código...
+  
+    if (selectedPerfilId && lista && lista.id) {
+      dispatch(testGuardados(authToken, id, lista.id, selectedPerfilId));
+    } else {
+      // Manejar el caso en el que selectedPerfilId o lista.id no están definidos
+      console.log('Error: selectedPerfilId o lista.id no están definidos');
+    }
+  }, [selectedPerfilId, lista]);
 
   // Switch between tabs when a tab button is clicked
   function openTab(evt, tabName) {
@@ -135,9 +141,11 @@ export const Info = (perfil) => {
 
     setDescriptionVisible(tabName === "description");
   }
-
+  
   return (
     <>
+     {isLoading ?  <div className="perfiles-perfil-users "><video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video></div> : <>
+     
       <div className="video-container" style={{width: "100%"}}>
         <video autoPlay muted loop>
           <source src={fondoparticulas} type="video/mp4" />
@@ -166,14 +174,10 @@ export const Info = (perfil) => {
           </div> 
           <div id="description" className="tabcontent description" style={{display: descriptionVisible ? "flex" : "none"}}>{contenido.descripcion}</div>
           <div id="opciones" className="tabcontent opciones" style={{display: descriptionVisible ? "none" : "flex", width: "250px"}}>
-              {guardado || guardadoPersistente ? (<div><button onClick={(e) => dispatch(quitarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}>Borrar</button></div>) : 
+              {guardado ? (<div onClick={(e) => dispatch(quitarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}><AiFillDelete/></div>) : 
               
-              (<div><button onClick={(e) => dispatch(guardarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}>Guardar</button></div>)}
-            
-            
-            
-            <div><AiOutlineCloudDownload/></div>
-          </div>
+              (<div onClick={(e) => dispatch(guardarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}><FiSave/></div>)}
+            </div>
           
           <div className="specific-info-box">
             <div className="specific-title">Autor:</div>
@@ -205,6 +209,7 @@ export const Info = (perfil) => {
           </div>
         </div>
       </div>
+      </>}
     </>
   )
 }
