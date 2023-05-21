@@ -132,9 +132,7 @@ export const Home = () => {
   
   useEffect(() => {
     obtUser();
-    console.log(selectedPerfilId);
-    obtLista(selectedPerfilId, authToken);
-    dispatch(getPeliculas(authToken));
+    
     
     
   }, [])
@@ -143,7 +141,9 @@ export const Home = () => {
     const delay = 7000;
 
     const timer = setTimeout(() => {
-    if (lista.id) {
+    if (userId) {
+      obtLista(selectedPerfilId, authToken);
+      dispatch(getPeliculas(authToken));
       dispatch(getPeliculasGuardadas(authToken, lista.id));
       dispatch(getTusPeliculas(authToken, userId));
       setisLoadingAllPage(false);
@@ -152,7 +152,7 @@ export const Home = () => {
 
     return () => clearTimeout(timer);
 
-  }, [lista, authToken, dispatch])
+  }, [lista, userId, authToken, dispatch])
   if (isLoadingAllPage) {
     return <div className="loadingPeliculas">
       <video autoPlay muted loop src={loading}></video>
