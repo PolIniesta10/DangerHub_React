@@ -75,7 +75,7 @@ export const Register = ({ setLogin }) => {
                                 value: 4,
                                 message: "El nom ha de contenir minim 4 caràcters"
                             },
-                        })} type="text"  placeholder="Name" style={{paddingTop:"20px"}} />
+                        })} type="text"  placeholder="Name"  className="paddingTop20"/>
                 </div>
 
                 {errors.name && <p className='errores'>{errors.name.message}</p>}
@@ -83,7 +83,7 @@ export const Register = ({ setLogin }) => {
                 <div className="login-input">
                     <input {...register("email", {
                             required: "Aquest camp és obligatori",
-                        })} type="text" placeholder="Email" style={{paddingTop:"20px"}}/>
+                        })} type="text" placeholder="Email"  className="paddingTop20"/>
                 </div>
 
                 {errors.email && <p className='errores'>{errors.email.message}</p>}
@@ -101,7 +101,7 @@ export const Register = ({ setLogin }) => {
                                 message:
                                 "La contrasenya ha de contenir al menys una minúscula, una majúscula, un número i un caracter especial"
                             }
-                        })} type="password" placeholder="Password" style={{paddingTop:"20px"}}/>
+                        })} type="password" placeholder="Password"  className="paddingTop20"/>
                 </div>
 
                 {errors.password && <p className='errores'>{errors.password.message}</p>}
@@ -119,7 +119,7 @@ export const Register = ({ setLogin }) => {
                                 message:
                                 "La contrasenya ha de contenir al menys una minúscula, una majúscula, un número i un caracter especial"
                             }
-                        })} type="password" placeholder="Repeat Password" style={{paddingTop:"20px"}}/>
+                        })} type="password" placeholder="Repeat Password"  className="paddingTop20"/>
                 </div>
 
                 {errors.password2 && <p className='errores'>{errors.password2.message}</p>}

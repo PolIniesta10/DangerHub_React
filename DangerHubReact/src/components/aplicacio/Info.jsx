@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import laMonja from '/imagenes/laMonja.jpg';
 import loading from'/videos/loading.mp4';
 import { InfoGrid } from './InfoGrid';
 import { useContext } from 'react';
 import { UserContext } from '../../userContext';
 import { useDispatch, useSelector } from "react-redux";
-import { BsPlay } from 'react-icons/bs';
-import { MdBookmarkAdd } from 'react-icons/md';
-import { AiOutlineCloudDownload } from 'react-icons/ai';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { BsFillArrowLeftCircleFill } from 'react-icons/bs';
 import { BiArrowBack } from 'react-icons/bi';
@@ -32,41 +28,73 @@ export const Info = (perfil) => {
   const { peliculas = [], isLoading=true, error="", guardado=false } = useSelector((state) => state.peliculas);
   const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const { guardados = [] } = useSelector((state) => state.guardados);
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
+
+
+  const handleMovieClick = (movieId) => {
+    setSelectedMovieId(movieId);
+  };
+
   const obtContenido = async (id, authToken) => {
     let data = null;
     console.log(id);
     try {
       data = await fetch("http://127.0.0.1:8000/api/peliculas/" + id, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer '  + authToken
-        },
-        method: "GET",
-      })
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + authToken,
+      },
+      method: "GET",
+      });
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
         console.log(resposta);
         setContenido(resposta.data.contenido);
         setUser(resposta.data.user);
-        
-      }
-      else {
+      } else {
         console.log("error");
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
       alert("Catch");
       data = {};
     }
   };
+
+  const obtSelectedContent = async (id, authToken) => {
+    let data = null;
+    console.log(id);
+    try {
+      data = await fetch("http://127.0.0.1:8000/api/peliculas/" + selectedMovieId, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + authToken,
+      },
+      method: "GET",
+      });
+      const resposta = await data.json();
+      if (resposta.success === true && resposta.data) {
+        console.log(resposta);
+        setContenido(resposta.data.contenido);
+        setUser(resposta.data.user);
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Catch");
+      data = {};
+    }
+  };
+
   const obtLista = async (selectedPerfilId, authToken) => {
     let data = null;
     try {
       data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion/" + selectedPerfilId, {
         headers: {
-          Accept: "application/json",
+          Accept: "application/json", 
           "Content-Type": "application/json",
           'Authorization': 'Bearer '  + authToken
         },
@@ -125,6 +153,13 @@ export const Info = (perfil) => {
     }
   }, [selectedPerfilId, lista]);
 
+  useEffect(() => {
+  
+    if (selectedMovieId) {
+      obtSelectedContent(selectedMovieId, authToken);
+    }
+  }, [selectedMovieId]);
+
   // Switch between tabs when a tab button is clicked
   function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
@@ -144,7 +179,7 @@ export const Info = (perfil) => {
   
   return (
     <>
-     {isLoading ?  <div className="perfiles-perfil-users "><video autoPlay muted loop className="perfiles-perfil-loading" src={loading}></video></div> : <>
+     {isLoading ? <video autoPlay muted loop className="perfiles-perfil-loading" src={loading} style={{height: "80%",width: "80%"}}></video>: <>
      
       <div className="video-container" style={{width: "100%"}}>
         <video autoPlay muted loop>
@@ -177,7 +212,9 @@ export const Info = (perfil) => {
               {guardado ? (<div onClick={(e) => dispatch(quitarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}><AiFillDelete/></div>) : 
               
               (<div onClick={(e) => dispatch(guardarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}><FiSave/></div>)}
-            </div>
+
+              
+          </div>
           
           <div className="specific-info-box">
             <div className="specific-title">Autor:</div>
@@ -190,21 +227,13 @@ export const Info = (perfil) => {
             <div className="carousel-arrow right-info"><BsFillArrowRightCircleFill/></div>
 
             <div className="films">
-              {isLoading ?  
-              
-                <div className="film">
-                  <video autoPlay muted loop src={loading} style={{width: "100%", height: "100%"}}></video>
-                  <video autoPlay muted loop src={loading} style={{width: "100%", height: "100%"}}></video>
-                  <video autoPlay muted loop src={loading} style={{width: "100%", height: "100%"}}></video>
-                </div> 
-
-              : <>{peliculas.map((v) => {
+              {peliculas.map((v) => {
                 return (
                   <>
-                    <InfoGrid key={v.id} v={v}  {...v}/>
+                    <InfoGrid key={v.id} v={v} onClick={handleMovieClick} />
                   </>
                 )
-              })}</>}
+              })}
             </div>
           </div>
         </div>

@@ -128,7 +128,7 @@ export const ContenidosAdd = () => {
                         </div>
                         <div className="contentAdd-perfil-time-box">
 
-                            <fieldset className="contentAdd-perfil-input" style={{padding:"6px 20px 10px 20px", width: "45%", display: "block"}}>
+                            <fieldset className="contentAdd-perfil-input-fieldset">
                                 <legend>Duracion del contenido:</legend>    
 
                                 <div className="contentAdd-perfil-input time-picker">
@@ -136,7 +136,7 @@ export const ContenidosAdd = () => {
                                 </div>
                             </fieldset>
 
-                            <fieldset className="contentAdd-perfil-input" style={{padding:"6px 20px 10px 20px", width: "45%", display: "block"}}>
+                            <fieldset className="contentAdd-perfil-input-fieldset">
                                 <legend>Fecha de lanzamiento:</legend>    
 
                                 <div className="contentAdd-perfil-input date-picker">

@@ -11,7 +11,7 @@ import { AdministrarPerfiles } from './components/aplicacio/perfiles/Administrar
 import { About } from './components/aplicacio/About'
 import { Header } from './components/layout/Header'
 import { Home } from './components/aplicacio/Home'
-import { Welcome } from './components/aplicacio/Welcome'
+import { Buscador } from './components/aplicacio/Buscador'
 import { Play } from './components/aplicacio/Play'
 import { NotFound } from './components/aplicacio/NotFound'
 import { Sidebar } from './components/layout/Sidebar'
@@ -29,13 +29,12 @@ function App() {
   <>
   <UserContext.Provider value= { { usuari, setUsuari,authToken,setAuthToken, idUsuari, setIdUsuari }}>
       { authToken != "" ? (
-        <>
-          {/* <Header/> */}
-    
+        <>    
         <Routes>
          <Route path="/" element={<Perfiles/>}/>
           <Route path='*' element={<NotFound />} />
           <Route path="/home" element={<><Header/><Sidebar/><Home perfil={perfil}/></>}/>
+          <Route path="/search" element={<><Sidebar/><Buscador/></>}/>
           <Route path="/perfiles" element={<Perfiles/>}/>
           <Route path="/perfiles/edit/:id" element={<PerfilesEdit/>}/>
           <Route path="/perfilesAdd" element={<PerfilesAdd/>}/>
@@ -45,16 +44,9 @@ function App() {
           <Route path="/info/:id" element={<Info perfil={perfil}/>} />
           <Route path="/SubirContenido" element={<><Sidebar/><ContenidosAdd /></>} />          
         </Routes>
-
-        {/* <Footer/> */}
        </>
 
   ) :   <LoginRegister/>
-        // <Routes>
-        //   <Route path="/" element={<Welcome />} />
-        //   <Route path="/login" element={<LoginRegister/>} />
-        //   <Route path="/register" element={<LoginRegister />} />
-        // </Routes> 
   }
     
   </UserContext.Provider>

@@ -91,11 +91,11 @@ export const PerfilesEdit = () => {
               }
             </div>
             
-            <div className="perfilesAdd-perfil-config">
+            <div className="perfilesAdd-perfil-config buttons_perfilesEdit">
               { error ? (<div className="flex w-full items-center space-x-2 rounded-2xl bg-red-50 mb-4 px-4 ring-2 ring-red-200 ">{error}</div>) : (<></>)  }
-              <button  onClick={(e) => dispatch( editPerfil(formulari, authToken, perfil)) } type="submit" className="perfilesAdd-perfil-config-button confirm-button">Continuar</button>
-              <Link to="/administrarPerfiles"><button type="submit" className="perfilesAdd-perfil-config-button">Cancelar</button></Link>
-              <Link to="/administrarPerfiles" style={{marginRight:" 0px"}}><button onClick={(e) => dispatch( delPerfil(perfil, authToken)) } type="submit" className="perfilesAdd-perfil-config-button" >Eliminar perfil</button></Link>
+              <button  onClick={(e) => dispatch( editPerfil(formulari, authToken, perfil)) } type="submit" className="perfilesAdd-perfil-config-button confirm-button button_perfilEdit">Continuar</button>
+              <Link to="/administrarPerfiles"><button type="submit" className="perfilesAdd-perfil-config-button button_perfilEdit">Cancelar</button></Link>
+              <Link to="/administrarPerfiles" style={{marginRight:" 0px"}}><button onClick={(e) => dispatch( delPerfil(perfil, authToken)) } type="submit" className="perfilesAdd-perfil-config-button button_perfilEdit" >Eliminar perfil</button></Link>
             </div>
         </div>
       </div>

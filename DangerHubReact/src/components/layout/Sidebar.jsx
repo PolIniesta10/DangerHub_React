@@ -100,11 +100,14 @@ export const Sidebar =  () => {
 
       <nav className="sidebar-navigation">
         <ul>
-          <li id="icon1"><FiSearch/></li>
+          <li id="icon1" className={activeLink === '/search' ? 'active' : ''}>
+            <Link to="/search"><FiSearch/></Link>
+          </li>
 
           <li id="icon2" className={activeLink === '/home' ? 'active' : ''}>
             <Link to="/home"><RiHome2Line/></Link>
           </li>
+          
           <li id="icon4" className={activeLink === '/SubirContenido' ? 'active' : ''}>
             <Link to="/SubirContenido"><BsPlusCircle/></Link>
           </li>
