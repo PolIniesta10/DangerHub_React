@@ -32,7 +32,6 @@ export const getPeliculas = (authToken) => {
 export const getPeliculasGuardadas = (authToken, id_lista) => {
     return async (dispatch, getState) => {
         let filter = getState().peliculas.filter;
-        console.log(id_lista);
         dispatch(startLoadingPeliculas());
         const headers = {
 
@@ -51,7 +50,6 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
         if(resposta.success == true) {
             
             dispatch(setPeliculasGuardadas(resposta.data));
-            console.log(resposta.data)
             
         }else {
             setError(resposta.message);
@@ -60,7 +58,6 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
 }
 export const getTusPeliculas = (authToken, userId) => {
     return async (dispatch, getState) => {
-        console.log(userId);
         let filter = getState().peliculas.filter;
         dispatch(startLoadingPeliculas());
 
@@ -81,7 +78,6 @@ export const getTusPeliculas = (authToken, userId) => {
         if(resposta.success == true) {
             
             dispatch(setTusPeliculas(resposta.data.contenidos));
-            console.log(resposta.data.contenidos);
             
         }else {
             setError(resposta.message);

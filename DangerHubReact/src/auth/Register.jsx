@@ -39,7 +39,6 @@ export const Register = ({ setLogin }) => {
         })
         .then((data) => data.json())
         .then((resposta) => {
-            console.log(resposta);
             if (resposta.success === true) {
             //alert(resposta.authToken);
                 setAuthToken(resposta.authToken);
@@ -50,7 +49,6 @@ export const Register = ({ setLogin }) => {
             }
         })
         .catch((data) => {
-            console.log(data);
             alert("Catchch");
           });
 

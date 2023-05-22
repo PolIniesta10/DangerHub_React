@@ -30,7 +30,6 @@ export const perfilesSlice = createSlice({
             state.isLoading = false
         },
         setSelectedPerfilId: (state, action) => {
-            console.log(action.payload)
             state.selectedPerfilId = action.payload
         },
         setError: (state,action) => {

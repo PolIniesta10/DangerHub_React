@@ -39,12 +39,7 @@ export const Sidebar =  () => {
         })
           const resposta = await data.json();
           if (resposta.success === true) {
-              console.log(resposta);
-              console.log(selectedPerfilId)
               setUserId(resposta.user.id);
-          }
-          else {
-            console.log("error");
           }
     }
     catch {
@@ -80,7 +75,6 @@ export const Sidebar =  () => {
             
             if (resposta.success == true )
             {
-              console.log(resposta); 
               setAuthToken("");
               localStorage.setItem('authToken', "");
               navigate("/login");

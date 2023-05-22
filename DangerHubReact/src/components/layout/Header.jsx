@@ -27,16 +27,11 @@ export const Header = () => {
         })
           const resposta = await data.json();
           if (resposta.success === true) {
-              console.log(resposta);
               setUser(resposta.user.name);
               setUserId(resposta.user.id);
           }
-          else {
-            console.log("error");
-          }
     }
     catch {
-      console.log(data);
       alert("Catch");
     }
   };

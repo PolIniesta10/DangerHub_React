@@ -28,16 +28,11 @@ export const Perfiles = () => {
             })
             const resposta = await data.json();
             if (resposta.success === true) {
-                console.log(resposta.user);
                 setUser(resposta.user.name);
                 setUserId(resposta.user.id);
             }
-            else {
-                console.log("error");
-            }
         }
         catch {
-        console.log(data);
         alert("Catch");
         }
     };

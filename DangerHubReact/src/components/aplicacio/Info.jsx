@@ -34,7 +34,6 @@ export const Info = (perfil) => {
   const { guardados = [] } = useSelector((state) => state.guardados);
   const obtContenido = async (id, authToken) => {
     let data = null;
-    console.log(id);
     try {
       data = await fetch("http://equip09.insjoaquimmir.cat/api/peliculas/" + id, {
         headers: {
@@ -46,17 +45,12 @@ export const Info = (perfil) => {
       })
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
-        console.log(resposta);
         setContenido(resposta.data.contenido);
         setUser(resposta.data.user);
         
       }
-      else {
-        console.log("error");
-      }
     }
     catch (error) {
-      console.log(error);
       alert("Catch");
       data = {};
     }
@@ -74,16 +68,10 @@ export const Info = (perfil) => {
       })
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
-        console.log(resposta);
         setLista_reproduccion(resposta.data);
-        console.log(resposta.data);
-      }
-      else {
-        console.log("error");
       }
     }
     catch (error) {
-      console.log(error);
       alert("Catch");
       data = {};
     }
@@ -119,10 +107,7 @@ export const Info = (perfil) => {
   
     if (selectedPerfilId && lista && lista.id) {
       dispatch(testGuardados(authToken, id, lista.id, selectedPerfilId));
-    } else {
-      // Manejar el caso en el que selectedPerfilId o lista.id no están definidos
-      console.log('Error: selectedPerfilId o lista.id no están definidos');
-    }
+    } 
   }, [selectedPerfilId, lista]);
 
   // Switch between tabs when a tab button is clicked

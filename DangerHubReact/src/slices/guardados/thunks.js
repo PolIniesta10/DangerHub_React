@@ -5,7 +5,6 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
     return async (dispatch, getState) => {
         let filter = getState().guardados.filter;
         dispatch(startLoadingGuardados());
-        console.log(id_lista);
         const headers = {
 
             headers: {
@@ -23,7 +22,6 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
         if(resposta.success == true) {
             
             dispatch(setGuardados(resposta.data));
-            console.log(resposta.data);
             
         }else {
             setError(resposta.message);

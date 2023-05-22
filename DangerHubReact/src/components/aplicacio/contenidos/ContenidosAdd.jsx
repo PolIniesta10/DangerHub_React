@@ -65,7 +65,6 @@ export const ContenidosAdd = () => {
             fecha_lanzamiento: fecha_lanzamientoContenido,
             id_categoria: tipoContenido,
         };
-        console.log(data2);
         dispatch(addContenido(data2, authToken));
         navigate('/home');
     };

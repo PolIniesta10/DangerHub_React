@@ -43,15 +43,10 @@ export const Home = () => {
         })
         const resposta = await data.json();
         if (resposta.success === true) {
-            console.log(resposta.user);
             setUserId(resposta.user.id);
-        }
-        else {
-            console.log("error");
         }
     }
     catch {
-    console.log(data);
     alert("Catch");
     }
   };
@@ -69,17 +64,11 @@ export const Home = () => {
       })
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
-        console.log(resposta);
         setLista_reproduccion(resposta.data);
-        console.log(resposta.data);
         
-      }
-      else {
-        console.log("error");
       }
     }
     catch (error) {
-      console.log(error);
       alert("Catch");
       data = {};
     }
