@@ -28,7 +28,6 @@ export const PerfilesAdd = () => {
   const afegir = (data) => {
 
     const data2 = { ...data, nombre: data.nombre, url_avatar: data.url_avatar}
-    console.log(data2);
     dispatch(addPerfil(data2, authToken));
 
     navigate("/administrarPerfiles"); 

@@ -33,7 +33,7 @@ export const Home = () => {
   
   const obtUser = async () => {
     try{
-        const data = await fetch("http://127.0.0.1:8000/api/user", {
+        const data = await fetch("http://equip09.insjoaquimmir.cat/api/user", {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -43,15 +43,10 @@ export const Home = () => {
         })
         const resposta = await data.json();
         if (resposta.success === true) {
-            console.log(resposta.user);
             setUserId(resposta.user.id);
-        }
-        else {
-            console.log("error");
         }
     }
     catch {
-    console.log(data);
     alert("Catch");
     }
   };
@@ -59,7 +54,7 @@ export const Home = () => {
   const obtLista = async (selectedPerfilId, authToken) => {
     let data = null;
     try {
-      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion/" + selectedPerfilId, {
+      data = await fetch("http://equip09.insjoaquimmir.cat/api/listas_reproduccion/" + selectedPerfilId, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -69,17 +64,11 @@ export const Home = () => {
       })
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
-        console.log(resposta);
         setLista_reproduccion(resposta.data);
-        console.log(resposta.data);
         
-      }
-      else {
-        console.log("error");
       }
     }
     catch (error) {
-      console.log(error);
       alert("Catch");
       data = {};
     }
@@ -135,24 +124,27 @@ export const Home = () => {
     
     
     
-  }, [])
+  }, [authToken])
   
   useEffect(() => {
-    const delay = 7000;
-
+    const delay = 4000;
     const timer = setTimeout(() => {
-    if (userId) {
-      obtLista(selectedPerfilId, authToken);
-      dispatch(getPeliculas(authToken));
-      dispatch(getPeliculasGuardadas(authToken, lista.id));
-      dispatch(getTusPeliculas(authToken, userId));
-      setisLoadingAllPage(false);
-    }
+      if (userId) {
+        obtLista(selectedPerfilId, authToken);
+        dispatch(getPeliculas(authToken));
+        dispatch(getTusPeliculas(authToken, userId));
+        setisLoadingAllPage(false);
+      }
     }, delay);
 
     return () => clearTimeout(timer);
 
-  }, [lista, userId, authToken, dispatch])
+  }, [selectedPerfilId, authToken, userId, dispatch])
+  useEffect(() => {
+    if (lista.id) {
+      dispatch(getPeliculasGuardadas(authToken, lista.id));
+    }
+  }, [lista.id, dispatch, authToken]);
   if (isLoadingAllPage) {
     return <div className="loadingPeliculas">
       <video autoPlay muted loop src={loading}></video>

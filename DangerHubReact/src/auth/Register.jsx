@@ -28,7 +28,7 @@ export const Register = ({ setLogin }) => {
             alert ("Els passwords han de coincidir")
         }
 
-        fetch("http://127.0.0.1:8000/api/register", {
+        fetch("http://equip09.insjoaquimmir.cat/api/register", {
             headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
@@ -39,7 +39,6 @@ export const Register = ({ setLogin }) => {
         })
         .then((data) => data.json())
         .then((resposta) => {
-            console.log(resposta);
             if (resposta.success === true) {
             //alert(resposta.authToken);
                 setAuthToken(resposta.authToken);
@@ -50,7 +49,6 @@ export const Register = ({ setLogin }) => {
             }
         })
         .catch((data) => {
-            console.log(data);
             alert("Catchch");
           });
 

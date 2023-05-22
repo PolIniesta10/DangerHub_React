@@ -13,7 +13,7 @@ export const useLogin = () => {
         if (token == ""){
             setAuthToken("");
         }else{
-            fetch("http://127.0.0.1:8000/api/user",{
+            fetch("http://equip09.insjoaquimmir.cat/api/user",{
         
          headers: {
             'Accept': 'application/json',
@@ -26,7 +26,6 @@ export const useLogin = () => {
             .then((resposta) => {
                 if (resposta.success === true) {
                     setAuthToken(token);
-                    console.log("Token Correcte: " + token);
                     setUsuari(resposta.user.email);
                     setIdUsuari(resposta.user.id);
                     navigate("/perfiles");
@@ -41,9 +40,8 @@ export const useLogin = () => {
         let email = data.email;
         let password = data.password;
     
-        console.log("Comprovant credencials....")
         // Enviam dades a l'aPI i recollim resultat
-        fetch ("http://127.0.0.1:8000/api/login",{
+        fetch ("http://equip09.insjoaquimmir.cat/api/login",{
             
              headers: {
                 'Accept': 'application/json',
@@ -57,19 +55,16 @@ export const useLogin = () => {
         ).then( data => data.json() )
         .then (resposta => { 
             
-                console.log(resposta); 
                 if (resposta.success == true )
                 {
                     setAuthToken(resposta.authToken);
                     localStorage.setItem('authToken', resposta.authToken);
                     // setUsuari(resposta.user.email);
-                    console.log(usuari)
                     navigate("/perfiles");
                 }
                 else
                 { 
                     setAuthToken("");
-                    console.log(resposta)
                     alert(resposta.message);
                 }
             } ) 

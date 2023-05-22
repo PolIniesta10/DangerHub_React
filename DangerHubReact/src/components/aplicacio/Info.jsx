@@ -37,26 +37,23 @@ export const Info = (perfil) => {
 
   const obtContenido = async (id, authToken) => {
     let data = null;
-    console.log(id);
     try {
-      data = await fetch("http://127.0.0.1:8000/api/peliculas/" + id, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + authToken,
-      },
-      method: "GET",
-      });
+      data = await fetch("http://equip09.insjoaquimmir.cat/api/peliculas/" + id, {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer '  + authToken
+        },
+        method: "GET",
+      })
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
-        console.log(resposta);
         setContenido(resposta.data.contenido);
         setUser(resposta.data.user);
-      } else {
-        console.log("error");
+        
       }
-    } catch (error) {
-      console.log(error);
+    }
+    catch (error) {
       alert("Catch");
       data = {};
     }
@@ -64,9 +61,8 @@ export const Info = (perfil) => {
 
   const obtSelectedContent = async (id, authToken) => {
     let data = null;
-    console.log(id);
     try {
-      data = await fetch("http://127.0.0.1:8000/api/peliculas/" + selectedMovieId, {
+      data = await fetch("http://equip09.insjoaquimmir.cat/api/peliculas/" + selectedMovieId, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -79,11 +75,8 @@ export const Info = (perfil) => {
         console.log(resposta);
         setContenido(resposta.data.contenido);
         setUser(resposta.data.user);
-      } else {
-        console.log("error");
       }
     } catch (error) {
-      console.log(error);
       alert("Catch");
       data = {};
     }
@@ -92,7 +85,7 @@ export const Info = (perfil) => {
   const obtLista = async (selectedPerfilId, authToken) => {
     let data = null;
     try {
-      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion/" + selectedPerfilId, {
+      data = await fetch("http://equip09.insjoaquimmir.cat/api/listas_reproduccion/" + selectedPerfilId, {
         headers: {
           Accept: "application/json", 
           "Content-Type": "application/json",
@@ -102,16 +95,10 @@ export const Info = (perfil) => {
       })
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
-        console.log(resposta);
         setLista_reproduccion(resposta.data);
-        console.log(resposta.data);
-      }
-      else {
-        console.log("error");
       }
     }
     catch (error) {
-      console.log(error);
       alert("Catch");
       data = {};
     }
@@ -147,10 +134,7 @@ export const Info = (perfil) => {
   
     if (selectedPerfilId && lista && lista.id) {
       dispatch(testGuardados(authToken, id, lista.id, selectedPerfilId));
-    } else {
-      // Manejar el caso en el que selectedPerfilId o lista.id no están definidos
-      console.log('Error: selectedPerfilId o lista.id no están definidos');
-    }
+    } 
   }, [selectedPerfilId, lista]);
 
   useEffect(() => {
@@ -213,7 +197,7 @@ export const Info = (perfil) => {
               
               (<div onClick={(e) => dispatch(guardarContenido(authToken, contenido.id, lista.id, selectedPerfilId))}><FiSave/></div>)}
 
-              
+
           </div>
           
           <div className="specific-info-box">
