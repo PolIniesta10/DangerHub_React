@@ -13,7 +13,7 @@ export const useLogin = () => {
         if (token == ""){
             setAuthToken("");
         }else{
-            fetch("http://127.0.0.1:8000/api/user",{
+            fetch("http://equip09.insjoaquimmir.cat/api/user",{
         
          headers: {
             'Accept': 'application/json',
@@ -43,7 +43,7 @@ export const useLogin = () => {
     
         console.log("Comprovant credencials....")
         // Enviam dades a l'aPI i recollim resultat
-        fetch ("http://127.0.0.1:8000/api/login",{
+        fetch ("http://equip09.insjoaquimmir.cat/api/login",{
             
              headers: {
                 'Accept': 'application/json',

@@ -36,7 +36,7 @@ export const Info = (perfil) => {
     let data = null;
     console.log(id);
     try {
-      data = await fetch("http://127.0.0.1:8000/api/peliculas/" + id, {
+      data = await fetch("http://equip09.insjoaquimmir.cat/api/peliculas/" + id, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export const Info = (perfil) => {
   const obtLista = async (selectedPerfilId, authToken) => {
     let data = null;
     try {
-      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion/" + selectedPerfilId, {
+      data = await fetch("http://equip09.insjoaquimmir.cat/api/listas_reproduccion/" + selectedPerfilId, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",

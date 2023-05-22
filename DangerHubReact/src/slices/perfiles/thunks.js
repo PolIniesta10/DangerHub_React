@@ -14,7 +14,7 @@ export const getPerfiles = (authToken) => {
             },
             method: "GET",
         };
-        let url = "http://127.0.0.1:8000/api/perfiles" ;
+        let url = "http://equip09.insjoaquimmir.cat/api/perfiles" ;
 
         
 
@@ -51,7 +51,7 @@ export const getPerfiles = (authToken) => {
         method: "POST",
         body: formData
     };
-    const url = "http://127.0.0.1:8000/api/perfiles";
+    const url = "http://equip09.insjoaquimmir.cat/api/perfiles";
 
     const data   = await fetch(url, headers);
     
@@ -79,7 +79,7 @@ export const getPerfil = (id, authToken) => {
             },
             method: "GET",
         };
-        const url = "http://127.0.0.1:8000/api/perfiles/" + id
+        const url = "http://equip09.insjoaquimmir.cat/api/perfiles/" + id
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
@@ -102,7 +102,7 @@ export const editPerfil = (formulari, authToken, perfil) => {
     formData.append("url_avatar", url_avatar);
 
     const data = await fetch(
-      "http://127.0.0.1:8000/api/perfiles/" + perfil.id + "?nombre=" + formulari.nombre +"&url_avatar=" + formulari.url_avatar,
+      "http://equip09.insjoaquimmir.cat/api/perfiles/" + perfil.id + "?nombre=" + formulari.nombre +"&url_avatar=" + formulari.url_avatar,
       {
         headers: {
           Accept: "application/json",
@@ -128,7 +128,7 @@ export const delPerfil = (perfil, authToken) => {
         dispatch(startLoadingPerfiles());
 
         const data = await fetch(
-            "http://127.0.0.1:8000/api/perfiles/" + perfil.id,
+            "http://equip09.insjoaquimmir.cat/api/perfiles/" + perfil.id,
             {
                 headers: {
                 Accept: "application/json",

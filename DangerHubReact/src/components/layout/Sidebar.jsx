@@ -29,7 +29,7 @@ export const Sidebar =  () => {
   
   const obtUser = async () => {
     try{
-        const data = await fetch("http://127.0.0.1:8000/api/user", {
+        const data = await fetch("http://equip09.insjoaquimmir.cat/api/user", {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export const Sidebar =  () => {
     e.preventDefault();
 
 
-    fetch ("http://127.0.0.1:8000/api/logout",{
+    fetch ("http://equip09.insjoaquimmir.cat/api/logout",{
     
      headers: {
         'Accept': 'application/json',

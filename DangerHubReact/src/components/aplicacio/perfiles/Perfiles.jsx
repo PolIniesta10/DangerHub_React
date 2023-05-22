@@ -18,7 +18,7 @@ export const Perfiles = () => {
 
     const obtUser = async () => {
         try{
-            const data = await fetch("http://127.0.0.1:8000/api/user", {
+            const data = await fetch("http://equip09.insjoaquimmir.cat/api/user", {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

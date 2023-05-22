@@ -28,7 +28,7 @@ export const Register = ({ setLogin }) => {
             alert ("Els passwords han de coincidir")
         }
 
-        fetch("http://127.0.0.1:8000/api/register", {
+        fetch("http://equip09.insjoaquimmir.cat/api/register", {
             headers: {
             Accept: "application/json",
             "Content-Type": "application/json"
