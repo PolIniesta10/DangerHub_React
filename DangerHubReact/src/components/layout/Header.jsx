@@ -17,7 +17,7 @@ export const Header = () => {
   
   const obtUser = async () => {
     try{
-        const data = await fetch("http://127.0.0.1:8000/api/user", {
+        const data = await fetch("http://equip09.insjoaquimmir.cat/api/user", {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -27,48 +27,19 @@ export const Header = () => {
         })
           const resposta = await data.json();
           if (resposta.success === true) {
-              console.log(resposta);
               setUser(resposta.user.name);
               setUserId(resposta.user.id);
           }
-          else {
-            console.log("error");
-          }
     }
     catch {
-      console.log(data);
       alert("Catch");
     }
   };
   
   useEffect(() => {
     obtUser();
-    obtPerfilUsuari();
   }, [])
-  const obtPerfilUsuari = async () => {
-    try{
-        const data = await fetch("http://127.0.0.1:8000/api/perfiles/" + userId, {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer '  + authToken
-          },
-          method: "GET",
-        })
-          const resposta = await data.json();
-          if (resposta.success === true) {
-              console.log(resposta);
-              setPerfiles(resposta.data);
-          }
-          else {
-            console.log("error");
-          }
-    }
-    catch {
-      console.log(data);
-      alert("Catch");
-    }
-  };
+  
   return (
     <div className='cajamasterheader'>
       <Link to="/home"><img src={mainLogo} alt="" /></Link>

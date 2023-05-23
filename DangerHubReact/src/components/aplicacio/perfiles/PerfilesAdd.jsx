@@ -28,7 +28,6 @@ export const PerfilesAdd = () => {
   const afegir = (data) => {
 
     const data2 = { ...data, nombre: data.nombre, url_avatar: data.url_avatar}
-    console.log(data2);
     dispatch(addPerfil(data2, authToken));
 
     navigate("/administrarPerfiles"); 
@@ -72,8 +71,8 @@ export const PerfilesAdd = () => {
             </div>
             
             <div className="perfilesAdd-perfil-config">
-              <Link to="/home"><button onClick={handleSubmit(afegir)} type="submit" className="perfilesAdd-perfil-config-button confirm-button">Continuar</button></Link>
-              <Link to="/administrarPerfiles"><button type="submit" className="perfilesAdd-perfil-config-button">Cancelar</button></Link>
+              <Link to="/home"><button onClick={handleSubmit(afegir)} type="submit" className="perfilesAdd-perfil-config-button confirm-button button_perfilAdd">Continuar</button></Link>
+              <Link to="/administrarPerfiles"><button type="submit" className="perfilesAdd-perfil-config-button button_perfilAdd">Cancelar</button></Link>
             </div>
       </div>
     </div>

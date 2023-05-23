@@ -18,7 +18,7 @@ export const Perfiles = () => {
 
     const obtUser = async () => {
         try{
-            const data = await fetch("http://127.0.0.1:8000/api/user", {
+            const data = await fetch("http://equip09.insjoaquimmir.cat/api/user", {
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
@@ -28,16 +28,11 @@ export const Perfiles = () => {
             })
             const resposta = await data.json();
             if (resposta.success === true) {
-                console.log(resposta.user);
                 setUser(resposta.user.name);
                 setUserId(resposta.user.id);
             }
-            else {
-                console.log("error");
-            }
         }
         catch {
-        console.log(data);
         alert("Catch");
         }
     };

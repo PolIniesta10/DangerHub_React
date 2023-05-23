@@ -27,13 +27,13 @@ export const Login = ({ setLogin }) => {
                 <h1>Iniciar sesión</h1>
 
                 <div className="login-input">
-                    <input type="text" placeholder="Email or username" {...register("email")}  style={{paddingTop:"20px"}}/>
+                    <input type="text" placeholder="Email or username" {...register("email")} className="paddingTop20"/>
                 </div>
 
                 {errors.email && <p className='errores'>{errors.email.message}</p>}
 
                 <div className="login-input">
-                    <input type="password" placeholder="Password" {...register("password")}  style={{paddingTop:"20px"}}/>
+                    <input type="password" placeholder="Password" {...register("password")} className="paddingTop20"/>
                 </div>
 
                 {errors.password && <p className='errores'>{errors.password.message}</p>}

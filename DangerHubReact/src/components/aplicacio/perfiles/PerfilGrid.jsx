@@ -25,7 +25,6 @@ export const PerfilGrid = ({v, deletePost}) => {
   useEffect(() => {
     let perfil = v.id;
     if (perfilCargado) {
-      console.log(perfil);
       navigate({
         pathname: "/home",
         state: { perfil: perfil }
@@ -35,7 +34,6 @@ export const PerfilGrid = ({v, deletePost}) => {
 
   const handlePerfilCargado = useCallback((v) => {
     dispatch(setPerfil(v));
-    console.log(v)
     dispatch(setSelectedPerfilId(v.id))
     setPerfilCargado(true);
   }, [dispatch]);

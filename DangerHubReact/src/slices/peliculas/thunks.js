@@ -15,7 +15,7 @@ export const getPeliculas = (authToken) => {
             },
             method: "GET",
         };
-        let url = "http://127.0.0.1:8000/api/peliculas" ;
+        let url = "http://equip09.insjoaquimmir.cat/api/peliculas" ;
 
         const data = await fetch(url, headers);
         const resposta = await data.json();
@@ -42,7 +42,7 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
             },
             method: "GET",
         };
-        let url = "http://127.0.0.1:8000/api/contenidosGuardados/" + id_lista ;
+        let url = "http://equip09.insjoaquimmir.cat/api/contenidosGuardados/" + id_lista ;
 
         const data = await fetch(url, headers);
         const resposta = await data.json();
@@ -50,7 +50,6 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
         if(resposta.success == true) {
             
             dispatch(setPeliculasGuardadas(resposta.data));
-            console.log(resposta.data)
             
         }else {
             setError(resposta.message);
@@ -59,7 +58,6 @@ export const getPeliculasGuardadas = (authToken, id_lista) => {
 }
 export const getTusPeliculas = (authToken, userId) => {
     return async (dispatch, getState) => {
-        console.log(userId);
         let filter = getState().peliculas.filter;
         dispatch(startLoadingPeliculas());
 
@@ -72,7 +70,7 @@ export const getTusPeliculas = (authToken, userId) => {
             },
             method: "GET",
         };
-        let url = "http://127.0.0.1:8000/api/peliculas/user/" + userId ;
+        let url = "http://equip09.insjoaquimmir.cat/api/peliculas/user/" + userId ;
 
         const data = await fetch(url, headers);
         const resposta = await data.json();
@@ -80,7 +78,6 @@ export const getTusPeliculas = (authToken, userId) => {
         if(resposta.success == true) {
             
             dispatch(setTusPeliculas(resposta.data.contenidos));
-            console.log(resposta.data.contenidos);
             
         }else {
             setError(resposta.message);
@@ -114,7 +111,7 @@ export const getTusPeliculas = (authToken, userId) => {
         method: "POST",
         body: formData
     };
-    const url = "http://127.0.0.1:8000/api/contenidos";
+    const url = "http://equip09.insjoaquimmir.cat/api/contenidos";
 
     const data = await fetch(url, headers);
     
@@ -141,7 +138,7 @@ export const getPelicula = (authToken, id, id_lista, selectedPerfilId) => {
             },
             method: "GET",
         };
-        const url = "http://127.0.0.1:8000/api/contenidos/" + id
+        const url = "http://equip09.insjoaquimmir.cat/api/contenidos/" + id
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
@@ -156,62 +153,6 @@ export const getPelicula = (authToken, id, id_lista, selectedPerfilId) => {
     };
 }
 
-// export const editPost = (formulari, authToken, post) => {
-//     return async (dispatch, getState) => {
-
-//     let { body, upload, latitude, longitude, visibility } = formulari;
-//     const formData = new FormData();
-        
-//     formData.append("body", body);
-//     formData.append("upload", upload);
-//     formData.append("latitude", latitude);
-//     formData.append("longitude", longitude);
-//     formData.append("visibility", visibility);
-
-//     const data = await fetch(
-//       "https://backend.insjoaquimmir.cat/api/posts/" + post.id,
-//       {
-//         headers: {
-//           Accept: "application/json",
-//           Authorization: "Bearer " + authToken,
-//         },
-//         method: "POST",
-//         body: formData,
-//       }
-//     );
-//     const resposta = await data.json();
-
-//     if (resposta.success == true) {
-//         console.log("Post Editat");
-//     } else {
-//         setError(resposta.message);
-//     }
-//   };
-// }
-
-// export const delPost = (post, authToken) => {
-//     return async (dispatch, getState) => {
-
-//         dispatch(startLoadingPosts());
-
-//         const data = await fetch(
-//             "https://backend.insjoaquimmir.cat/api/posts/" + post.id,
-//             {
-//                 headers: {
-//                 Accept: "application/json",
-//                 "Content-Type": "application/json",
-//                 Authorization: "Bearer " + authToken,
-//                 },
-//                 method: "DELETE",
-//             }
-//         );
-//         const resposta = await data.json();
-
-//         if (resposta.success == true) {
-//             dispatch (getPosts(0, authToken))
-//         }
-//     };
-// };
 
 export const testGuardados = (authToken, id, id_lista, selectedPerfilId) => {
     return async (dispatch, getState) => {
@@ -223,7 +164,7 @@ export const testGuardados = (authToken, id, id_lista, selectedPerfilId) => {
             },
             method: "POST", 
         };
-        const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
+        const url = "http://equip09.insjoaquimmir.cat/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
@@ -238,7 +179,7 @@ export const testGuardados = (authToken, id, id_lista, selectedPerfilId) => {
                 },
                 method: "DELETE",
             };
-            const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
+            const url = "http://equip09.insjoaquimmir.cat/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
     
             const data = await fetch(url,  headers  );
             const resposta = await data.json();
@@ -260,7 +201,7 @@ export const guardarContenido = (authToken, id, id_lista, selectedPerfilId) => {
             },
             method: "POST",
         };
-        const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
+        const url = "http://equip09.insjoaquimmir.cat/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();
@@ -286,7 +227,7 @@ export const quitarContenido = (authToken, id, id_lista, selectedPerfilId) => {
             },
             method: "DELETE",
         };
-        const url = "http://127.0.0.1:8000/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
+        const url = "http://equip09.insjoaquimmir.cat/api/contenidos/" + id + "/guardar/" + id_lista + "/" + selectedPerfilId
 
         const data = await fetch(url,  headers  );
         const resposta = await data.json();

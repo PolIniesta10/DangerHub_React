@@ -29,7 +29,7 @@ export const Sidebar =  () => {
   
   const obtUser = async () => {
     try{
-        const data = await fetch("http://127.0.0.1:8000/api/user", {
+        const data = await fetch("http://equip09.insjoaquimmir.cat/api/user", {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -39,12 +39,7 @@ export const Sidebar =  () => {
         })
           const resposta = await data.json();
           if (resposta.success === true) {
-              console.log(resposta);
-              console.log(selectedPerfilId)
               setUserId(resposta.user.id);
-          }
-          else {
-            console.log("error");
           }
     }
     catch {
@@ -62,7 +57,7 @@ export const Sidebar =  () => {
     e.preventDefault();
 
 
-    fetch ("http://127.0.0.1:8000/api/logout",{
+    fetch ("http://equip09.insjoaquimmir.cat/api/logout",{
     
      headers: {
         'Accept': 'application/json',
@@ -80,7 +75,6 @@ export const Sidebar =  () => {
             
             if (resposta.success == true )
             {
-              console.log(resposta); 
               setAuthToken("");
               localStorage.setItem('authToken', "");
               navigate("/login");
@@ -100,11 +94,14 @@ export const Sidebar =  () => {
 
       <nav className="sidebar-navigation">
         <ul>
-          <li id="icon1"><FiSearch/></li>
+          <li id="icon1" className={activeLink === '/search' ? 'active' : ''}>
+            <Link to="/search"><FiSearch/></Link>
+          </li>
 
           <li id="icon2" className={activeLink === '/home' ? 'active' : ''}>
             <Link to="/home"><RiHome2Line/></Link>
           </li>
+          
           <li id="icon4" className={activeLink === '/SubirContenido' ? 'active' : ''}>
             <Link to="/SubirContenido"><BsPlusCircle/></Link>
           </li>

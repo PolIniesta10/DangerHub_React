@@ -19,7 +19,7 @@ export const Home = () => {
 
   const [ isLoadingAllPage, setisLoadingAllPage ] = useState(true);
   let { authToken,setAuthToken } = useContext(UserContext);
-  const { peliculas = [], peliculasGuardadas = [], isLoading=true, error="" } = useSelector((state) => state.peliculas);
+  const { peliculas = [], peliculasGuardadas = [], isLoading=true, error="", tusPeliculas = [] } = useSelector((state) => state.peliculas);
   const { perfiles = [], selectedPerfilId = null } = useSelector((state) => state.perfiles);
   const location = useLocation();
   const perfil = location.state && location.state.perfil;
@@ -33,7 +33,7 @@ export const Home = () => {
   
   const obtUser = async () => {
     try{
-        const data = await fetch("http://127.0.0.1:8000/api/user", {
+        const data = await fetch("http://equip09.insjoaquimmir.cat/api/user", {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -43,15 +43,10 @@ export const Home = () => {
         })
         const resposta = await data.json();
         if (resposta.success === true) {
-            console.log(resposta.user);
             setUserId(resposta.user.id);
-        }
-        else {
-            console.log("error");
         }
     }
     catch {
-    console.log(data);
     alert("Catch");
     }
   };
@@ -59,7 +54,7 @@ export const Home = () => {
   const obtLista = async (selectedPerfilId, authToken) => {
     let data = null;
     try {
-      data = await fetch("http://127.0.0.1:8000/api/listas_reproduccion/" + selectedPerfilId, {
+      data = await fetch("http://equip09.insjoaquimmir.cat/api/listas_reproduccion/" + selectedPerfilId, {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -69,17 +64,11 @@ export const Home = () => {
       })
       const resposta = await data.json();
       if (resposta.success === true && resposta.data) {
-        console.log(resposta);
         setLista_reproduccion(resposta.data);
-        console.log(resposta.data);
         
-      }
-      else {
-        console.log("error");
       }
     }
     catch (error) {
-      console.log(error);
       alert("Catch");
       data = {};
     }
@@ -132,26 +121,30 @@ export const Home = () => {
   
   useEffect(() => {
     obtUser();
-    console.log(selectedPerfilId);
-    obtLista(selectedPerfilId, authToken);
-    dispatch(getPeliculas(authToken));
     
-    dispatch(getTusPeliculas(authToken, userId));
-  }, [])
+    
+    
+  }, [authToken])
   
   useEffect(() => {
-    const delay = 5000;
-
+    const delay = 4000;
     const timer = setTimeout(() => {
-    if (lista.id) {
-      dispatch(getPeliculasGuardadas(authToken, lista.id));
-      setisLoadingAllPage(false);
-    }
+      if (userId) {
+        obtLista(selectedPerfilId, authToken);
+        dispatch(getPeliculas(authToken));
+        dispatch(getTusPeliculas(authToken, userId));
+        setisLoadingAllPage(false);
+      }
     }, delay);
 
     return () => clearTimeout(timer);
 
-  }, [lista, authToken, dispatch])
+  }, [selectedPerfilId, authToken, userId, dispatch])
+  useEffect(() => {
+    if (lista.id) {
+      dispatch(getPeliculasGuardadas(authToken, lista.id));
+    }
+  }, [lista.id, dispatch, authToken]);
   if (isLoadingAllPage) {
     return <div className="loadingPeliculas">
       <video autoPlay muted loop src={loading}></video>
@@ -235,7 +228,7 @@ export const Home = () => {
 
             {/* Carrusel de contenido */}
 
-            {misPublicaciones.length === 0 ? ( 
+            {tusPeliculas.length === 0 ? ( 
             <section className="content-carousel">
               <p>Mis publicaciones</p>
               <div className="carousel-container">
@@ -252,7 +245,7 @@ export const Home = () => {
                 <div className="carousel-arrow3 right"><BsFillArrowRightCircleFill/></div>
               <div className="carousel-container3">
 
-              {misPublicaciones.map((v) => {
+              {tusPeliculas.map((v) => {
                 return (
                   <>
                     <RecomendedGrid key={v.id} v={v}  {...v}/>
