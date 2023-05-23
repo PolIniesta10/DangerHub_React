@@ -87,7 +87,7 @@ export const ContenidosAdd = () => {
                     <div className="perfilesAdd-perfil-foto">
                     <img className="perfiles-perfil-img" src={urlImagen||DHUB} alt=""  />
                     </div>
-                    <div className="perfilesAdd-perfil-inputs-box">
+                    <div className="perfilesAdd-perfil-inputs-box contenidosAdd_box">
                         
                         <fieldset className="contentAdd-perfil-input">
                             <legend>Tipo de contenido: </legend>    
@@ -148,9 +148,9 @@ export const ContenidosAdd = () => {
                 </form>
             </div>
             
-            <div className="perfilesAdd-perfil-config"  style={{width:"65%",}}>
-              <Link to="/home"><button type="submit" onClick={handleSubmit(afegir)} className="perfilesAdd-perfil-config-button confirm-button">Continuar</button></Link>
-              <Link to="/home"><button type="submit" className="perfilesAdd-perfil-config-button">Cancelar</button></Link>
+            <div className="perfilesAdd-perfil-config contenidosAdd_buttons"  style={{width:"65%",}}>
+              <Link to="/home"><button type="submit" onClick={handleSubmit(afegir)} className="perfilesAdd-perfil-config-button confirm-button contenidosAdd_button">Continuar</button></Link>
+              <Link to="/home"><button type="submit" className="perfilesAdd-perfil-config-button contenidosAdd_button">Cancelar</button></Link>
             </div>
       </div>
     </div>
